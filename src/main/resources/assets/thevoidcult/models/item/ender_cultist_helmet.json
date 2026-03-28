@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "thevoidcult:item/ender_cultist_helmet"
+  }
+}

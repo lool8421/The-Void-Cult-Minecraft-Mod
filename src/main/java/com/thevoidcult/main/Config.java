@@ -1,4 +1,4 @@
-package com.example.thevoidcult;
+package com.thevoidcult.main;
 
 import java.util.List;
 
