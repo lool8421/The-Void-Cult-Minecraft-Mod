@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "YYY",
+    "XZX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "Y": {
+      "item": "thevoidcult:portal_matter"
+    },
+    "Z": {
+      "item": "minecraft:end_stone"
+    }
+  },
+  "result": {
+    "id": "thevoidcult:void_altar",
+    "count": 1
+  }
+}
