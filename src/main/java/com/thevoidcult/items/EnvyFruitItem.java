@@ -1,5 +1,4 @@
 package com.thevoidcult.items;
 
-public class MobPearl {
-
+public class EnvyFruitItem {
 }

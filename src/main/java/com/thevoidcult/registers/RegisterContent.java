@@ -1,5 +1,6 @@
 package com.thevoidcult.registers;
 
+import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.main.TheVoidCult;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -33,7 +34,7 @@ public class RegisterContent {
     public static final DeferredItem<Item> ENVY_FRUIT = ITEMS.register("fruit_of_envy",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> MOB_PEARL = ITEMS.register("mob_pearl",
-            () -> new Item(new Item.Properties()));
+            () -> new MobPearlItem(new Item.Properties()));
 
     //blocks
 

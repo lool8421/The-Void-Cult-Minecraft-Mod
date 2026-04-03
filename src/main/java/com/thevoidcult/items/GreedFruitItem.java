@@ -1,4 +1,4 @@
 package com.thevoidcult.items;
 
-public class EnvyFruit {
+public class GreedFruitItem {
 }

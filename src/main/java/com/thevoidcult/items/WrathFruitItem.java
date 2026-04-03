@@ -1,4 +1,4 @@
 package com.thevoidcult.items;
 
-public class PortalMatter {
+public class WrathFruitItem {
 }
