@@ -41,13 +41,25 @@ public class RegisterContent {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(TheVoidCult.MOD_ID);
 
     public static final DeferredBlock<Block> VOID_ALTAR = BLOCKS.register("void_altar", () -> new Block(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_BLACK)
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .requiresCorrectToolForDrops()
-            .strength(50.0F, 1200.0F)
-            .lightLevel(state -> 7)
-            .sound(SoundType.STONE)));
+            .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> VOID_ALTAR_ITEM = ITEMS.registerSimpleBlockItem("void_altar", VOID_ALTAR);
+
+    public static final DeferredBlock<Block> WARPED_IRON_BLOCK = BLOCKS.register("warped_iron_block", () -> new Block(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 7).sound(SoundType.NETHERITE_BLOCK)));
+    public static final DeferredItem<BlockItem> WARPED_IRON_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_iron_block", WARPED_IRON_BLOCK);
+
+    public static final DeferredBlock<Block> WARPED_GOLD_BLOCK = BLOCKS.register("warped_gold_block", () -> new Block(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
+    public static final DeferredItem<BlockItem> WARPED_GOLD_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_gold_block", WARPED_GOLD_BLOCK);
+
+    public static final DeferredBlock<Block> WARPED_DIAMOND_BLOCK = BLOCKS.register("warped_diamond_block", () -> new Block(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
+    public static final DeferredItem<BlockItem> WARPED_DIAMOND_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_diamond_block", WARPED_DIAMOND_BLOCK);
+
+    public static final DeferredBlock<Block> WARPED_NETHERITE_BLOCK = BLOCKS.register("warped_netherite_block", () -> new Block(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(25.0F, 1200.0F).lightLevel(state -> 7).sound(SoundType.NETHERITE_BLOCK)));
+    public static final DeferredItem<BlockItem> WARPED_NETHERITE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_netherite_block", WARPED_NETHERITE_BLOCK);
+
 
     //creative mode
 
@@ -59,12 +71,17 @@ public class RegisterContent {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(PORTAL_MATTER);
                         output.accept(VOID_ALTAR_ITEM);
+                        output.accept(WARPED_IRON_BLOCK_ITEM);
+                        output.accept(WARPED_GOLD_BLOCK_ITEM);
+                        output.accept(WARPED_DIAMOND_BLOCK_ITEM);
+                        output.accept(WARPED_NETHERITE_BLOCK_ITEM);
                         output.accept(ENDER_CULTIST_HELMET);
                         output.accept(WRATH_FRUIT);
                         output.accept(GREED_FRUIT);
                         output.accept(PRIDE_FRUIT);
                         output.accept(GLUTTONY_FRUIT);
                         output.accept(ENVY_FRUIT);
+
                     })
                     .build()
             );

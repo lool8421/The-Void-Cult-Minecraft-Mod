@@ -46,18 +46,12 @@ public class TheVoidCult {
     public TheVoidCult(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
 
-
         NeoForge.EVENT_BUS.register(this);
         RegisterContent.register(modEventBus);
-        modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
 
     }
 

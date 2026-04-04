@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thevoidcult:block/warped_iron_block"
+  }
+}

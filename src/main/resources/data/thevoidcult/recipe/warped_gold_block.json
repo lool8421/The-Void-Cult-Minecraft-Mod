@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "key": {
+    "Y": {
+      "item": "minecraft:gold_block"
+    },
+    "X": {
+      "item": "thevoidcult:portal_matter"
+    }
+  },
+  "result": {
+    "id": "thevoidcult:warped_gold_block",
+    "count": 1
+  }
+}

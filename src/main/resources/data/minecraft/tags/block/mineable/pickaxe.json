@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "thevoidcult:void_altar"
+    "thevoidcult:void_altar",
+    "thevoidcult:warped_iron_block",
+    "thevoidcult:warped_gold_block",
+    "thevoidcult:warped_diamond_block",
+    "thevoidcult:warped_netherite_block"
   ]
 }
