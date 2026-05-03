@@ -1,6 +1,8 @@
 package com.thevoidcult.main;
 
+import com.thevoidcult.mobs.client.EndermanCultistRenderer;
 import com.thevoidcult.registers.RegisterContent;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -65,6 +67,7 @@ public class TheVoidCult {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
 
+            EntityRenderers.register(RegisterContent.ENDERMAN_CULTIST.get(), EndermanCultistRenderer::new);
         }
     }
 }

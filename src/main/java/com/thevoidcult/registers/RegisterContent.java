@@ -3,8 +3,13 @@ package com.thevoidcult.registers;
 import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.items.SinFruitItem;
 import com.thevoidcult.main.TheVoidCult;
+import com.thevoidcult.mobs.custom.EndermanCultistEntity;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -12,7 +17,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.*;
+
+
 import java.util.function.Supplier;
 
 public class RegisterContent {
@@ -61,6 +69,13 @@ public class RegisterContent {
             .mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(25.0F, 1200.0F).lightLevel(state -> 7).sound(SoundType.NETHERITE_BLOCK)));
     public static final DeferredItem<BlockItem> WARPED_NETHERITE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_netherite_block", WARPED_NETHERITE_BLOCK);
 
+    //mobs
+
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, TheVoidCult.MOD_ID);
+
+    public static final Supplier<EntityType<EndermanCultistEntity>> ENDERMAN_CULTIST =
+            ENTITY_TYPES.register("enderman_cultist", ()->EntityType.Builder.of(EndermanCultistEntity::new,MobCategory.CREATURE).sized(0.7f,2.8f).build("enderman_cultist"));
+
 
     //creative mode
 
@@ -88,12 +103,14 @@ public class RegisterContent {
             );
 
 
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
         BLOCKS.register(eventBus);
         CREATIVE_MODE_TAB.register(eventBus);
-        
+        ENTITY_TYPES.register(eventBus);
     }
+
 
 
 }
