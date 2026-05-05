@@ -2,7 +2,6 @@ package com.thevoidcult.events;
 
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.client.EndermanCultistModel;
-import com.thevoidcult.mobs.client.EndermanCultistRenderer;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,8 +14,7 @@ public class ModEventBusEvents {
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
-        event.registerLayerDefinition(EndermanCultistModel.LAYER_LOCATION, EndermanCultistModel::createBodyLayer);
-
+        event.registerLayerDefinition(EndermanCultistModel.BODY_LAYER_LOCATION, EndermanCultistModel::createBodyLayer);
     }
 
     @SubscribeEvent

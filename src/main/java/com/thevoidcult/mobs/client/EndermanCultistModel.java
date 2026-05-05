@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
-import net.minecraft.client.animation.definitions.CamelAnimation;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,16 +17,18 @@ import net.minecraft.util.Mth;
 
 public class EndermanCultistModel<T extends EndermanCultistEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TheVoidCult.MOD_ID, "enderman_cultist"), "main");
+    public static final ModelLayerLocation BODY_LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TheVoidCult.MOD_ID, "enderman_cultist"), "base");
 
-    private final ModelPart root;
-    private final ModelPart leg_left;
-    private final ModelPart leg_right;
-    private final ModelPart arm_left;
-    private final ModelPart arm_right;
-    private final ModelPart head;
-    private final ModelPart upper_head;
-    private final ModelPart eyes;
+    public final ModelPart root;
+    public final ModelPart leg_left;
+    public final ModelPart leg_right;
+    public final ModelPart arm_left;
+    public final ModelPart arm_right;
+    public final ModelPart head;
+    public final ModelPart upper_head;
+    public final ModelPart eyes;
+
+
 
     public EndermanCultistModel(ModelPart root) {
         this.root = root.getChild("root");
@@ -58,7 +59,7 @@ public class EndermanCultistModel<T extends EndermanCultistEntity> extends Hiera
 
         PartDefinition upper_head = head.addOrReplaceChild("upper_head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -6.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 0.0F));
 
-        PartDefinition eyes = upper_head.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(24, 0).addBox(-4.0F, -1.0F, 0.0F, 8.0F, 1.0F, 2.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, -1.0F, -4.0F));
+        PartDefinition eyes = upper_head.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(24, 0).addBox(-4.02F, -1.0F, 0.0F, 8.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, -4.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
