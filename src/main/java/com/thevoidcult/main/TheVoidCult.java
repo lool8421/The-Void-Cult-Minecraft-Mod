@@ -1,5 +1,6 @@
 package com.thevoidcult.main;
 
+import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.mobs.client.EndermanCultistRenderer;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -54,15 +55,17 @@ public class TheVoidCult {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-
+        //MobPearlItem.registerDispenserBehavior();
     }
+
+
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
     }
 
-    @EventBusSubscriber(modid = TheVoidCult.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = TheVoidCult.MOD_ID, value = Dist.CLIENT)
     static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {

@@ -2,6 +2,7 @@ package com.thevoidcult.registers;
 
 import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.items.SinFruitItem;
+import com.thevoidcult.items.SinFruitTypes;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,15 +34,15 @@ public class RegisterContent {
     public static final DeferredItem<Item> ENDER_CULTIST_HELMET = ITEMS.register("ender_cultist_helmet",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
-            () -> new SinFruitItem(new Item.Properties()));
+            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.WRATH));
     public static final DeferredItem<Item> GREED_FRUIT = ITEMS.register("fruit_of_greed",
-            () -> new SinFruitItem(new Item.Properties()));
+            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.GREED));
     public static final DeferredItem<Item> PRIDE_FRUIT = ITEMS.register("fruit_of_pride",
-            () -> new SinFruitItem(new Item.Properties()));
+            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.PRIDE));
     public static final DeferredItem<Item> GLUTTONY_FRUIT = ITEMS.register("fruit_of_gluttony",
-            () -> new SinFruitItem(new Item.Properties()));
+            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.GLUTTONY));
     public static final DeferredItem<Item> ENVY_FRUIT = ITEMS.register("fruit_of_envy",
-            () -> new SinFruitItem(new Item.Properties()));
+            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.ENVY));
     public static final DeferredItem<Item> MOB_PEARL = ITEMS.register("mob_pearl",
             () -> new MobPearlItem(new Item.Properties()));
 
