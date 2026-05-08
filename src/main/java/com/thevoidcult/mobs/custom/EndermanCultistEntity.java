@@ -38,7 +38,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         this.setPersistenceRequired();
     }
 
-    
+
     private int remainingPersistentAngerTime = 0;
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);;
     private UUID persistentAngerTarget;

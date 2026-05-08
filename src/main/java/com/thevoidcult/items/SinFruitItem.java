@@ -1,5 +1,6 @@
 package com.thevoidcult.items;
 
+import com.thevoidcult.compatUtils.dragonsurvivalCompat;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.network.chat.Component;
@@ -39,7 +40,13 @@ public class SinFruitItem extends Item {
             if (target.isAlive()) {
                 if (!player.level().isClientSide) {
                     EndermanCultistEntity endermanCultist = (EndermanCultistEntity) enderman.convertTo(RegisterContent.ENDERMAN_CULTIST.get(), true);
+
                     player.sendSystemMessage(Component.literal(cultistMessages.get(this.fruitType)));
+
+                    if(dragonsurvivalCompat.isEnderDragon(player))
+                        player.sendSystemMessage(Component.literal("confirmed"));
+
+
                     target.level().gameEvent(target, GameEvent.EQUIP, target.position());
                 }
                 return InteractionResult.sidedSuccess(player.level().isClientSide);
