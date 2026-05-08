@@ -2,6 +2,8 @@ package com.thevoidcult.mobs.custom;
 
 
 
+import com.thevoidcult.items.SinsList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.TimeUtil;
@@ -27,16 +29,16 @@ import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.UUID;
 
-//animal so it doesn't do weird crap related to peaceful mode
+
 public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
 
     public EndermanCultistEntity(EntityType<? extends PathfinderMob> entityType, Level level){
         super(entityType, level);
+        this.setPersistenceRequired();
     }
 
-
-
+    
     private int remainingPersistentAngerTime = 0;
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);;
     private UUID persistentAngerTarget;
@@ -125,6 +127,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         super.tick();
         if(this.level().isClientSide){
             this.setupAnimationStates();
+
+            this.level().addParticle(ParticleTypes.PORTAL, this.getRandomX((double) 0.5F), this.getRandomY() - (double) 0.25F, this.getRandomZ((double) 0.5F), (this.random.nextDouble() - (double) 0.5F) * (double) 2.0F, -this.random.nextDouble(), (this.random.nextDouble() - (double) 0.5F) * (double) 2.0F);
+
         }else
         {
 

@@ -2,14 +2,13 @@ package com.thevoidcult.registers;
 
 import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.items.SinFruitItem;
-import com.thevoidcult.items.SinFruitTypes;
+import com.thevoidcult.items.SinsList;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.*;
 
 
@@ -47,15 +45,15 @@ public class RegisterContent {
     public static final DeferredItem<Item> ENDER_CULTIST_HELMET = ITEMS.register("ender_cultist_helmet",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
-            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.WRATH));
+            () -> new SinFruitItem(new Item.Properties(), SinsList.WRATH));
     public static final DeferredItem<Item> GREED_FRUIT = ITEMS.register("fruit_of_greed",
-            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.GREED));
+            () -> new SinFruitItem(new Item.Properties(), SinsList.GREED));
     public static final DeferredItem<Item> PRIDE_FRUIT = ITEMS.register("fruit_of_pride",
-            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.PRIDE));
+            () -> new SinFruitItem(new Item.Properties(), SinsList.PRIDE));
     public static final DeferredItem<Item> GLUTTONY_FRUIT = ITEMS.register("fruit_of_gluttony",
-            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.GLUTTONY));
+            () -> new SinFruitItem(new Item.Properties(), SinsList.GLUTTONY));
     public static final DeferredItem<Item> ENVY_FRUIT = ITEMS.register("fruit_of_envy",
-            () -> new SinFruitItem(new Item.Properties(), SinFruitTypes.ENVY));
+            () -> new SinFruitItem(new Item.Properties(), SinsList.ENVY));
     public static final DeferredItem<Item> MOB_PEARL = ITEMS.register("mob_pearl",
             () -> new MobPearlItem(new Item.Properties()));
 

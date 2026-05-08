@@ -1,17 +1,12 @@
 package com.thevoidcult.items;
 
-import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,19 +17,19 @@ import java.util.Map;
 
 public class SinFruitItem extends Item {
 
-    private final SinFruitTypes fruitType;
+    private final SinsList fruitType;
 
-    public SinFruitItem(Properties properties, SinFruitTypes fruitType){
+    public SinFruitItem(Properties properties, SinsList fruitType){
         super(properties);
         this.fruitType = fruitType;
     }
 
-    private final Map<SinFruitTypes, String> cultistMessages = Map.of(
-            SinFruitTypes.GREED, "greed",
-            SinFruitTypes.GLUTTONY, "gluttony",
-            SinFruitTypes.ENVY, "envy",
-            SinFruitTypes.PRIDE, "pride",
-            SinFruitTypes.WRATH, "wrath"
+    private final Map<SinsList, String> cultistMessages = Map.of(
+            SinsList.GREED, "greed",
+            SinsList.GLUTTONY, "gluttony",
+            SinsList.ENVY, "envy",
+            SinsList.PRIDE, "pride",
+            SinsList.WRATH, "wrath"
     );
 
     @Override
@@ -50,9 +45,6 @@ public class SinFruitItem extends Item {
                 return InteractionResult.sidedSuccess(player.level().isClientSide);
             }
         }
-
-
-
         return InteractionResult.CONSUME;
     }
 }

@@ -1,6 +1,6 @@
 package com.thevoidcult.items;
 
-public enum SinFruitTypes {
+public enum SinsList {
     WRATH,
     GREED,
     GLUTTONY,

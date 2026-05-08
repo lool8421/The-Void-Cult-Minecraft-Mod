@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thevoidcult:enderman_cultist",
+      "required": false
+    }
+  ]
+}

@@ -69,7 +69,7 @@ public class TheVoidCult {
     static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
-
+            MobPearlItem.SetupDisplayType(event);
             EntityRenderers.register(RegisterContent.ENDERMAN_CULTIST.get(), EndermanCultistRenderer::new);
         }
     }
