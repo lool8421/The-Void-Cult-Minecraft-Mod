@@ -5,6 +5,7 @@ import com.thevoidcult.items.SinFruitItem;
 import com.thevoidcult.items.SinFruitTypes;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -23,8 +24,20 @@ import net.neoforged.neoforge.registries.*;
 
 
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class RegisterContent {
+
+    //data components
+    public static final DeferredRegister<DataComponentType<?>> COMPONENTS =
+            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, TheVoidCult.MOD_ID);
+
+    private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator){
+        return COMPONENTS.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
+    }
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<EntityType<?>>> STORED_ENTITY =
+            register("stored_entity", builder -> builder.persistent(BuiltInRegistries.ENTITY_TYPE.byNameCodec()));
 
     //items
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TheVoidCult.MOD_ID);
@@ -106,6 +119,7 @@ public class RegisterContent {
 
 
     public static void register(IEventBus eventBus){
+        COMPONENTS.register(eventBus);
         ITEMS.register(eventBus);
         BLOCKS.register(eventBus);
         CREATIVE_MODE_TAB.register(eventBus);

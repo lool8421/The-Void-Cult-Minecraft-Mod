@@ -55,7 +55,7 @@ public class TheVoidCult {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        //MobPearlItem.registerDispenserBehavior();
+        MobPearlItem.registerDispenserBehavior();
     }
 
 
