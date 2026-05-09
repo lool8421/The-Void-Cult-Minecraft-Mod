@@ -94,7 +94,7 @@ public class RegisterContent {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, TheVoidCult.MOD_ID);
 
     public static final Supplier<EntityType<EndermanCultistEntity>> ENDERMAN_CULTIST =
-            ENTITY_TYPES.register("enderman_cultist", ()->EntityType.Builder.of(EndermanCultistEntity::new,MobCategory.CREATURE).sized(0.7f,2.8f).build("enderman_cultist"));
+            ENTITY_TYPES.register("enderman_cultist", ()->EntityType.Builder.of(EndermanCultistEntity::new,MobCategory.CREATURE).sized(0.6f,2.9f).build("enderman_cultist"));
 
 
     //creative mode

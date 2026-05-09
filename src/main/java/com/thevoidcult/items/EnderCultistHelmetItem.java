@@ -34,7 +34,7 @@ public class EnderCultistHelmetItem extends ArmorItem {
                 attribute.put(ArmorItem.Type.CHESTPLATE, 8);
                 attribute.put(ArmorItem.Type.HELMET, 3);
                 attribute.put(ArmorItem.Type.BODY, 10);
-            }), 50, 3f, 0.3f, () -> RegisterContent.PORTAL_MATTER.get());
+            }), 50, 3f, 0.1f, () -> RegisterContent.PORTAL_MATTER.get());
 
 
     private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> typeProtection,
