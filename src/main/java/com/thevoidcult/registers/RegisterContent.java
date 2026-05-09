@@ -1,5 +1,6 @@
 package com.thevoidcult.registers;
 
+import com.thevoidcult.items.EnderCultistHelmetItem;
 import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.items.SinFruitItem;
 import com.thevoidcult.items.SinsList;
@@ -37,12 +38,19 @@ public class RegisterContent {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<EntityType<?>>> STORED_ENTITY =
             register("stored_entity", builder -> builder.persistent(BuiltInRegistries.ENTITY_TYPE.byNameCodec()));
 
+    //armor materials
+
     //items
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TheVoidCult.MOD_ID);
 
+    public static final DeferredItem<ArmorItem> ENDER_CULTIST_HELMET = ITEMS.register("ender_cultist_helmet",
+            () -> new ArmorItem(
+                    EnderCultistHelmetItem.ENDER_CULTIST_ARMOR_MATERIAL,
+                    ArmorItem.Type.HELMET,
+                    new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(25))
+            ));
+
     public static final DeferredItem<Item> PORTAL_MATTER = ITEMS.register("portal_matter",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> ENDER_CULTIST_HELMET = ITEMS.register("ender_cultist_helmet",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
             () -> new SinFruitItem(new Item.Properties(), SinsList.WRATH));
