@@ -43,7 +43,7 @@ public class SinFruitItem extends Item {
 
                     player.sendSystemMessage(Component.literal(cultistMessages.get(this.fruitType)));
 
-                    if(dragonsurvivalCompat.isEnderDragon(player))
+                    if(dragonsurvivalCompat.isEnderDragonPlayer(player))
                         player.sendSystemMessage(Component.literal("confirmed"));
 
 

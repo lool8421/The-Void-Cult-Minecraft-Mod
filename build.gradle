@@ -28,6 +28,15 @@ sourceSets.main.resources {
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    maven {
+        url = uri("https://www.cursemaven.com")
+        metadataSources {
+            mavenPom()
+            artifact() // <--- This is the magic line
+        }
+    }
+    mavenCentral()
+
 }
 
 base {
@@ -118,6 +127,7 @@ configurations {
 }
 
 dependencies {
+    compileOnly "curse.maven:dragons-survival-420799:8010249"
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
@@ -174,8 +184,9 @@ publishing {
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            url = "file://${project.projectDir}/repo"
         }
+
     }
 }
 
