@@ -1,4 +1,24 @@
 {
   "item.thevoidcult.portal_matter": "Portal Matter",
-  "item.thevoidcult.ender_cultist_helmet": "Ender Cultist Helmet"
+  "item.thevoidcult.ender_cultist_helmet": "Ender Cultist Helmet",
+  "item.thevoidcult.fruit_of_wrath": "Fruit of Wrath",
+  "item.thevoidcult.fruit_of_greed": "Fruit of Greed",
+  "item.thevoidcult.fruit_of_gluttony": "Fruit of Gluttony",
+  "item.thevoidcult.fruit_of_pride": "Fruit of Pride",
+  "item.thevoidcult.fruit_of_envy": "Fruit of Envy",
+  "item.thevoidcult.mob_pearl": "Mob Pearl",
+
+  "block.thevoidcult.warped_iron_block": "Warped Iron Block",
+  "block.thevoidcult.warped_gold_block": "Warped Gold Block",
+  "block.thevoidcult.warped_diamond_block": "Warped Diamond Block",
+  "block.thevoidcult.warped_netherite_block": "Warped Netherite Block",
+  "block.thevoidcult.void_altar": "Void Altar",
+
+
+  "entity.thevoidcult.enderman_cultist": "Enderman Cultist",
+
+  "creativetab.thevoidcult.thevoidcult_items": "Void Cult Items",
+
+  "message.thevoidcult.cultist_is_the_same_type": "The cultist is already of this type.",
+  "message.thevoidcult.failed_to_convert_enderman": "Your status isn't sufficient for recruiting endermen."
 }

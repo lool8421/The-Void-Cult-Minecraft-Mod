@@ -56,20 +56,6 @@ public class MobPearlItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("item.thevoidcult.MobPearlItem.desc.stored_mob").append(": "));
-
-        EntityType<?> type = stack.get(RegisterContent.STORED_ENTITY.get());
-        if (type != null) {
-            tooltipComponents.add(Component.translatable(type.getDescriptionId())
-                    .withStyle(ChatFormatting.GRAY));
-        } else {
-            tooltipComponents.add(Component.translatable("item.thevoidcult.MobPearlItem.desc.empty")
-                    .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        }
-    }
-
-    @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         ItemStack stack = context.getItemInHand();

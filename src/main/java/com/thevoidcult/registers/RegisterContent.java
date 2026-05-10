@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -53,15 +54,15 @@ public class RegisterContent {
     public static final DeferredItem<Item> PORTAL_MATTER = ITEMS.register("portal_matter",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
-            () -> new SinFruitItem(new Item.Properties(), SinsList.WRATH));
+            () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.WRATH));
     public static final DeferredItem<Item> GREED_FRUIT = ITEMS.register("fruit_of_greed",
-            () -> new SinFruitItem(new Item.Properties(), SinsList.GREED));
+            () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.GREED));
     public static final DeferredItem<Item> PRIDE_FRUIT = ITEMS.register("fruit_of_pride",
-            () -> new SinFruitItem(new Item.Properties(), SinsList.PRIDE));
+            () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.PRIDE));
     public static final DeferredItem<Item> GLUTTONY_FRUIT = ITEMS.register("fruit_of_gluttony",
-            () -> new SinFruitItem(new Item.Properties(), SinsList.GLUTTONY));
+            () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationModifier(1.5f).alwaysEdible().build()), SinsList.GLUTTONY));
     public static final DeferredItem<Item> ENVY_FRUIT = ITEMS.register("fruit_of_envy",
-            () -> new SinFruitItem(new Item.Properties(), SinsList.ENVY));
+            () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.ENVY));
     public static final DeferredItem<Item> MOB_PEARL = ITEMS.register("mob_pearl",
             () -> new MobPearlItem(new Item.Properties()));
 
