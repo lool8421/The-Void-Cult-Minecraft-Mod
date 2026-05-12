@@ -56,7 +56,7 @@ public class SinFruitItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
 
 
-        if (target instanceof EnderMan enderman) {
+        if (target instanceof EnderMan enderman && enderman.getPersistentAngerTarget() == null) {
             if (target.isAlive()) {
                 if (!player.level().isClientSide) {
                     ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
@@ -82,7 +82,7 @@ public class SinFruitItem extends Item {
                 }
             }
         }
-        else if (target instanceof EndermanCultistEntity endermanCultist) {
+        else if (target instanceof EndermanCultistEntity endermanCultist && endermanCultist.getPersistentAngerTarget() == null) {
             if (target.isAlive()) {
                 if (!player.level().isClientSide) {
                     if (endermanCultist.getSinType() != this.fruitType) {

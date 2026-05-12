@@ -1,5 +1,7 @@
 package com.thevoidcult.registers;
 
+import com.thevoidcult.blockEntities.VoidAltarBlock;
+import com.thevoidcult.blockEntities.VoidAltarBlockEntity;
 import com.thevoidcult.items.EnderCultistHelmetItem;
 import com.thevoidcult.items.MobPearlItem;
 import com.thevoidcult.items.SinFruitItem;
@@ -16,6 +18,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -70,7 +73,7 @@ public class RegisterContent {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(TheVoidCult.MOD_ID);
 
-    public static final DeferredBlock<Block> VOID_ALTAR = BLOCKS.register("void_altar", () -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<Block> VOID_ALTAR = BLOCKS.register("void_altar", () -> new VoidAltarBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> VOID_ALTAR_ITEM = ITEMS.registerSimpleBlockItem("void_altar", VOID_ALTAR);
 
@@ -97,6 +100,13 @@ public class RegisterContent {
     public static final Supplier<EntityType<EndermanCultistEntity>> ENDERMAN_CULTIST =
             ENTITY_TYPES.register("enderman_cultist", ()->EntityType.Builder.of(EndermanCultistEntity::new,MobCategory.CREATURE).sized(0.6f,2.9f).build("enderman_cultist"));
 
+    //block entities
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, TheVoidCult.MOD_ID);
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VoidAltarBlockEntity>> VOID_ALTAR_BE =
+            BLOCK_ENTITIES.register("void_altar", () ->
+                    BlockEntityType.Builder.of(VoidAltarBlockEntity::new, VOID_ALTAR.get()).build(null));
 
     //creative mode
 
@@ -129,6 +139,7 @@ public class RegisterContent {
         COMPONENTS.register(eventBus);
         ITEMS.register(eventBus);
         BLOCKS.register(eventBus);
+        BLOCK_ENTITIES.register(eventBus);
         CREATIVE_MODE_TAB.register(eventBus);
         ENTITY_TYPES.register(eventBus);
     }
