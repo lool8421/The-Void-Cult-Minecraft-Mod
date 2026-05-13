@@ -1,18 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XXX",
-    "XYX",
-    "XXX"
-  ],
-  "key": {
-    "Y": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "minecraft:obsidian"
     },
-    "X": {
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
       "item": "thevoidcult:portal_matter"
     }
-  },
+  ],
   "result": {
     "id": "minecraft:crying_obsidian",
     "count": 1

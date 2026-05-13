@@ -2,10 +2,7 @@ package com.thevoidcult.registers;
 
 import com.thevoidcult.blockEntities.VoidAltarBlock;
 import com.thevoidcult.blockEntities.VoidAltarBlockEntity;
-import com.thevoidcult.items.EnderCultistHelmetItem;
-import com.thevoidcult.items.MobPearlItem;
-import com.thevoidcult.items.SinFruitItem;
-import com.thevoidcult.items.SinsList;
+import com.thevoidcult.items.*;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import net.minecraft.core.component.DataComponentType;
@@ -68,13 +65,18 @@ public class RegisterContent {
             () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.ENVY));
     public static final DeferredItem<Item> MOB_PEARL = ITEMS.register("mob_pearl",
             () -> new MobPearlItem(new Item.Properties()));
+    public static final DeferredItem<Item> CHORUS_PICKAXE =
+            ITEMS.register("chorus_pickaxe", () -> new ChorusPickaxeItem(
+                    ChorusPickaxeItem.CHORUS_PICKAXE_TIER,
+                    new Item.Properties().stacksTo(1) // Tools shouldn't stack
+            ));
 
     //blocks
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(TheVoidCult.MOD_ID);
 
     public static final DeferredBlock<Block> VOID_ALTAR = BLOCKS.register("void_altar", () -> new VoidAltarBlock(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
+            .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 12).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> VOID_ALTAR_ITEM = ITEMS.registerSimpleBlockItem("void_altar", VOID_ALTAR);
 
     public static final DeferredBlock<Block> WARPED_IRON_BLOCK = BLOCKS.register("warped_iron_block", () -> new Block(BlockBehaviour.Properties.of()
@@ -128,6 +130,7 @@ public class RegisterContent {
                         output.accept(PRIDE_FRUIT);
                         output.accept(GLUTTONY_FRUIT);
                         output.accept(ENVY_FRUIT);
+                        output.accept(CHORUS_PICKAXE);
 
                     })
                     .build()

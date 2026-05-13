@@ -1,18 +1,34 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XXX",
-    "XYX",
-    "XXX"
-  ],
-  "key": {
-    "Y": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "minecraft:netherite_block"
     },
-    "X": {
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
       "item": "thevoidcult:portal_matter"
     }
-  },
+  ],
   "result": {
     "id": "thevoidcult:warped_netherite_block",
     "count": 1

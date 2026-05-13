@@ -3,6 +3,7 @@ package com.thevoidcult.blockEntities;
 import com.thevoidcult.main.TheVoidCultConfig;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,9 +11,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -31,6 +35,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     private int CultistLimit = 0;
     private int NearbyEndCrystals = 0;
     private final Set<UUID> workerIds = new HashSet<>();
+    private boolean isInterfered = false;
 
 
     public int getAltarTier() {
@@ -38,19 +43,9 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     private void calculateAltarTier(Level level, BlockPos pos) {
-        // 1. Interference Check (Same Y-level)
-        // A 19x19 area (radius 9) ensures that two Tier 5 pyramids (radius 5)
-        // cannot overlap or even "touch" edges.
-        BlockPos corner1 = pos.offset(-9, 0, -9);
-        BlockPos corner2 = pos.offset(9, 0, 9);
 
-        for (BlockPos otherPos : BlockPos.betweenClosed(corner1, corner2)) {
-            if (otherPos.equals(pos)) continue;
-            if (level.getBlockEntity(otherPos) instanceof VoidAltarBlockEntity) {
-                this.AltarTier = 0;
-                return;
-            }
-        }
+        isAnotherAltarNearby(level, pos);
+        if(this.isInterfered) {this.AltarTier = 0; return;}
 
         if (!checkLayer(level, pos.below(1), 1, Blocks.CRYING_OBSIDIAN)) {
             this.AltarTier = 0;
@@ -74,6 +69,20 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
 
         this.AltarTier = 5;
+    }
+
+    private void isAnotherAltarNearby(Level level, BlockPos pos){
+        BlockPos corner1 = pos.offset(-9, 0, -9);
+        BlockPos corner2 = pos.offset(9, 0, 9);
+
+        for (BlockPos otherPos : BlockPos.betweenClosed(corner1, corner2)) {
+            if (otherPos.equals(pos)) continue;
+            if (level.getBlockEntity(otherPos) instanceof VoidAltarBlockEntity) {
+                this.isInterfered = true;
+                return;
+            }
+        }
+        this.isInterfered = false;
     }
 
     private boolean checkLayer(Level level, BlockPos center, int radius, Block targetBlock) {
@@ -204,6 +213,58 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
     }
 
+    private Block getNextRequiredBlock(int currentTier) {
+        return switch (currentTier) {
+            case 0 -> Blocks.CRYING_OBSIDIAN;
+            case 1 -> RegisterContent.WARPED_IRON_BLOCK.get();
+            case 2 -> RegisterContent.WARPED_GOLD_BLOCK.get();
+            case 3 -> RegisterContent.WARPED_DIAMOND_BLOCK.get();
+            case 4 -> RegisterContent.WARPED_NETHERITE_BLOCK.get();
+            default -> Blocks.AIR;
+        };
+    }
+
+
+    public void sendAltarStatus(Player player) {
+        // Header
+        player.displayClientMessage(Component.translatable("message.thevoidcult.altar_status_header")
+                .withStyle(ChatFormatting.DARK_PURPLE), false);
+
+        // 1. Crystals
+        player.sendSystemMessage(Component.translatable("message.thevoidcult.nearby_crystals",
+                this.NearbyEndCrystals,
+                TheVoidCultConfig.ALTAR_MAX_CRYSTALS.get()));
+
+        // 2. Tier & Interference
+        MutableComponent tierComp = Component.translatable("message.thevoidcult.altar_tier", this.getAltarTier());
+        if (this.getAltarTier() == 0 && this.isInterfered) {
+            tierComp.append(Component.translatable("message.thevoidcult.altar_interference").withStyle(ChatFormatting.RED));
+        }
+        player.sendSystemMessage(tierComp.withStyle(this.getAltarTier() == 0 ? ChatFormatting.RED : ChatFormatting.GOLD));
+
+        // 3. Next Layer (Using Translatable Block Names)
+        if (this.getAltarTier() < 5) {
+            Block nextBlock = getNextRequiredBlock(this.getAltarTier());
+            // Formula: (2 * currentTier + 3)^2
+            int side = (2 * this.getAltarTier()) + 3;
+            int requiredCount = side * side;
+
+            player.sendSystemMessage(Component.translatable("message.thevoidcult.next_layer",
+                            requiredCount,
+                            Component.translatable(nextBlock.getDescriptionId()))
+                    .withStyle(ChatFormatting.GRAY));
+        }
+
+        // 4. Cultists
+        player.sendSystemMessage(Component.translatable("message.thevoidcult.assigned_cultists",
+                this.getActiveWorkerCount(),
+                this.getCultistLimit()));
+
+        // Footer
+        player.displayClientMessage(Component.translatable("message.thevoidcult.altar_status_footer")
+                .withStyle(ChatFormatting.DARK_PURPLE), false);
+    }
+
     public static void tick(Level level, BlockPos pos, BlockState state, VoidAltarBlockEntity be) {
         if (level.isClientSide) {
             // Client-side: Only play ambient particles based on the tier
@@ -213,14 +274,14 @@ public class VoidAltarBlockEntity extends BlockEntity {
             return;
         }
 
-        if (level.getGameTime() % 100 == 0) {
-            be.calculateAltarTier(level, pos);
-            be.updateCultistLimit();
 
-            if (be.AltarTier == 5) {
-                ((ServerLevel)level).sendParticles(ParticleTypes.REVERSE_PORTAL,
-                        pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5,
-                        50, 0.2, 0.2, 0.2, 0.05);
+        if(level.getGameTime()%20 == 0){
+        ((ServerLevel)level).sendParticles(ParticleTypes.REVERSE_PORTAL,
+                pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
+                be.AltarTier*3, 0.2, 0.2, 0.2, 0.05);
+            if (level.getGameTime() % 100 == 0) {
+                be.calculateAltarTier(level, pos);
+                be.updateCultistLimit();
             }
         }
     }

@@ -7,6 +7,8 @@
   "item.thevoidcult.fruit_of_pride": "Fruit of Pride",
   "item.thevoidcult.fruit_of_envy": "Fruit of Envy",
   "item.thevoidcult.mob_pearl": "Mob Pearl",
+  "item.thevoidcult.chorus_pickaxe": "Chorus Pickaxe",
+  "item.thevoidcult.chorus_pickaxe.desc": "Can mine obsidian. May teleport the user",
 
   "block.thevoidcult.warped_iron_block": "Warped Iron Block",
   "block.thevoidcult.warped_gold_block": "Warped Gold Block",
@@ -20,5 +22,12 @@
   "creativetab.thevoidcult.thevoidcult_items": "Void Cult Items",
 
   "message.thevoidcult.cultist_is_the_same_type": "The cultist is already of this type.",
-  "message.thevoidcult.failed_to_convert_enderman": "Your status isn't sufficient for recruiting endermen."
+  "message.thevoidcult.failed_to_convert_enderman": "Your status isn't sufficient for recruiting endermen.",
+  "message.thevoidcult.altar_status_header": "--- Altar Status ---",
+  "message.thevoidcult.nearby_crystals": "Nearby Crystals: %s/%s",
+  "message.thevoidcult.altar_tier": "Altar Tier: %s/5",
+  "message.thevoidcult.altar_interference": " (WARNING: Another altar detected nearby!)",
+  "message.thevoidcult.next_layer": "Next Layer: %s x %s",
+  "message.thevoidcult.assigned_cultists": "Assigned Cultists: %s/%s",
+  "message.thevoidcult.altar_status_footer": "--------------------"
 }
