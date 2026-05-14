@@ -93,4 +93,20 @@ public class VoidAltarBlock extends BaseEntityBlock {
 
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof VoidAltarBlockEntity altar) {
+                altar.releaseAllWorkers();
+
+                altar.workerIds.clear();
+                altar.AltarTier = 0;
+            }
+            level.removeBlockEntity(pos);
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
+    }
+
 }

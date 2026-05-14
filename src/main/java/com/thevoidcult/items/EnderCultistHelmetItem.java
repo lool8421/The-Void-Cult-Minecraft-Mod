@@ -1,5 +1,6 @@
 package com.thevoidcult.items;
 
+import com.thevoidcult.compatUtils.dragonsurvivalCompat;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.Util;
@@ -9,6 +10,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -54,5 +57,20 @@ public class EnderCultistHelmetItem extends ArmorItem {
                 new ArmorMaterial(typeProtection, enchantability, equipSound, ingredient, layers, toughness, knockbackResistance));
     }
 
+    public static boolean isWearingCultistHelmet(LivingEntity entity){
+        if (entity == null) return false;
+
+        ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
+        if (helmet.is(RegisterContent.ENDER_CULTIST_HELMET.get())) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isEndermanFriendly(LivingEntity entity){
+        if(entity instanceof Player player && (player.isCreative() || player.isSpectator() || dragonsurvivalCompat.isEnderDragonPlayer(player))) return true;
+        if(isWearingCultistHelmet(entity)) return true;
+        return false;
+    }
 
 }

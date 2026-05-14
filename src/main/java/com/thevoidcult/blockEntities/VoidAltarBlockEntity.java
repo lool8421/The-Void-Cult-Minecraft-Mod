@@ -1,5 +1,6 @@
 package com.thevoidcult.blockEntities;
 
+import com.thevoidcult.items.SinsList;
 import com.thevoidcult.main.TheVoidCultConfig;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
@@ -13,8 +14,10 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -23,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.HashSet;
 import java.util.List;
@@ -31,10 +35,10 @@ import java.util.UUID;
 
 public class VoidAltarBlockEntity extends BlockEntity {
 
-    private int AltarTier = 0;
+    public int AltarTier = 0;
     private int CultistLimit = 0;
     private int NearbyEndCrystals = 0;
-    private final Set<UUID> workerIds = new HashSet<>();
+    public final Set<UUID> workerIds = new HashSet<>();
     private boolean isInterfered = false;
 
 
@@ -69,6 +73,10 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
 
         this.AltarTier = 5;
+    }
+
+    public boolean hasSpace() {
+        return this.workerIds.size() < this.CultistLimit;
     }
 
     private void isAnotherAltarNearby(Level level, BlockPos pos){
@@ -142,6 +150,12 @@ public class VoidAltarBlockEntity extends BlockEntity {
         return;
     }
 
+    public void removeCultist(UUID uuid) {
+        if (this.workerIds.remove(uuid)) {
+            this.setChanged();
+        }
+    }
+
     public boolean inviteCultist(EndermanCultistEntity cultist) {
         UUID cultistUUID = cultist.getUUID();
 
@@ -162,15 +176,22 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     public VoidAltarBlockEntity(BlockPos pos, BlockState state) {
-        // We will reference the Registry Object here in Step 2
         super(RegisterContent.VOID_ALTAR_BE.get(), pos, state);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad(); // Always call this first!
+        if (this.level != null && !this.level.isClientSide) {
+            this.calculateAltarTier(this.level, this.worldPosition);
+            this.countNearbyEndCrystals();
+        }
     }
 
     public int getActiveWorkerCount() {
         return this.workerIds.size();
     }
 
-    // This is where data stays saved when you exit the world
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
@@ -179,10 +200,9 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
         ListTag list = new ListTag();
         for (UUID id : workerIds) {
-            list.add(NbtUtils.createUUID(id)); // Helper to turn UUID to NBT
+            list.add(NbtUtils.createUUID(id));
         }
-        tag.put("Workers", list);
-
+        tag.put("Workers", list); // Saving with key "Workers"
     }
 
     @Override
@@ -192,14 +212,30 @@ public class VoidAltarBlockEntity extends BlockEntity {
         this.AltarTier = tag.getInt("altarTier");
         this.CultistLimit = tag.getInt("maxWorkers");
 
-        this.workerIds.clear();
-        if (tag.contains("CultistWorkers", Tag.TAG_LIST)) {
-            ListTag workerList = tag.getList("CultistWorkers", Tag.TAG_INT_ARRAY);
-            for (int i = 0; i < workerList.size(); i++) {
-                this.workerIds.add(NbtUtils.loadUUID(workerList.get(i)));
+        this.workerIds.clear(); // Always clear before loading!
+
+        if (tag.contains("Workers", Tag.TAG_LIST)) {
+            ListTag list = tag.getList("Workers", Tag.TAG_INT_ARRAY);
+            for (int i = 0; i < list.size(); i++) {
+                UUID loadedId = NbtUtils.loadUUID(list.get(i));
+                if (loadedId != null) {
+                    this.workerIds.add(loadedId);
+                }
             }
         }
+    }
 
+    public void releaseAllWorkers() {
+        if (this.level instanceof ServerLevel serverLevel) {
+            for (UUID uuid : this.workerIds) {
+                Entity entity = serverLevel.getEntity(uuid);
+                if (entity instanceof EndermanCultistEntity cultist) {
+                    cultist.clearAssignedAltar();
+                }
+            }
+        }
+        this.workerIds.clear();
+        this.setChanged();
     }
 
     private void spawnAmbientParticles(Level level, BlockPos pos) {
@@ -224,28 +260,45 @@ public class VoidAltarBlockEntity extends BlockEntity {
         };
     }
 
+    public boolean isCultistAssigned(UUID uuid) {
+        return this.workerIds.contains(uuid);
+    }
+
+    public void performWork(EndermanCultistEntity cultist, SinsList sinType) {
+        if (!this.workerIds.contains(cultist.getUUID())) return;
+
+        int tier = this.getAltarTier();
+
+        Component debugMessage = Component.literal("Ritual complete - ")
+                .append(Component.literal(sinType.name()).withStyle(ChatFormatting.DARK_PURPLE))
+                .append(Component.literal(" Tier " + tier).withStyle(ChatFormatting.GOLD));
+
+        if (this.level != null && !this.level.isClientSide) {
+            for (Player player : this.level.players()) {
+                if (player.distanceToSqr(Vec3.atCenterOf(this.worldPosition)) < 1024.0D) { // 32 block radius
+                    player.displayClientMessage(debugMessage, false);
+                }
+            }
+        }
+
+    }
 
     public void sendAltarStatus(Player player) {
-        // Header
         player.displayClientMessage(Component.translatable("message.thevoidcult.altar_status_header")
                 .withStyle(ChatFormatting.DARK_PURPLE), false);
 
-        // 1. Crystals
         player.sendSystemMessage(Component.translatable("message.thevoidcult.nearby_crystals",
                 this.NearbyEndCrystals,
                 TheVoidCultConfig.ALTAR_MAX_CRYSTALS.get()));
 
-        // 2. Tier & Interference
         MutableComponent tierComp = Component.translatable("message.thevoidcult.altar_tier", this.getAltarTier());
         if (this.getAltarTier() == 0 && this.isInterfered) {
             tierComp.append(Component.translatable("message.thevoidcult.altar_interference").withStyle(ChatFormatting.RED));
         }
         player.sendSystemMessage(tierComp.withStyle(this.getAltarTier() == 0 ? ChatFormatting.RED : ChatFormatting.GOLD));
 
-        // 3. Next Layer (Using Translatable Block Names)
         if (this.getAltarTier() < 5) {
             Block nextBlock = getNextRequiredBlock(this.getAltarTier());
-            // Formula: (2 * currentTier + 3)^2
             int side = (2 * this.getAltarTier()) + 3;
             int requiredCount = side * side;
 
@@ -255,12 +308,9 @@ public class VoidAltarBlockEntity extends BlockEntity {
                     .withStyle(ChatFormatting.GRAY));
         }
 
-        // 4. Cultists
         player.sendSystemMessage(Component.translatable("message.thevoidcult.assigned_cultists",
                 this.getActiveWorkerCount(),
                 this.getCultistLimit()));
-
-        // Footer
         player.displayClientMessage(Component.translatable("message.thevoidcult.altar_status_footer")
                 .withStyle(ChatFormatting.DARK_PURPLE), false);
     }

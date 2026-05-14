@@ -60,7 +60,7 @@ public class SinFruitItem extends Item {
             if (target.isAlive()) {
                 if (!player.level().isClientSide) {
                     ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-                    if(dragonsurvivalCompat.isEnderDragonPlayer(player) || player.isCreative() || helmet.is(RegisterContent.ENDER_CULTIST_HELMET.get())) {
+                    if(EnderCultistHelmetItem.isEndermanFriendly(player)) {
 
                         EndermanCultistEntity endermanCultist = enderman.convertTo(RegisterContent.ENDERMAN_CULTIST.get(), true);
                         endermanCultist.changeType(this.fruitType);
