@@ -45,7 +45,7 @@ public class RegisterContent {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TheVoidCult.MOD_ID);
 
     public static final DeferredItem<ArmorItem> ENDER_CULTIST_HELMET = ITEMS.register("ender_cultist_helmet",
-            () -> new ArmorItem(
+            () -> new EnderCultistHelmetItem(
                     EnderCultistHelmetItem.ENDER_CULTIST_ARMOR_MATERIAL,
                     ArmorItem.Type.HELMET,
                     new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(25))
@@ -70,6 +70,8 @@ public class RegisterContent {
                     ChorusPickaxeItem.CHORUS_PICKAXE_TIER,
                     new Item.Properties().stacksTo(1) // Tools shouldn't stack
             ));
+    public static final DeferredItem<Item> CULT_LEADER_STAFF = ITEMS.register("cult_leader_staff",
+            () -> new CultLeaderStaffItem(new Item.Properties()));
 
     //blocks
 
@@ -131,7 +133,7 @@ public class RegisterContent {
                         output.accept(GLUTTONY_FRUIT);
                         output.accept(ENVY_FRUIT);
                         output.accept(CHORUS_PICKAXE);
-
+                        output.accept(CULT_LEADER_STAFF);
                     })
                     .build()
             );

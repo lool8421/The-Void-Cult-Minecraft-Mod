@@ -156,6 +156,37 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
     }
 
+    public void tryAssignNearbyFollowers(Player player) {
+        // 1. Find all eligible followers
+        List<EndermanCultistEntity> followers = this.level.getEntitiesOfClass(EndermanCultistEntity.class,
+                player.getBoundingBox().inflate(16.0D),
+                c -> player.getUUID().equals(c.getLeadingPlayerUUID()));
+
+        if (followers.isEmpty()) {
+            player.displayClientMessage(Component.translatable("message.thevoidcult.assigned_no_followers"), true);
+            return;
+        }
+
+        int assignedCount = 0;
+        for (EndermanCultistEntity candidate : followers) {
+            if (this.inviteCultist(candidate)) {
+                candidate.setLeadingPlayer(null); // Stop following
+                candidate.setAssignedAltarPos(this.worldPosition); // Set home base
+                assignedCount++;
+            } else {
+                player.displayClientMessage(Component.translatable("message.thevoidcult.assigned_max_altar"), true);
+                break;
+            }
+        }
+
+        if (assignedCount > 0) {
+            player.displayClientMessage(
+                    Component.translatable("message.thevoidcult.assigned_count", assignedCount),
+                    true
+            );
+        }
+    }
+
     public boolean inviteCultist(EndermanCultistEntity cultist) {
         UUID cultistUUID = cultist.getUUID();
 

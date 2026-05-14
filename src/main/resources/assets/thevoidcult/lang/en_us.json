@@ -1,6 +1,7 @@
 {
   "item.thevoidcult.portal_matter": "Portal Matter",
   "item.thevoidcult.ender_cultist_helmet": "Ender Cultist Helmet",
+  "item.thevoidcult.ender_cultist_helmet.desc": "Makes you more trustworthy to endermen.",
   "item.thevoidcult.fruit_of_wrath": "Fruit of Wrath",
   "item.thevoidcult.fruit_of_greed": "Fruit of Greed",
   "item.thevoidcult.fruit_of_gluttony": "Fruit of Gluttony",
@@ -9,7 +10,8 @@
   "item.thevoidcult.mob_pearl": "Mob Pearl",
   "item.thevoidcult.chorus_pickaxe": "Chorus Pickaxe",
   "item.thevoidcult.chorus_pickaxe.desc": "Can mine obsidian. May teleport the user",
-
+  "item.thevoidcult.cult_leader_staff": "Cult Leader Staff",
+  "item.thevoidcult.cult_leader_staff.desc": "Allows you to assign enderman cultists to altars manually.",
   "block.thevoidcult.warped_iron_block": "Warped Iron Block",
   "block.thevoidcult.warped_gold_block": "Warped Gold Block",
   "block.thevoidcult.warped_diamond_block": "Warped Diamond Block",
@@ -19,15 +21,21 @@
 
   "entity.thevoidcult.enderman_cultist": "Enderman Cultist",
 
-  "creativetab.thevoidcult.thevoidcult_items": "Void Cult Items",
+  "creativetab.thevoidcult.thevoidcult_items": "The Void Cult",
 
   "message.thevoidcult.cultist_is_the_same_type": "The cultist is already of this type.",
   "message.thevoidcult.failed_to_convert_enderman": "Your status isn't sufficient for recruiting endermen.",
-  "message.thevoidcult.altar_status_header": "--- Altar Status ---",
+  "message.thevoidcult.altar_status_header": "---- Altar Status ----",
   "message.thevoidcult.nearby_crystals": "Nearby Crystals: %s/%s",
   "message.thevoidcult.altar_tier": "Altar Tier: %s/5",
   "message.thevoidcult.altar_interference": " (WARNING: Another altar detected nearby!)",
   "message.thevoidcult.next_layer": "Next Layer: %s x %s",
   "message.thevoidcult.assigned_cultists": "Assigned Cultists: %s/%s",
-  "message.thevoidcult.altar_status_footer": "--------------------"
+  "message.thevoidcult.altar_status_footer": "--------------------",
+  "message.thevoidcult.assigned_count": "Assigned %1$s followers to the altar.",
+  "message.thevoidcult.assigned_max_altar": "Altar is at full capacity!",
+  "message.thevoidcult.assigned_no_followers": "There are no followers to assign.",
+  "message.thevoidcult.followers_dismissed": "Followers dismissed.",
+  "message.thevoidcult.following_start": "A cultist is now following you.",
+  "message.thevoidcult.no_trust": "Cultists don't trust you."
 }

@@ -11,12 +11,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,6 +46,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     private int workCooldown;
     private BlockPos assignedAltarPos;
     private int ritualTime;
+    private UUID leadingPlayerUUID = null;
 
     public EndermanCultistEntity(EntityType<? extends PathfinderMob> entityType, Level level){
         super(entityType, level);
@@ -67,6 +70,26 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         };
     }
 
+    public void setLeadingPlayer(@Nullable UUID uuid) {
+        this.leadingPlayerUUID = uuid;
+
+        if (uuid != null) {
+            // If we were working at an altar, tell it we're leaving
+            if (this.assignedAltarPos != null) {
+                if (this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
+                    altar.removeCultist(this.getUUID());
+                }
+                this.assignedAltarPos = null;
+            }
+            this.ritualTime = 0; // Stop any active ritual immediately
+            this.getNavigation().stop(); // Stop walking toward the altar
+        }
+    }
+
+    @Nullable
+    public UUID getLeadingPlayerUUID() {
+        return leadingPlayerUUID;
+    }
 
     public SinsList getSinType(){
         return this.sinType;
@@ -225,6 +248,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         }
     }
 
+    public void setAssignedAltarPos(BlockPos assignedAltarPos) {
+        this.assignedAltarPos = assignedAltarPos;
+    }
+
     private void performWorkCycle() {
         Vec3 altarCenter = Vec3.atCenterOf(this.assignedAltarPos);
         double distSqr = this.distanceToSqr(altarCenter);
@@ -237,51 +264,82 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         }
     }
 
+
+
+    private void doRitual(){
+        this.ritualTime--;
+        this.getNavigation().stop();
+        this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
+        if (this.assignedAltarPos != null) {
+            Vec3 altarCenter = Vec3.atCenterOf(this.assignedAltarPos);
+            this.getLookControl().setLookAt(altarCenter.x, altarCenter.y + 3, altarCenter.z);
+            this.yBodyRot = this.yHeadRot;
+            this.yBodyRotO = this.yHeadRot;
+            if (this.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(
+                        ParticleTypes.REVERSE_PORTAL,
+                        altarCenter.x, altarCenter.y + 3, altarCenter.z,
+                        3,           // Number of particles to spawn per tick
+                        0.2, 0.2, 0.2, // "Jitter" / Random offset
+                        0.05         // Speed/Velocity
+                );
+            }
+        }
+        if (this.ritualTime == 0) {
+            if (this.assignedAltarPos != null && this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
+                altar.performWork(this, this.sinType);
+                this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
+            }
+        }
+    }
+
+    private void FollowLeader(){
+        Player leader = this.level().getPlayerByUUID(this.leadingPlayerUUID);
+        if (leader != null) {
+            double distSqr = this.distanceToSqr(leader);
+
+            if (distSqr > 1024.0D) {
+                BlockPos targetPos = leader.blockPosition().offset(this.random.nextInt(3) - 1, 0, this.random.nextInt(3) - 1);
+                this.teleportTo(targetPos.getX(), targetPos.getY(), targetPos.getZ());
+                this.level().playSound(null, this.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.HOSTILE, 1.0F, 1.0F);
+            }
+            else if (distSqr > 16.0D) {
+                this.getNavigation().moveTo(leader, 1.2D);
+            }
+        }
+
+        if (this.tickCount % 20 == 0 && this.leadingPlayerUUID != null) {
+            if (leader != null && !EnderCultistHelmetItem.isEndermanFriendly(leader)) {
+                this.setLeadingPlayer(null);
+
+                leader.displayClientMessage(Component.literal("The cultists lost interest in following you!"), true);
+            }
+        }
+
+    }
+
     @Override
     public void aiStep() {
         super.aiStep();
-
-        if (this.ritualTime > 0) {
-            this.ritualTime--;
-            this.getNavigation().stop();
-            this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
-
-
-            if (this.assignedAltarPos != null) {
-                Vec3 altarCenter = Vec3.atCenterOf(this.assignedAltarPos);
-                this.getLookControl().setLookAt(altarCenter.x, altarCenter.y + 3, altarCenter.z);
-
-                this.yBodyRot = this.yHeadRot;
-                this.yBodyRotO = this.yHeadRot;
-
-                if (this.level() instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(
-                            ParticleTypes.REVERSE_PORTAL,
-                            altarCenter.x, altarCenter.y + 3, altarCenter.z,
-                            3,           // Number of particles to spawn per tick
-                            0.2, 0.2, 0.2, // "Jitter" / Random offset
-                            0.05         // Speed/Velocity
-                    );
-                }
-            }
-
-            if (this.ritualTime == 0) {
-                if (this.assignedAltarPos != null && this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
-                    altar.performWork(this, this.sinType);
-                    this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
-                }
-            }
-            return;
-        }
-
         if (!this.level().isClientSide && this.isAlive()) {
+
+            if (this.tickCount % 600 == 0) {
+                this.heal(1.0F);
+            }
+
+            if (this.ritualTime > 0) {
+                doRitual();
+                return;
+            }
+
             LivingEntity target = this.getTarget();
             if (target != null && this.distanceToSqr(target) > 256.0D && this.random.nextInt(100) == 0) {
                 this.teleportToEntity(target);
             }
 
-            if (this.tickCount % 600 == 0) {
-                this.heal(1.0F);
+            if (this.leadingPlayerUUID != null) {
+                FollowLeader();
+                return;
             }
 
             if(this.workCooldown > 0) {
@@ -296,7 +354,6 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                     performWorkCycle();
                 }
             }
-
             if (this.tickCount % 100 == 0 && this.assignedAltarPos != null) {
                 double distSqr = this.distanceToSqr(Vec3.atCenterOf(this.assignedAltarPos));
 
@@ -309,6 +366,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                     );
                 }
             }
+
+
+
         }
     }
 

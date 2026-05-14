@@ -3,10 +3,12 @@ package com.thevoidcult.items;
 import com.thevoidcult.compatUtils.dragonsurvivalCompat;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.registers.RegisterContent;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -14,10 +16,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
@@ -71,6 +70,12 @@ public class EnderCultistHelmetItem extends ArmorItem {
         if(entity instanceof Player player && (player.isCreative() || player.isSpectator() || dragonsurvivalCompat.isEnderDragonPlayer(player))) return true;
         if(isWearingCultistHelmet(entity)) return true;
         return false;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable("item.thevoidcult.ender_cultist_helmet.desc")
+                .withStyle(ChatFormatting.GRAY));
     }
 
 }

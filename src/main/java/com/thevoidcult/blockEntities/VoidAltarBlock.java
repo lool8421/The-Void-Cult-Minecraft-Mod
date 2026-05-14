@@ -1,10 +1,14 @@
 package com.thevoidcult.blockEntities;
 
 import com.mojang.serialization.MapCodec;
+import com.thevoidcult.items.EnderCultistHelmetItem;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -84,6 +88,18 @@ public class VoidAltarBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide) {
+            ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
+
+            if (heldItem.is(RegisterContent.CULT_LEADER_STAFF.get())) {
+
+                if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
+                    if (!level.isClientSide) {
+                        altar.tryAssignNearbyFollowers(player);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+
             BlockEntity be = level.getBlockEntity(pos);
 
             if (be instanceof VoidAltarBlockEntity altar) {
@@ -93,6 +109,8 @@ public class VoidAltarBlock extends BaseEntityBlock {
 
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
+
+
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
