@@ -382,7 +382,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         }
         if (this.ritualTime == 0) {
             if (this.assignedAltarPos != null && this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
-                altar.performWork(this, this.sinType);
+                altar.performWork(this.sinType);
                 this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
             }
         }

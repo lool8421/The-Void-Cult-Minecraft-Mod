@@ -8,23 +8,31 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -295,23 +303,58 @@ public class VoidAltarBlockEntity extends BlockEntity {
         return this.workerIds.contains(uuid);
     }
 
-    public void performWork(EndermanCultistEntity cultist, SinsList sinType) {
-        if (!this.workerIds.contains(cultist.getUUID())) return;
+    private void spawnPortalMatterBonus() {
 
-        int tier = this.getAltarTier();
+        double portalMatterChance = TheVoidCultConfig.ALTAR_MATTER_DROP_CHANCE.get() + (TheVoidCultConfig.ALTAR_MATTER_DROP_CHANCE_PER_TIER.get() * this.AltarTier);
 
-        Component debugMessage = Component.literal("Ritual complete - ")
-                .append(Component.literal(sinType.name()).withStyle(ChatFormatting.DARK_PURPLE))
-                .append(Component.literal(" Tier " + tier).withStyle(ChatFormatting.GOLD));
+        if (level.getRandom().nextDouble() < portalMatterChance) {
+            double spawnX = this.getBlockPos().getX() + 0.5;
+            double spawnY = this.getBlockPos().getY() + 3.0;
+            double spawnZ = this.getBlockPos().getZ() + 0.5;
 
-        if (this.level != null && !this.level.isClientSide) {
-            for (Player player : this.level.players()) {
-                if (player.distanceToSqr(Vec3.atCenterOf(this.worldPosition)) < 1024.0D) { // 32 block radius
-                    player.displayClientMessage(debugMessage, false);
-                }
+            ItemStack bonus = new ItemStack(RegisterContent.PORTAL_MATTER.get(), 1);
+            ItemEntity entity = new ItemEntity(level, spawnX, spawnY, spawnZ, bonus);
+            entity.setDeltaMovement(0, 0, 0);
+
+            level.addFreshEntity(entity);
+        }
+    }
+
+    private void spawnLootFromTable(ResourceLocation tableLocation) {
+        if (this.level == null || this.level.isClientSide) return;
+
+        ServerLevel serverLevel = (ServerLevel) this.level;
+        ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE, tableLocation);
+        LootTable lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(key);
+        LootParams params = new LootParams.Builder(serverLevel)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition))
+                .create(LootContextParamSets.EMPTY);
+
+        List<ItemStack> items = lootTable.getRandomItems(params);
+
+        double spawnX = this.worldPosition.getX() + 0.5;
+        double spawnY = this.worldPosition.getY() + 3.0;
+        double spawnZ = this.worldPosition.getZ() + 0.5;
+
+        for (ItemStack stack : items) {
+            if (!stack.isEmpty()) {
+                ItemEntity itemEntity = new ItemEntity(serverLevel, spawnX, spawnY, spawnZ, stack.copy());
+                itemEntity.setDeltaMovement(0, 0, 0);
+                serverLevel.addFreshEntity(itemEntity);
             }
         }
+    }
 
+    public void performWork(SinsList sinType) {
+        if (sinType == SinsList.NONE) return;
+
+        int tier = this.getAltarTier();
+        String sinName = sinType.name().toLowerCase();
+
+        ResourceLocation tableLocation = ResourceLocation.fromNamespaceAndPath("thevoidcult", "thevoidcult_rituals/ritual_" + sinName + "_" + tier);
+
+        this.spawnLootFromTable(tableLocation);
+        this.spawnPortalMatterBonus();
     }
 
     public void sendAltarStatus(Player player) {
