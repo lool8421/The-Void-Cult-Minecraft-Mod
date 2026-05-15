@@ -155,7 +155,6 @@ public class VoidAltarBlockEntity extends BlockEntity {
             }
         }
         this.setChanged();
-        return;
     }
 
     public void removeCultist(UUID uuid) {
@@ -165,7 +164,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     public void tryAssignNearbyFollowers(Player player) {
-        // 1. Find all eligible followers
+
         List<EndermanCultistEntity> followers = this.level.getEntitiesOfClass(EndermanCultistEntity.class,
                 player.getBoundingBox().inflate(16.0D),
                 c -> player.getUUID().equals(c.getLeadingPlayerUUID()));
@@ -280,7 +279,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     private void spawnAmbientParticles(Level level, BlockPos pos) {
         RandomSource random = level.random;
         for (int i = 0; i < this.AltarTier; i++) {
-            level.addParticle(ParticleTypes.PORTAL,
+            level.addParticle(ParticleTypes.WITCH,
                     pos.getX() + 0.5 + (random.nextDouble() - 0.5),
                     pos.getY() + 1.1,
                     pos.getZ() + 0.5 + (random.nextDouble() - 0.5),
@@ -391,7 +390,6 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
     public static void tick(Level level, BlockPos pos, BlockState state, VoidAltarBlockEntity be) {
         if (level.isClientSide) {
-            // Client-side: Only play ambient particles based on the tier
             if (level.getGameTime() % 20 == 0 && be.AltarTier > 0) {
                 be.spawnAmbientParticles(level, pos);
             }

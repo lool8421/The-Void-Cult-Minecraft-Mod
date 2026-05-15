@@ -1,5 +1,6 @@
 package com.thevoidcult.main;
 
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class TheVoidCultConfig {
     public static final ModConfigSpec.IntValue CULTIST_WORK_DURATION;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> PORTAL_MATTER_ENTITIES;
     public static final ModConfigSpec.ConfigValue<List<? extends Double>> PORTAL_MATTER_DROP_CHANCES;
+
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
@@ -51,16 +53,21 @@ public class TheVoidCultConfig {
                 .defineInRange("altarMatterDropChancePerTier", 0.005, 0.0, 1.0);
 
         PORTAL_MATTER_ENTITIES = builder
-                .comment("List of entity IDs that drop Portal Matter.")
-                .defineList("portalMatterEntities", List.of("minecraft:endermite", "minecraft:enderman", "minecraft:shulker"), (obj) -> obj instanceof String);
+                .comment("List of entity registry names that drop Portal Matter.")
+                .define("portalMatterEntities",
+                        List.of("minecraft:endermite", "minecraft:enderman", "minecraft:shulker"),
+                        obj -> obj instanceof String str && ResourceLocation.tryParse(str) != null
+                );
 
         PORTAL_MATTER_DROP_CHANCES = builder
-                .comment("The drop chances for the entities above (must match the order from portalMatterEntites)")
-                .defineList("portalMatterChances", List.of(0.5, 0.2, 1.0), (obj) -> obj instanceof Double);
+                .comment("The drop chances for the entities above (must match the order from portalMatterEntities)")
+                .define("portalMatterChances",
+                        List.of(0.5, 0.2, 1.0),
+                        obj -> obj instanceof Double);
 
+        builder.pop();
 
         builder.push("Void altar settings");
-        builder.comment("You can configure altar limits in this section");
 
         ALTAR_BASE_CAP = builder
                 .comment("Amount of allowed enderman cultists working at an altar at base")
@@ -94,10 +101,10 @@ public class TheVoidCultConfig {
                 .comment("Work cooldown of enderman cultists (in ticks)")
                 .defineInRange("cultistWorkDuration",100, 10, 36000);
 
-        builder.comment("To edit ritual loot tables, overwrite loot tables with a datapack at data/thevoidcult/loot_table/thevoidcult_rituals/ritual_<type>_<tier>.json",
-                "Example loot table name: ritual",
-                "Possible types: wrath, greed, gluttony, envy, pride",
-                "Tiers: 1 ~ 5");
+        builder.comment("To edit ritual loot tables, overwrite loot tables with a datapack at: data/thevoidcult/loot_tables/rituals/ritual_<type>_<tier>.json\n" +
+                "Example: ritual_wrath_1.json\n" +
+                "Possible types: wrath, greed, gluttony, envy, pride\n" +
+                "Tiers: 1 ~ 5").define("PointlessFieldSoNeoforgeLetsMeCreateTheMessageAboveBecauseItNeedsAnInputFieldToBeAbleToHaveComments", true);
 
         builder.pop();
         SPEC = builder.build();

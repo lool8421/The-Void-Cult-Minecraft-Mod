@@ -18,7 +18,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
@@ -36,6 +35,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -75,7 +76,6 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         this.leadingPlayerUUID = uuid;
 
         if (uuid != null) {
-            // If we were working at an altar, tell it we're leaving
             if (this.assignedAltarPos != null) {
                 if (this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
                     altar.removeCultist(this.getUUID());
@@ -183,7 +183,6 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             return;
         }
 
-        // Standard Idle Heartbeat
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
@@ -393,10 +392,8 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         if (leader != null) {
             double distSqr = this.distanceToSqr(leader);
 
-            if (distSqr > 1024.0D) {
-                BlockPos targetPos = leader.blockPosition().offset(this.random.nextInt(3) - 1, 0, this.random.nextInt(3) - 1);
-                this.teleportTo(targetPos.getX(), targetPos.getY(), targetPos.getZ());
-                this.level().playSound(null, this.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.HOSTILE, 1.0F, 1.0F);
+            if (distSqr > 576.0D) {
+                this.teleportToEntity(leader);
             }
             else if (distSqr > 16.0D) {
                 this.getNavigation().moveTo(leader, 1.2D);
@@ -496,9 +493,15 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         compound.putString("CultistType", this.sinType.name());
         compound.putInt("WorkCooldown", this.workCooldown);
         compound.putInt("RitualTime", this.ritualTime);
+
         if (this.assignedAltarPos != null) {
             compound.putLong("AssignedAltar", this.assignedAltarPos.asLong());
         }
+
+        if (this.leadingPlayerUUID != null) {
+            compound.putUUID("LeadingPlayer", this.leadingPlayerUUID);
+        }
+
     }
 
     @Override
@@ -517,6 +520,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
         if (compound.contains("AssignedAltar")) {
             this.assignedAltarPos = BlockPos.of(compound.getLong("AssignedAltar"));
+        }
+
+        if (compound.hasUUID("LeadingPlayer")) {
+            this.leadingPlayerUUID = compound.getUUID("LeadingPlayer");
         }
 
         this.entityData.set(DATA_CULTIST_TYPE, this.sinType.ordinal());
@@ -539,7 +546,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 double d0 = this.getX() + (this.random.nextDouble() - 0.5D) * 16.0D;
                 double d1 = this.getY() + (double)(this.random.nextInt(16) - 8);
                 double d2 = this.getZ() + (this.random.nextDouble() - 0.5D) * 16.0D;
+
                 if (this.randomTeleport(d0, d1, d2, true)) {
+                    EntityTeleportEvent.EnderEntity event = new EntityTeleportEvent.EnderEntity(this, d0, d1, d2);
+                    if (NeoForge.EVENT_BUS.post(event).isCanceled()) continue;
                     this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.CHORUS_FRUIT_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
                     this.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                     break;
@@ -555,8 +565,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             double d2 = entity.getZ() + (double)(this.random.nextFloat() - 0.5D) * 8.0D;
 
             if (this.randomTeleport(d0, d1, d2, true)) {
-                this.level().playSound(null, this.xo, this.yo, this.zo,
-                        SoundEvents.CHORUS_FRUIT_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
+                EntityTeleportEvent.EnderEntity event = new EntityTeleportEvent.EnderEntity(this, d0, d1, d2);
+                if (NeoForge.EVENT_BUS.post(event).isCanceled()) continue;
+                this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.CHORUS_FRUIT_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
                 this.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                 break;
             }
