@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:chorus_fruit"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "thevoidcult:portal_matter"
+    },
+    {
+      "item": "minecraft:wooden_axe"
+    }
+  ],
+  "result": {
+    "id": "thevoidcult:fruit_of_pride"
+  }
+}

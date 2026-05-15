@@ -21,6 +21,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -96,12 +97,13 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     }
 
     public static final EntityDataAccessor<Integer> DATA_CULTIST_TYPE = SynchedEntityData.defineId(EndermanCultistEntity.class, EntityDataSerializers.INT);
-
+    private static final EntityDataAccessor<Boolean> IS_RITUALIZING = SynchedEntityData.defineId(EndermanCultistEntity.class, EntityDataSerializers.BOOLEAN);
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_CULTIST_TYPE, SinsList.NONE.ordinal());
+        builder.define(IS_RITUALIZING, false);
     }
 
     public SinsList getSyncedType() {
@@ -114,6 +116,22 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         if (DATA_CULTIST_TYPE.equals(key) && this.level().isClientSide) {
             this.refreshDimensions();
         }
+
+        if (IS_RITUALIZING.equals(key)) {
+            if (this.isRitualizing()) {
+                this.ritualAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.ritualAnimationState.stop();
+            }
+        }
+    }
+
+    public void setRitualizing(boolean ritualizing) {
+        this.entityData.set(IS_RITUALIZING, ritualizing);
+    }
+
+    public boolean isRitualizing() {
+        return this.entityData.get(IS_RITUALIZING);
     }
 
     @Override
@@ -142,22 +160,42 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState ritualAnimationState = new AnimationState();
-    public final AnimationState angryAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
-    private int AnimationTimeout = 0;
+    private int idleAnimationTimeout = 0;
 
-    private void setupAnimationStates(){
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 60) {
+            this.ritualAnimationState.start(this.tickCount);
+        } else if (id == 62) {
+            this.ritualAnimationState.stop();
+        } else if (id == 61) {
+            this.attackAnimationState.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
 
+    private void setupAnimationStates() {
+        if (this.isRitualizing() || this.isAggressive()) {
+            this.idleAnimationState.stop();
+            this.idleAnimationTimeout = 0;
+            return;
+        }
 
-        if(this.AnimationTimeout <= 0){
-            this.AnimationTimeout = 60;
+        // Standard Idle Heartbeat
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
-            return;
+        } else {
+            --this.idleAnimationTimeout;
         }
-        else{
-            --this.AnimationTimeout;
-            return;
-        }
+    }
+
+    @Override
+    public void swing(InteractionHand hand, boolean updateSel) {
+        super.swing(hand, updateSel);
+        this.level().broadcastEntityEvent(this, (byte) 61); // Trigger Attack Anim
     }
 
     @Override
@@ -176,6 +214,8 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             }
         });
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Endermite.class, true));
+
+
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2D, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -200,6 +240,13 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         return SoundEvents.ENDERMAN_DEATH;
     }
 
+    protected SoundEvent getAmbientSound(){
+        if (this.isRitualizing()) {
+            return null;
+        }
+        return SoundEvents.ENDERMAN_AMBIENT;
+    }
+
     public void die(DamageSource cause){
         super.die(cause);
         if (!this.level().isClientSide && this.assignedAltarPos != null) {
@@ -208,6 +255,17 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             }
         }
 
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !this.isRitualizing() && super.isPushable();
+    }
+
+    @Override
+    public void doPush(Entity entity) {
+        if (this.isRitualizing()) return;
+        super.doPush(entity);
     }
 
     private void validateOrFindAltar() {
@@ -259,12 +317,49 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         if (distSqr > 16.0D) {
             this.getNavigation().moveTo(altarCenter.x, altarCenter.y, altarCenter.z, 1.0D);
         } else {
-            this.ritualTime = 80;
+            this.ritualTime = TheVoidCultConfig.CULTIST_WORK_DURATION.get();
             this.getNavigation().stop();
         }
     }
 
+    private void handleAltarState() {
+        if (this.assignedAltarPos != null &&
+                !(this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity)) {
+            this.stopRitualManually();
+            return;
+        }
 
+        if (this.blockPosition().closerThan(this.assignedAltarPos, 4.0D)) {
+
+            if (this.ritualTime == TheVoidCultConfig.CULTIST_WORK_DURATION.get()) {
+                this.setRitualizing(true);
+                this.level().broadcastEntityEvent(this, (byte) 60);
+            }
+
+            this.doRitual();
+
+            if (this.ritualTime <= 0 && this.isRitualizing()) {
+                this.setRitualizing(false);
+                this.level().broadcastEntityEvent(this, (byte) 62);
+            }
+
+        } else {
+
+            if (this.isRitualizing()) {
+                this.setRitualizing(false);
+                this.level().broadcastEntityEvent(this, (byte) 62);
+            }
+            this.getNavigation().moveTo(assignedAltarPos.getX(), assignedAltarPos.getY(), assignedAltarPos.getZ(), 1.0D);
+        }
+    }
+
+    private void stopRitualManually() {
+        this.assignedAltarPos = null;
+        this.ritualTime = 0;
+        this.setRitualizing(false);
+        this.level().broadcastEntityEvent(this, (byte) 62);
+        this.getNavigation().stop();
+    }
 
     private void doRitual(){
         this.ritualTime--;
@@ -279,15 +374,15 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 serverLevel.sendParticles(
                         ParticleTypes.REVERSE_PORTAL,
                         altarCenter.x, altarCenter.y + 3, altarCenter.z,
-                        3,           // Number of particles to spawn per tick
-                        0.2, 0.2, 0.2, // "Jitter" / Random offset
-                        0.05         // Speed/Velocity
+                        3,
+                        0.2, 0.2, 0.2,
+                        0.05
                 );
             }
         }
         if (this.ritualTime == 0) {
             if (this.assignedAltarPos != null && this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
-                altar.performWork(this, this.sinType);
+                altar.performWork(this.sinType);
                 this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
             }
         }
@@ -312,12 +407,35 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             if (leader != null && !EnderCultistHelmetItem.isEndermanFriendly(leader)) {
                 this.setLeadingPlayer(null);
 
-                leader.displayClientMessage(Component.literal("The cultists lost interest in following you!"), true);
+                leader.displayClientMessage(Component.translatable("message.thevoidcult.follower_stop"), true);
             }
         }
 
     }
 
+    private boolean handleAggression() {
+        LivingEntity target = this.getTarget();
+        if(EnderCultistHelmetItem.isEndermanFriendly(target)) {
+            this.setTarget(null);
+            this.setLastHurtByMob(null);
+            this.getNavigation().stop();
+        }
+
+
+        if (target != null && target.isAlive()) {
+            if (this.isRitualizing()) {
+                this.stopRitualManually();
+                this.playSound(SoundEvents.ENDERMAN_STARE, 1.0F, 1.0F);
+            }
+            if(this.distanceToSqr(target) > 256.0D && this.random.nextInt(100) == 0){
+                this.teleportToEntity(target);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
     @Override
     public void aiStep() {
         super.aiStep();
@@ -327,14 +445,14 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 this.heal(1.0F);
             }
 
+
             if (this.ritualTime > 0) {
-                doRitual();
+                handleAltarState();
                 return;
             }
 
-            LivingEntity target = this.getTarget();
-            if (target != null && this.distanceToSqr(target) > 256.0D && this.random.nextInt(100) == 0) {
-                this.teleportToEntity(target);
+            if (this.handleAggression()) {
+                return;
             }
 
             if (this.leadingPlayerUUID != null) {
@@ -447,7 +565,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        this.ritualTime = 0;
+
+        if(this.isRitualizing()) this.stopRitualManually();
+
         if (source.getDirectEntity() instanceof AbstractArrow) {
             this.teleportRandomly();
             return false;

@@ -37,5 +37,6 @@
   "message.thevoidcult.assigned_no_followers": "There are no followers to assign.",
   "message.thevoidcult.followers_dismissed": "Followers dismissed.",
   "message.thevoidcult.following_start": "A cultist is now following you.",
-  "message.thevoidcult.no_trust": "Cultists don't trust you."
+  "message.thevoidcult.no_trust": "Cultists don't trust you.",
+  "message.thevoidcult.follower_stop": "Cultists lost interests in following you."
 }

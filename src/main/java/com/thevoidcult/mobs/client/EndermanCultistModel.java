@@ -6,6 +6,7 @@ package com.thevoidcult.mobs.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.thevoidcult.main.TheVoidCult;
+import com.thevoidcult.main.TheVoidCultConfig;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -50,7 +51,7 @@ public class EndermanCultistModel<T extends EndermanCultistEntity> extends Hiera
         PartDefinition leg_right = root.addOrReplaceChild("leg_right", CubeListBuilder.create().texOffs(56, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 30.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -3.0F, 1.0F));
         PartDefinition arm_left = root.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(56, 0).addBox(0.0F, -1.0F, -1.0F, 2.0F, 30.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -10.0F, 1.0F));
         PartDefinition arm_right = root.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(56, 0).addBox(-2.0F, -1.0F, -1.0F, 2.0F, 30.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, -10.0F, 1.0F));
-        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -11.0F, 1.0F));
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, -11.0F, 1.0F));
         PartDefinition upper_head = head.addOrReplaceChild("upper_head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -6.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 0.0F));
         PartDefinition eyes = upper_head.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(24, 0).addBox(-4.0F, -1.0F, 0.0F, 8.0F, 1.0F, 0.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, -1.0F, -4.0F));
 
@@ -62,11 +63,13 @@ public class EndermanCultistModel<T extends EndermanCultistEntity> extends Hiera
         this.root().getAllParts().forEach(ModelPart::resetPose);
         applyHeadRotation(netHeadYaw, headPitch);
 
-        this.animate(entity.attackAnimationState, EndermanCultistAnimations.anim_ritual, ageInTicks, 1.0f);
-        this.animate(entity.ritualAnimationState, EndermanCultistAnimations.anim_ritual, ageInTicks, 1.0f);
-        this.animate(entity.angryAnimationState, EndermanCultistAnimations.anim_angry, ageInTicks, 1.0F);
+
         this.animateWalk(EndermanCultistAnimations.anim_walk, limbSwing, limbSwingAmount, 2f, 2.5f);
-        this.animate(entity.idleAnimationState, EndermanCultistAnimations.anim_idle, ageInTicks, 1f);
+        this.animate(entity.idleAnimationState, EndermanCultistAnimations.anim_idle, ageInTicks, 1.0f);
+        this.animate(entity.ritualAnimationState, EndermanCultistAnimations.anim_ritual, ageInTicks, (float)100/TheVoidCultConfig.CULTIST_WORK_DURATION.get());
+        this.animate(entity.attackAnimationState, EndermanCultistAnimations.anim_attack, ageInTicks, 1.0f);
+
+
     }
 
     private void applyHeadRotation(float headYaw, float headPitch){
