@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " XY",
+    " XX",
+    "X  "
+  ],
+  "key": {
+    "X": {
+      "item": "thevoidcult:portal_matter"
+    },
+    "Y": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "id": "thevoidcult:cult_leader_staff",
+    "count": 1
+  }
+}

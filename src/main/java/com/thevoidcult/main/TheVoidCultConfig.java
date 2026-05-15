@@ -17,7 +17,7 @@ public class TheVoidCultConfig {
     public static final ModConfigSpec.IntValue ALTAR_CRYSTAL_RANGE;
     public static final ModConfigSpec.IntValue ALTAR_OVERALL_CAP;
     public static final ModConfigSpec.IntValue CULTIST_WORK_COOLDOWN;
-
+    public static final ModConfigSpec.IntValue CULTIST_WORK_DURATION;
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
@@ -70,6 +70,9 @@ public class TheVoidCultConfig {
                 .comment("Work cooldown of enderman cultists (in ticks)")
                         .defineInRange("cultistWorkCooldown",600, 100, 1728000);
 
+        CULTIST_WORK_DURATION = builder
+                .comment("Work cooldown of enderman cultists (in ticks)")
+                .defineInRange("cultistWorkDuration",100, 10, 36000);
 
         builder.pop();
         SPEC = builder.build();
