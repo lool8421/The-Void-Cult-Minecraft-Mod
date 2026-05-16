@@ -318,8 +318,6 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     }
 
     private void handleAltarState() {
-        this.setDeltaMovement(0, this.getDeltaMovement().y, 0); // Stop horizontal momentum
-        this.getNavigation().stop();
 
         if (this.assignedAltarPos != null &&
                 !(this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity)) {
@@ -330,6 +328,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         if (this.blockPosition().closerThan(this.assignedAltarPos, 4.0D)) {
 
             if (this.ritualTime == TheVoidCultConfig.CULTIST_WORK_DURATION.get()) {
+                this.getLookControl().setLookAt(assignedAltarPos.getX(), assignedAltarPos.getY()+3, assignedAltarPos.getZ()+3);
                 this.setRitualizing(true);
                 this.level().broadcastEntityEvent(this, (byte) 60);
             }

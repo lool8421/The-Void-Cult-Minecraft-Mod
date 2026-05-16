@@ -4,9 +4,59 @@
     {
       "rolls": 1,
       "entries": [
+
+        {"type": "minecraft:item",
+                "name": "minecraft:dried_kelp",
+                "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+                "min": 2,
+                "max": 8
+        }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:beetroot",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:poisonous_potato",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cookie",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:tropical_fish",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
         {
           "type": "minecraft:item",
-          "name": "minecraft:barrier"
+          "name": "minecraft:chorus_fruit",
+          "weight": 5000
         }
       ]
     }

@@ -4,9 +4,155 @@
     {
       "rolls": 1,
       "entries": [
+
+        {"type": "minecraft:item",
+          "name": "minecraft:dried_kelp",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:beetroot",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:poisonous_potato",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cookie",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:tropical_fish",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:potato",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:apple",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:melon_slice",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:bread",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:porkchop",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:beef",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:chicken",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:mutton",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sweet_berries",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:glow_berries",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:experience_bottle",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
         {
           "type": "minecraft:item",
-          "name": "minecraft:barrier"
+          "name": "minecraft:chorus_fruit",
+          "weight": 5000
         }
       ]
     }

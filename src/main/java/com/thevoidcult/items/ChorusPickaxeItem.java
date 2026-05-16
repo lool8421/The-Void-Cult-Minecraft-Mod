@@ -34,7 +34,6 @@ public class ChorusPickaxeItem extends PickaxeItem {
 
     @Override
     public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
-        // Optional: Make it vibrate/teleport slightly when hitting hard blocks
         return super.canAttackBlock(state, level, pos, player);
     }
 
@@ -46,9 +45,7 @@ public class ChorusPickaxeItem extends PickaxeItem {
 
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
-        // Only run on the server side
         if (!level.isClientSide && entity instanceof Player player) {
-            // 10% chance to teleport on every block break
             if (level.random.nextFloat() < 0.5f) {
                 teleportRandomly(level, player);
             }

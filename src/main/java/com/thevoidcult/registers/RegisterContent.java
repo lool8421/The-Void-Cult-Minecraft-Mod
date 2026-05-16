@@ -82,19 +82,19 @@ public class RegisterContent {
     public static final DeferredItem<BlockItem> VOID_ALTAR_ITEM = ITEMS.registerSimpleBlockItem("void_altar", VOID_ALTAR);
 
     public static final DeferredBlock<Block> WARPED_IRON_BLOCK = BLOCKS.register("warped_iron_block", () -> new Block(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 7).sound(SoundType.NETHERITE_BLOCK)));
+            .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 12).sound(SoundType.NETHERITE_BLOCK)));
     public static final DeferredItem<BlockItem> WARPED_IRON_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_iron_block", WARPED_IRON_BLOCK);
 
     public static final DeferredBlock<Block> WARPED_GOLD_BLOCK = BLOCKS.register("warped_gold_block", () -> new Block(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
+            .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 13).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> WARPED_GOLD_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_gold_block", WARPED_GOLD_BLOCK);
 
     public static final DeferredBlock<Block> WARPED_DIAMOND_BLOCK = BLOCKS.register("warped_diamond_block", () -> new Block(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 7).sound(SoundType.STONE)));
+            .mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 14).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> WARPED_DIAMOND_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_diamond_block", WARPED_DIAMOND_BLOCK);
 
     public static final DeferredBlock<Block> WARPED_NETHERITE_BLOCK = BLOCKS.register("warped_netherite_block", () -> new Block(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(25.0F, 1200.0F).lightLevel(state -> 7).sound(SoundType.NETHERITE_BLOCK)));
+            .mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(25.0F, 1200.0F).lightLevel(state -> 15).sound(SoundType.NETHERITE_BLOCK)));
     public static final DeferredItem<BlockItem> WARPED_NETHERITE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_netherite_block", WARPED_NETHERITE_BLOCK);
 
     //mobs

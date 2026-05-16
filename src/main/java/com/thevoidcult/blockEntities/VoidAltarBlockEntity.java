@@ -256,9 +256,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
             ListTag list = tag.getList("Workers", Tag.TAG_INT_ARRAY);
             for (int i = 0; i < list.size(); i++) {
                 UUID loadedId = NbtUtils.loadUUID(list.get(i));
-                if (loadedId != null) {
                     this.workerIds.add(loadedId);
-                }
             }
         }
     }
@@ -389,16 +387,10 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, VoidAltarBlockEntity be) {
-        if (level.isClientSide) {
-            if (level.getGameTime() % 20 == 0 && be.AltarTier > 0) {
-                be.spawnAmbientParticles(level, pos);
-            }
-            return;
-        }
 
 
         if(level.getGameTime()%20 == 0){
-        ((ServerLevel)level).sendParticles(ParticleTypes.REVERSE_PORTAL,
+        ((ServerLevel)level).sendParticles(ParticleTypes.WITCH,
                 pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
                 be.AltarTier*3, 0.2, 0.2, 0.2, 0.05);
             if (level.getGameTime() % 100 == 0) {

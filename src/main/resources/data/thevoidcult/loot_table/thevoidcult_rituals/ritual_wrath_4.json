@@ -2,12 +2,498 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 6,
       "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:barrier"
+
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:armadillo"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:bee"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:rabbit"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:parrot"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:llama"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:axolotl"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:cat"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:cod"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:salmon"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 150,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:tropical_fish"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 150,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:pufferfish"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:donkey"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:fox"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:frog"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:ocelot"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:panda"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:polar_bear"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:turtle"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:wolf"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:squid"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:glow_squid"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:bat"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:strider"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 25,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:sniffer"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 25,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:allay"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:zombie"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:skeleton"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:spider"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:cave_spider"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:endermite"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 200,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:silverfish"
+          }}]},
+
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:slime"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 200,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:magma_cube"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:hoglin"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:creeper"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 300,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:guardian"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 200,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:vindicator"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:ghast"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 150,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:blaze"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 150,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:wither_skeleton"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:piglin"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 20,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:villager"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 20,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:wandering_trader"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:pillager"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 50,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:shulker"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 200,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:witch"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 150,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:breeze"
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "thevoidcult:mob_pearl",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 1
+          }},{"function": "minecraft:set_components", "components": {
+            "thevoidcult:stored_entity": "minecraft:phantom"
+          }}]},
+
+
+
+        {"type": "minecraft:item",
+          "name": "minecraft:air",
+          "weight": 10000
         }
+
       ]
     }
   ]
