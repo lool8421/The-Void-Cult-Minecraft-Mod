@@ -46,11 +46,11 @@ public class TheVoidCultConfig {
 
         ALTAR_MATTER_DROP_CHANCE = builder
                 .comment("Chance to get a portal matter when a void altar produces something")
-                .defineInRange("altarMatterDropChance", 0.025, 0.0, 1.0);
+                .defineInRange("altarMatterDropChance", 0.1, 0.0, 1.0);
 
         ALTAR_MATTER_DROP_CHANCE_PER_TIER = builder
                 .comment("Chance to get portal matter from successful rituals every tier")
-                .defineInRange("altarMatterDropChancePerTier", 0.005, 0.0, 1.0);
+                .defineInRange("altarMatterDropChancePerTier", 0.02, 0.0, 1.0);
 
         PORTAL_MATTER_ENTITIES = builder
                 .comment("List of entity registry names that drop Portal Matter.")

@@ -4,9 +4,123 @@
     {
       "rolls": 1,
       "entries": [
+
+        {"type": "minecraft:item",
+          "name": "minecraft:dirt",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:gravel",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:coarse_dirt",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:diorite",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:granite",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:andesite",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:coal_ore",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:copper_ore",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:copper_ingot",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:iron_ore",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:lapis_ore",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:lapis_lazuli",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 4,
+            "max": 16
+          }}]},
+
         {
           "type": "minecraft:item",
-          "name": "minecraft:barrier"
+          "name": "minecraft:cobblestone",
+          "weight": 5000
         }
       ]
     }
