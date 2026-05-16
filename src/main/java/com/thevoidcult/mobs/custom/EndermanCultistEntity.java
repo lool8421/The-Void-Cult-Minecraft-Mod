@@ -256,14 +256,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
     }
 
-    @Override
-    public boolean isPushable() {
-        return !this.isRitualizing() && super.isPushable();
-    }
 
     @Override
     public void doPush(Entity entity) {
-        if (this.isRitualizing()) return;
+
         super.doPush(entity);
     }
 
@@ -322,6 +318,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     }
 
     private void handleAltarState() {
+        this.setDeltaMovement(0, this.getDeltaMovement().y, 0); // Stop horizontal momentum
+        this.getNavigation().stop();
+
         if (this.assignedAltarPos != null &&
                 !(this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity)) {
             this.stopRitualManually();
@@ -350,6 +349,11 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             }
             this.getNavigation().moveTo(assignedAltarPos.getX(), assignedAltarPos.getY(), assignedAltarPos.getZ(), 1.0D);
         }
+    }
+
+    @Override
+    public boolean isImmobile() {
+        return super.isImmobile() || this.isRitualizing();
     }
 
     private void stopRitualManually() {
