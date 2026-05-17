@@ -9,8 +9,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -86,7 +84,7 @@ public class ModEventBusEvents {
         Entity entity = event.getEntity();
         if (entity instanceof EnderMan || entity instanceof EndermanCultistEntity || entity instanceof Shulker) {
             Level level = event.getEntity().level();
-            if (level.random.nextFloat() < TheVoidCultConfig.ENDERMAN_DROP_CHANCE.get()) {
+            if (level.random.nextFloat() < TheVoidCultConfig.ENDERMAN_TP_DROP_CHANCE.get()) {
                 spawnPortalMatter(level, new Vec3(event.getTargetX(), event.getTargetY(), event.getTargetZ()));
             }
         }

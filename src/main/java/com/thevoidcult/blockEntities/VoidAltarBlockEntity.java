@@ -36,10 +36,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class VoidAltarBlockEntity extends BlockEntity {
 
@@ -149,7 +146,6 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
         else {
             while (this.workerIds.size() > this.CultistLimit) {
-                // Remove the first UUID found in the set
                 UUID toRemove = this.workerIds.iterator().next();
                 this.workerIds.remove(toRemove);
             }
@@ -160,6 +156,20 @@ public class VoidAltarBlockEntity extends BlockEntity {
     public void removeCultist(UUID uuid) {
         if (this.workerIds.remove(uuid)) {
             this.setChanged();
+        }
+    }
+
+    public void removeNonexistentCultists(ServerLevel level) { //runs every 30s just so the altar doesn't get clogged with ghost UUIDs
+        List<UUID> toRemove = new ArrayList<>();
+
+        for (UUID uuid : this.workerIds) {
+            Entity entity = level.getEntity(uuid);
+            if (entity == null || !entity.isAlive()) {
+                toRemove.add(uuid);
+            }
+        }
+        for (UUID uuid : toRemove) {
+            this.removeCultist(uuid);
         }
     }
 
@@ -389,13 +399,16 @@ public class VoidAltarBlockEntity extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, VoidAltarBlockEntity be) {
 
 
-        if(level.getGameTime()%20 == 0){
+        if(level.getGameTime()%10 == 0){
         ((ServerLevel)level).sendParticles(ParticleTypes.WITCH,
                 pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5,
                 be.AltarTier*3, 0.2, 0.2, 0.2, 0.05);
             if (level.getGameTime() % 100 == 0) {
                 be.calculateAltarTier(level, pos);
                 be.updateCultistLimit();
+                if(level.getGameTime() % 600 == 0){
+                    be.removeNonexistentCultists((ServerLevel)level);
+                }
             }
         }
     }

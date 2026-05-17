@@ -49,6 +49,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     private BlockPos assignedAltarPos;
     private int ritualTime;
     private UUID leadingPlayerUUID = null;
+    private int teleportCooldown = 60;
 
     public EndermanCultistEntity(EntityType<? extends PathfinderMob> entityType, Level level){
         super(entityType, level);
@@ -544,6 +545,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     }
 
     protected void teleportRandomly() {
+
         if (!this.level().isClientSide() && this.isAlive()) {
             for(int i = 0; i < 64; ++i) {
                 double d0 = this.getX() + (this.random.nextDouble() - 0.5D) * 16.0D;
@@ -562,14 +564,19 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     }
 
     protected void teleportToEntity(Entity entity) {
+
+        if(teleportCooldown > 0) return;
         for (int i = 0; i < 16; ++i) {
             double d0 = entity.getX() + (this.random.nextDouble() - 0.5D) * 8.0D;
             double d1 = entity.getY() + (double)(this.random.nextInt(8) - 4);
             double d2 = entity.getZ() + (double)(this.random.nextFloat() - 0.5D) * 8.0D;
 
             if (this.randomTeleport(d0, d1, d2, true)) {
+                this.teleportCooldown = 60;
+
                 EntityTeleportEvent.EnderEntity event = new EntityTeleportEvent.EnderEntity(this, d0, d1, d2);
                 if (NeoForge.EVENT_BUS.post(event).isCanceled()) continue;
+
                 this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.CHORUS_FRUIT_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
                 this.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                 break;
@@ -615,6 +622,8 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     @Override
     public void tick(){
         super.tick();
+
+
         if(this.level().isClientSide) {
             this.setupAnimationStates();
 
@@ -623,10 +632,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             if(this.tickCount%4 == 0){
                 SimpleParticleType sinParticle = switch (this.getSyncedType()) {
                     case WRATH -> ParticleTypes.LAVA;
-                    case GLUTTONY -> ParticleTypes.FALLING_LAVA; // Green sparkles
-                    case GREED -> ParticleTypes.TOTEM_OF_UNDYING; // Or custom gold bits
-                    case ENVY -> ParticleTypes.HAPPY_VILLAGER; // That lime-green puff
-                    case PRIDE -> ParticleTypes.WITCH; // Royal purple/pink
+                    case GLUTTONY -> ParticleTypes.FALLING_LAVA;
+                    case GREED -> ParticleTypes.TOTEM_OF_UNDYING;
+                    case ENVY -> ParticleTypes.WITCH;
+                    case PRIDE -> ParticleTypes.HAPPY_VILLAGER;
                     default -> ParticleTypes.PORTAL;
                 };
                 this.level().addParticle(sinParticle, this.getRandomX(0.5), this.getRandomY() - 0.25, this.getRandomZ(0.5), (this.random.nextDouble() - 0.5) * 0.5, -this.random.nextDouble(), (this.random.nextDouble() - 0.5) * 0.5);
@@ -639,6 +648,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 if (this.random.nextFloat() < 0.2F) {
                     this.teleportRandomly();
                 }
+            }
+            if (this.teleportCooldown > 0) {
+                this.teleportCooldown--;
             }
         }
     }

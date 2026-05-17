@@ -2,12 +2,530 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 5,
       "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:barrier"
-        }
+
+        {"type": "minecraft:item",
+          "name": "minecraft:wither_rose",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sculk_vein",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:horn_coral_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:horn_coral",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:horn_coral_fan",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:bubble_coral_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:bubble_coral",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:bubble_coral_fan",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:fire_coral_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:fire_coral",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:fire_coral_fan",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:brain_coral_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:brain_coral",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:brain_coral_fan",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:tube_coral_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:tube_coral",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+        {"type": "minecraft:item",
+          "name": "minecraft:tube_coral_fan",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:nether_wart",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:chorus_flower",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:shroomlight",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:crimson_nylium",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:warped_nylium",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:weeping_vines",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:twisting_vines",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:crimson_fungus",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:warped_fungus",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cactus",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:kelp",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:bamboo",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+
+        {"type": "minecraft:item",
+          "name": "minecraft:mangrove_propagule",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cherry_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:dark_oak_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:acacia_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:spore_blossom",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sweet_berries",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:glow_berries",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oak_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:grass_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:brown_mushroom",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:red_mushroom",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oak_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:potato",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:melon_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:beetroot_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cocoa_beans",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sugar_cane",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+
+        {"type": "minecraft:item",
+          "name": "minecraft:moss_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:azalea",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:birch_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:spruce_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:jungle_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oak_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:warped_stem",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:crimson_stem",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:chorus_fruit",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:spruce_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:birch_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:jungle_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:acacia_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:dark_oak_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:mangrove_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cherry_log",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]}
       ]
     }
   ]

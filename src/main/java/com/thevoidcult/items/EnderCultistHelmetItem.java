@@ -31,10 +31,10 @@ public class EnderCultistHelmetItem extends ArmorItem {
 
     public static final Holder<ArmorMaterial> ENDER_CULTIST_ARMOR_MATERIAL = register("ender_cultist",
             Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
-                attribute.put(ArmorItem.Type.BOOTS, 3);
-                attribute.put(ArmorItem.Type.LEGGINGS, 6);
-                attribute.put(ArmorItem.Type.CHESTPLATE, 8);
-                attribute.put(ArmorItem.Type.HELMET, 3);
+                attribute.put(ArmorItem.Type.BOOTS, 2);
+                attribute.put(ArmorItem.Type.LEGGINGS, 5);
+                attribute.put(ArmorItem.Type.CHESTPLATE, 6);
+                attribute.put(ArmorItem.Type.HELMET, 2);
                 attribute.put(ArmorItem.Type.BODY, 10);
             }), 50, 3f, 0.1f, () -> RegisterContent.PORTAL_MATTER.get());
 

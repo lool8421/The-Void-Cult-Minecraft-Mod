@@ -22,10 +22,10 @@ public class ChorusPickaxeItem extends PickaxeItem {
     public static final Tier CHORUS_PICKAXE_TIER = new SimpleTier(
             BlockTags.INCORRECT_FOR_NETHERITE_TOOL,
             16,
-            2.0f,
+            4.0f,
             0.0f,
             50,
-            () -> Ingredient.of(Items.CHORUS_FRUIT)
+            () -> Ingredient.of(Items.CHORUS_FLOWER)
     );
 
     public ChorusPickaxeItem(Tier tier, Properties properties) {

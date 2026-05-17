@@ -24,7 +24,8 @@
   "creativetab.thevoidcult.thevoidcult_items": "The Void Cult",
 
   "message.thevoidcult.cultist_is_the_same_type": "The cultist is already of this type.",
-  "message.thevoidcult.failed_to_convert_enderman": "Your status isn't sufficient for recruiting endermen.",
+  "message.thevoidcult.failed_to_convert_enderman": "Endermen don't trust you enough to eat this fruit",
+
   "message.thevoidcult.altar_status_header": "---- Altar Status ----",
   "message.thevoidcult.nearby_crystals": "Nearby Crystals: %s/%s",
   "message.thevoidcult.altar_tier": "Altar Tier: %s/5",
@@ -32,6 +33,7 @@
   "message.thevoidcult.next_layer": "Next Layer: %s x %s",
   "message.thevoidcult.assigned_cultists": "Assigned Cultists: %s/%s",
   "message.thevoidcult.altar_status_footer": "--------------------",
+
   "message.thevoidcult.assigned_count": "Assigned %1$s followers to the altar.",
   "message.thevoidcult.assigned_max_altar": "Altar is at full capacity!",
   "message.thevoidcult.assigned_no_followers": "There are no followers to assign.",

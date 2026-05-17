@@ -54,6 +54,14 @@
             "max": 8
           }}]},
 
+        {"type": "minecraft:item",
+          "name": "minecraft:soul_soil",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
 
         {"type": "minecraft:item",
           "name": "minecraft:amethyst_cluster",

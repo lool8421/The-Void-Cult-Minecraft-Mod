@@ -8,7 +8,7 @@ import java.util.List;
 public class TheVoidCultConfig {
     public static final ModConfigSpec SPEC;
 
-    public static final ModConfigSpec.DoubleValue ENDERMAN_DROP_CHANCE;
+    public static final ModConfigSpec.DoubleValue ENDERMAN_TP_DROP_CHANCE;
     public static final ModConfigSpec.DoubleValue CHORUS_DROP_CHANCE;
     public static final ModConfigSpec.DoubleValue PEARL_USE_DROP_CHANCE;
     public static final ModConfigSpec.DoubleValue ALTAR_MATTER_DROP_CHANCE;
@@ -32,9 +32,9 @@ public class TheVoidCultConfig {
         builder.push("Portal Matter Settings");
 
 
-        ENDERMAN_DROP_CHANCE = builder
+        ENDERMAN_TP_DROP_CHANCE = builder
                 .comment("Chance for an Enderman to drop Portal Matter when teleporting. (0.0 - 1.0)")
-                .defineInRange("endermanDropChance", 0.05, 0.0, 1.0);
+                .defineInRange("endermanTpDropChance", 0.025, 0.0, 1.0);
 
         CHORUS_DROP_CHANCE = builder
                 .comment("Chance for a player/mob to drop Portal Matter when eating Chorus Fruit or Sin Fruit. (0.0 - 1.0)")
@@ -95,7 +95,7 @@ public class TheVoidCultConfig {
 
         CULTIST_WORK_COOLDOWN = builder
                 .comment("Work cooldown of enderman cultists (in ticks)")
-                        .defineInRange("cultistWorkCooldown",600, 100, 1728000);
+                        .defineInRange("cultistWorkCooldown",1200, 100, 1728000);
 
         CULTIST_WORK_DURATION = builder
                 .comment("Work cooldown of enderman cultists (in ticks)")

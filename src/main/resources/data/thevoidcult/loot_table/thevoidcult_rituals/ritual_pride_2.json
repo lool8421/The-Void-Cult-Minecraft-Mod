@@ -2,12 +2,352 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 2,
       "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:barrier"
-        }
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oak_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:grass_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:brown_mushroom",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:red_mushroom",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:dandelion",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:poppy",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:blue_orchid",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:allium",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:red_tulip",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:orange_tulip",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:pink_tulip",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:white_tulip",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:azure_bluet",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:lily_of_the_valley",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cornflower",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oxeye_daisy",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oak_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:seagrass",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:vine",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:potato",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:melon_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:beetroot_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cocoa_beans",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:large_fern",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sugar_cane",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:pitcher_pod",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:torchflower_seeds",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:moss_block",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:azalea",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:birch_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:spruce_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:jungle_sapling",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:oak_log",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:spruce_log",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:birch_log",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:jungle_log",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:mushroom_stem",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:brown_mushroom_block",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:red_mushroom_block",
+          "weight": 250,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]}
       ]
     }
   ]

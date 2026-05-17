@@ -32,7 +32,7 @@
 
         {"type": "minecraft:item",
           "name": "minecraft:coal_block",
-          "weight": 2000,
+          "weight": 1500,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 4
@@ -40,7 +40,7 @@
 
         {"type": "minecraft:item",
           "name": "minecraft:copper_block",
-          "weight": 2000,
+          "weight": 1500,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 4
@@ -56,7 +56,7 @@
 
         {"type": "minecraft:item",
           "name": "minecraft:lapis_block",
-          "weight": 2000,
+          "weight": 1500,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 6
@@ -64,7 +64,7 @@
 
         {"type": "minecraft:item",
           "name": "minecraft:redstone_block",
-          "weight": 1000,
+          "weight": 1500,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 4
@@ -72,7 +72,7 @@
 
         {"type": "minecraft:item",
           "name": "minecraft:gold_block",
-          "weight": 1000,
+          "weight": 1500,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 2
@@ -104,7 +104,7 @@
 
         {"type": "minecraft:item",
           "name": "minecraft:netherite_scrap",
-          "weight": 1000,
+          "weight": 750,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 4
