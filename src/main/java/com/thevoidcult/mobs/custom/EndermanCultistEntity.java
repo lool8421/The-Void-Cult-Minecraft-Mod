@@ -351,6 +351,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         }
     }
 
+    public void setWorkCooldown(int x){
+        this.workCooldown = x;
+    }
+
     @Override
     public boolean isImmobile() {
         return super.isImmobile() || this.isRitualizing();

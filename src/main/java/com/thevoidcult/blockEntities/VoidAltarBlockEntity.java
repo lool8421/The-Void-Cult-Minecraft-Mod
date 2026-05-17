@@ -188,6 +188,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
         int assignedCount = 0;
         for (EndermanCultistEntity candidate : followers) {
             if (this.inviteCultist(candidate)) {
+                candidate.setWorkCooldown(TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get());
                 candidate.setLeadingPlayer(null); // Stop following
                 candidate.setAssignedAltarPos(this.worldPosition); // Set home base
                 assignedCount++;

@@ -20,20 +20,12 @@ license="${mod_license}"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 
-# The modid of the mod
 modId="${mod_id}" #mandatory
 
-# The version number of the mod
-version="${mod_version}" #mandatory
+version="1.0.0" #mandatory
 
-# A display name for the mod
-displayName="${mod_name}" #mandatory
+displayName="The Void Cult" #mandatory
 
-# A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-
-# A URL for the "homepage" for this mod, displayed in the mod UI
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional
@@ -42,14 +34,28 @@ displayName="${mod_name}" #mandatory
 #credits="" #optional
 
 # The authors of the mod, displayed in the mod UI (optional)
-#authors=""
+authors="lool8421"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Example mod description.
+A mod that allows you to run an ender cult capable of stealing materials from other dimensions.
+Obtain §5Portal Matter§r by performing "teleport" activities or killing end mobs.
+Build a void altar with a proper beacon-like base with the blocks it asks for and craft the §3Ender Cultist Helmet§r to gain enderman trust.
+Recruit endermen with §dSin-Infused Fruit§r to get them to steal resources and even mobs from other dimensions.
+Use §eCult Leader Staff§r to re-assign cultists up to your liking.
+\n
+There are 5 cultist types:\n
+- §cWrath§r - Fearless but also a little sadistic, will have fun kidnapping mobs and trapping them into pearls to release whenever you want.\n
+- §eGreed§r - Craving for treasures, loves their shine, will bring you all of the precious materials that can be mined underground.\n
+- §6Gluttony§r - Always hungry for food but also for knowledge, will provide endless supplies of food but also aid you in enchanting.\n
+- §aPride§r - Views itself above nature and to reflect it, they will bring you stolen plants to prove it.\n
+- §1Envy§r - Jealous that the end dimension is so barren, will gladly steal building blocks from other dimensions to have a better looking base.\n
+\n
+
+You can customize the balance of the mod by either changing config, or creating a datapack that will overwrite the default loot tables and recipes.
+No promises that it will be balanced out of the box for whatever you're making.
 '''
 
-# The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 #[[mixins]]
 #config="${mod_id}.mixins.json"
 
@@ -60,31 +66,19 @@ Example mod description.
 
 # The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.${mod_id}]] #optional
-    # the modid of the dependency
-    modId="neoforge" #mandatory
-    # The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
-    # 'required' requires the mod to exist, 'optional' does not
-    # 'incompatible' will prevent the game from loading when the mod exists, and 'discouraged' will show a warning
-    type="required" #mandatory
-    # Optional field describing why the dependency is required or why it is incompatible
-    # reason="..."
-    # The version range of the dependency
-    versionRange="[${neo_version},)" #mandatory
-    # An ordering relationship for the dependency.
-    # BEFORE - This mod is loaded BEFORE the dependency
-    # AFTER - This mod is loaded AFTER the dependency
+
+[[dependencies.thevoidcult]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.228,)"
     ordering="NONE"
-    # Side this dependency is applied on - BOTH, CLIENT, or SERVER
     side="BOTH"
 
-# Here's another dependency
-[[dependencies.${mod_id}]]
+
+[[dependencies.thevoidcult]]
     modId="minecraft"
     type="required"
-    # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="${minecraft_version_range}"
+    versionRange="[1.21.1]"
     ordering="NONE"
     side="BOTH"
 
