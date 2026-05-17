@@ -246,6 +246,14 @@
           }}]},
 
         {"type": "minecraft:item",
+          "name": "minecraft:glow_lichen",
+          "weight": 100,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
           "name": "minecraft:brown_mushroom",
           "weight": 100,
           "functions": [{"function": "minecraft:set_count", "count": {

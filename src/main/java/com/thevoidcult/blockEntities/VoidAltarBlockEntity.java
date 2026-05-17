@@ -7,6 +7,7 @@ import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -354,6 +355,19 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
     public void performWork(SinsList sinType) {
         if (sinType == SinsList.NONE) return;
+
+        //some cap to items so it doesn't kill the server
+        BlockPos pos = this.getBlockPos();
+        AABB scanZone = new AABB(pos).inflate(1.0D, 5.0D, 1.0D);
+        int nearbyItems = level.getEntitiesOfClass(ItemEntity.class, scanZone).size();
+        if (nearbyItems >= TheVoidCultConfig.ALTAR_ITEM_CAPACITY.get()) {
+
+            if (level instanceof ServerLevel serverLevel) {
+                DustParticleOptions redDust = new DustParticleOptions(new org.joml.Vector3f(1.0F, 0.0F, 0.0F), 1.5F);
+                serverLevel.sendParticles(redDust, pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D, 10, 0.15D, 0.05D, 0.15D, 0.0D);
+            }
+            return;
+        }
 
         int tier = this.getAltarTier();
         String sinName = sinType.name().toLowerCase();

@@ -4,10 +4,144 @@
     {
       "rolls": 1,
       "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:barrier"
-        }
+
+        {"type": "minecraft:item",
+          "name": "minecraft:dirt",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 4,
+            "max": 16
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:podzol",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sand",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 4,
+            "max": 16
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:red_sand",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 4,
+            "max": 16
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:clay",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:ice",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 4
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:gravel",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 4,
+            "max": 16
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:stone",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:cobblestone",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:mossy_cobblestone",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:sandstone",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:red_sandstone",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:granite",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:diorite",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:andesite",
+          "weight": 1000,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 2,
+            "max": 8
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:chest",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]},
+
+        {"type": "minecraft:item",
+          "name": "minecraft:furnace",
+          "weight": 500,
+          "functions": [{"function": "minecraft:set_count", "count": {
+            "min": 1,
+            "max": 2
+          }}]}
+
+
       ]
     }
   ]

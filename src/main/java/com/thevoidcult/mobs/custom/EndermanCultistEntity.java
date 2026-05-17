@@ -377,7 +377,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 serverLevel.sendParticles(
                         ParticleTypes.REVERSE_PORTAL,
                         altarCenter.x, altarCenter.y + 3, altarCenter.z,
-                        3,
+                        2,
                         0.2, 0.2, 0.2,
                         0.05
                 );

@@ -22,6 +22,7 @@ public class TheVoidCultConfig {
     public static final ModConfigSpec.IntValue ALTAR_OVERALL_CAP;
     public static final ModConfigSpec.IntValue CULTIST_WORK_COOLDOWN;
     public static final ModConfigSpec.IntValue CULTIST_WORK_DURATION;
+    public static final ModConfigSpec.IntValue ALTAR_ITEM_CAPACITY;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> PORTAL_MATTER_ENTITIES;
     public static final ModConfigSpec.ConfigValue<List<? extends Double>> PORTAL_MATTER_DROP_CHANCES;
 
@@ -91,15 +92,19 @@ public class TheVoidCultConfig {
 
         ALTAR_OVERALL_CAP = builder
                 .comment("Overall hard cap of the allowed cultists at an altar")
-                .defineInRange("altarOverallCap", 64, 1, 255);
+                .defineInRange("altarOverallCap", 16, 1, 255);
 
         CULTIST_WORK_COOLDOWN = builder
                 .comment("Work cooldown of enderman cultists (in ticks)")
-                        .defineInRange("cultistWorkCooldown",1200, 100, 1728000);
+                        .defineInRange("cultistWorkCooldown",900, 100, 1728000);
 
         CULTIST_WORK_DURATION = builder
                 .comment("Work cooldown of enderman cultists (in ticks)")
                 .defineInRange("cultistWorkDuration",100, 10, 36000);
+
+        ALTAR_ITEM_CAPACITY = builder
+                .comment("Determines how many items can a void altar near itself before it stops working. A necessary evil to prevent lag.")
+                        .defineInRange("altarItemCapacity", 50, 1, 1000);
 
         builder.comment("To edit ritual loot tables, overwrite loot tables with a datapack at: data/thevoidcult/loot_tables/rituals/ritual_<type>_<tier>.json\n" +
                 "Example: ritual_wrath_1.json\n" +
