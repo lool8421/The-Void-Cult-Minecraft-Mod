@@ -50,6 +50,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     private int ritualTime;
     private UUID leadingPlayerUUID = null;
     private int teleportCooldown = 60;
+    private int matterCreationCooldown = 400;
 
     public EndermanCultistEntity(EntityType<? extends PathfinderMob> entityType, Level level){
         super(entityType, level);
@@ -577,9 +578,11 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
             if (this.randomTeleport(d0, d1, d2, true)) {
                 this.teleportCooldown = 60;
-
-                EntityTeleportEvent.EnderEntity event = new EntityTeleportEvent.EnderEntity(this, d0, d1, d2);
-                if (NeoForge.EVENT_BUS.post(event).isCanceled()) continue;
+                if(this.matterCreationCooldown <= 0) {
+                    EntityTeleportEvent.EnderEntity event = new EntityTeleportEvent.EnderEntity(this, d0, d1, d2);
+                    if (NeoForge.EVENT_BUS.post(event).isCanceled()) continue;
+                }
+                this.matterCreationCooldown = 400;
 
                 this.level().playSound(null, this.xo, this.yo, this.zo, SoundEvents.CHORUS_FRUIT_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
                 this.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
@@ -653,9 +656,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                     this.teleportRandomly();
                 }
             }
-            if (this.teleportCooldown > 0) {
-                this.teleportCooldown--;
-            }
+            if(this.teleportCooldown > 0) --this.teleportCooldown;
+            if(this.matterCreationCooldown > 0) --this.matterCreationCooldown;
+
         }
     }
 }
