@@ -91,18 +91,13 @@ public class VoidAltarBlock extends BaseEntityBlock {
         if (!level.isClientSide) {
             ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
 
-            if (heldItem.is(RegisterContent.CULT_LEADER_STAFF.get())) {
+            if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
 
-                if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
+                if (heldItem.is(RegisterContent.CULT_LEADER_STAFF.get())) {
                     return InteractionResult.SUCCESS;
                 }
-            }
 
-            if (heldItem.is(RegisterContent.PORTAL_MATTER.get())) {
-
-                if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
-
-
+                if (heldItem.is(RegisterContent.PORTAL_MATTER.get())) {
                     SinsList[] sins = SinsList.values();
                     SinsList randomSin = sins[level.random.nextInt(sins.length)];
 
@@ -120,7 +115,6 @@ public class VoidAltarBlock extends BaseEntityBlock {
 
 
             BlockEntity be = level.getBlockEntity(pos);
-
             if (be instanceof VoidAltarBlockEntity altar) {
                 altar.sendAltarStatus(player);
             }
