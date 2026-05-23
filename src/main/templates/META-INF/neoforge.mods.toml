@@ -39,9 +39,9 @@ authors="lool8421"
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 A mod that allows you to run an ender cult capable of stealing materials from other dimensions.
-Obtain §5Portal Matter§r by performing "teleport" activities or killing end mobs.
-Build a void altar with a proper beacon-like base with the blocks it asks for and craft the §3Ender Cultist Helmet§r to gain enderman trust.
-Recruit endermen with §dSin-Infused Fruit§r to get them to steal resources and even mobs from other dimensions.
+Obtain §dPortal Matter§r by performing "teleport" activities or killing end mobs.
+Build a §5Void Altar§r with a proper beacon-like base with the blocks it asks for and craft the §3Ender Cultist Helmet§r to gain enderman trust.
+Recruit endermen with §eSin-Infused Fruit§r to get them to steal resources and even mobs from other dimensions.
 Use §eCult Leader Staff§r to re-assign cultists up to your liking.
 \n
 There are 5 cultist types:\n

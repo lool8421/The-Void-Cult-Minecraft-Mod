@@ -2,6 +2,7 @@ package com.thevoidcult.blockEntities;
 
 import com.mojang.serialization.MapCodec;
 import com.thevoidcult.items.EnderCultistHelmetItem;
+import com.thevoidcult.items.SinsList;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -93,12 +94,30 @@ public class VoidAltarBlock extends BaseEntityBlock {
             if (heldItem.is(RegisterContent.CULT_LEADER_STAFF.get())) {
 
                 if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
-                    if (!level.isClientSide) {
-                        altar.tryAssignNearbyFollowers(player);
-                    }
                     return InteractionResult.SUCCESS;
                 }
             }
+
+            if (heldItem.is(RegisterContent.PORTAL_MATTER.get())) {
+
+                if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
+
+
+                    SinsList[] sins = SinsList.values();
+                    SinsList randomSin = sins[level.random.nextInt(sins.length)];
+
+                    if(altar.performWork(randomSin)) {
+                        if (!player.getAbilities().instabuild) {
+                            ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+                            stack.shrink(1);
+                        }
+                        return InteractionResult.CONSUME;
+                    }
+                    else
+                        return InteractionResult.PASS;
+                }
+            }
+
 
             BlockEntity be = level.getBlockEntity(pos);
 

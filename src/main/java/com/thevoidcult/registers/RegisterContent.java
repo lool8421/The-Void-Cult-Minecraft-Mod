@@ -52,7 +52,7 @@ public class RegisterContent {
             ));
 
     public static final DeferredItem<Item> PORTAL_MATTER = ITEMS.register("portal_matter",
-            () -> new Item(new Item.Properties()));
+            () -> new PortalMatterItem(new Item.Properties()));
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
             () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.WRATH));
     public static final DeferredItem<Item> GREED_FRUIT = ITEMS.register("fruit_of_greed",

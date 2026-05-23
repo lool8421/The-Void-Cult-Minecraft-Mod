@@ -354,8 +354,8 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
     }
 
-    public void performWork(SinsList sinType) {
-        if (sinType == SinsList.NONE) return;
+    public boolean performWork(SinsList sinType) {
+        if (sinType == SinsList.NONE) return false;
 
         //some cap to items so it doesn't kill the server
         BlockPos pos = this.getBlockPos();
@@ -367,7 +367,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
                 DustParticleOptions redDust = new DustParticleOptions(new org.joml.Vector3f(1.0F, 0.0F, 0.0F), 1.5F);
                 serverLevel.sendParticles(redDust, pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D, 10, 0.15D, 0.05D, 0.15D, 0.0D);
             }
-            return;
+            return false;
         }
 
         int tier = this.getAltarTier();
@@ -377,6 +377,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
         this.spawnLootFromTable(tableLocation);
         this.spawnPortalMatterBonus();
+        return true;
     }
 
     public void sendAltarStatus(Player player) {

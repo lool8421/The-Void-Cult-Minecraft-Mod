@@ -1,6 +1,5 @@
 package com.thevoidcult.items;
 
-import com.thevoidcult.compatUtils.dragonsurvivalCompat;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.network.chat.Component;
@@ -15,7 +14,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
@@ -94,8 +92,6 @@ public class SinFruitItem extends Item {
                         if (!player.getAbilities().instabuild) {
                             stack.shrink(1);
                         }
-                        player.getCooldowns().addCooldown(this, 20);
-                        player.stopUsingItem();
 
                         target.level().gameEvent(target, GameEvent.EQUIP, target.position());
                         return InteractionResult.SUCCESS;
