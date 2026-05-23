@@ -101,12 +101,11 @@ public class VoidAltarBlock extends BaseEntityBlock {
                     SinsList[] sins = SinsList.values();
                     SinsList randomSin = sins[level.random.nextInt(sins.length)];
 
-                    if(altar.performWork(randomSin)) {
+                    if (altar.performWork(randomSin)) {
                         if (!player.getAbilities().instabuild) {
-                            ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
-                            stack.shrink(1);
+                            heldItem.shrink(1);
                         }
-                        return InteractionResult.CONSUME;
+                        return InteractionResult.SUCCESS;
                     }
                     else
                         return InteractionResult.PASS;

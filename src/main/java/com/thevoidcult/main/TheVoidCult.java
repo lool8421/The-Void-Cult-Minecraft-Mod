@@ -1,6 +1,7 @@
 package com.thevoidcult.main;
 
 import com.thevoidcult.items.MobPearlItem;
+import com.thevoidcult.items.PortalMatterItem;
 import com.thevoidcult.mobs.client.EndermanCultistRenderer;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -38,6 +39,7 @@ public class TheVoidCult {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         MobPearlItem.registerDispenserBehavior();
+        PortalMatterItem.registerDispenserBehavior();
     }
 
 
