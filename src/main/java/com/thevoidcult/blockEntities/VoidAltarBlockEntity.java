@@ -375,6 +375,8 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
         ResourceLocation tableLocation = ResourceLocation.fromNamespaceAndPath("thevoidcult", "thevoidcult_rituals/ritual_" + sinName + "_" + tier);
 
+        if(level instanceof ServerLevel serverLevel)
+            serverLevel.sendParticles(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D, 10, 0.15D, 0.05D, 0.15D, 0.0D);
         this.spawnLootFromTable(tableLocation);
         this.spawnPortalMatterBonus();
         return true;
