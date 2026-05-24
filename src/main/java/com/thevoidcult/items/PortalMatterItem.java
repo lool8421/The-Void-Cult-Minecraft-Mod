@@ -33,10 +33,10 @@ public class PortalMatterItem extends Item {
 
                 if (altar.performWork(randomSin)) {
                     itemStack.shrink(1);
-                    level.levelEvent(1000, blockSource.pos(), 0); // Play vanilla dispense sound
+                    level.levelEvent(1000, blockSource.pos(), 0);
                     return itemStack;
                 }
-
+                level.levelEvent(1001, blockSource.pos(), 0);
                 return itemStack;
             }
 

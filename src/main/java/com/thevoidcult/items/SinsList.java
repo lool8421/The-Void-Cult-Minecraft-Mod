@@ -6,5 +6,6 @@ public enum SinsList {
     GREED,
     GLUTTONY,
     ENVY,
-    PRIDE
+    PRIDE,
+    SLOTH
 }

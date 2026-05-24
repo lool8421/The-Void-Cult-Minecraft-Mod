@@ -29,6 +29,7 @@ public class EndermanCultistRenderer extends MobRenderer<EndermanCultistEntity, 
         map.put(SinsList.PRIDE, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/cultist_pride.png"));
         map.put(SinsList.GLUTTONY, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/cultist_gluttony.png"));
         map.put(SinsList.ENVY, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/cultist_envy.png"));
+        map.put(SinsList.SLOTH, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/cultist_sloth.png"));
     });
     private static final Map<SinsList, ResourceLocation> EYE_TEXTURES = Util.make(new EnumMap<>(SinsList.class), map -> {
         map.put(SinsList.NONE, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/eyes_purple.png"));
@@ -37,6 +38,7 @@ public class EndermanCultistRenderer extends MobRenderer<EndermanCultistEntity, 
         map.put(SinsList.PRIDE, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/eyes_pride.png"));
         map.put(SinsList.GLUTTONY, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/eyes_gluttony.png"));
         map.put(SinsList.ENVY, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/eyes_envy.png"));
+        map.put(SinsList.SLOTH, ResourceLocation.fromNamespaceAndPath("thevoidcult", "textures/entity/enderman_cultist/eyes_sloth.png"));
     });
 
 

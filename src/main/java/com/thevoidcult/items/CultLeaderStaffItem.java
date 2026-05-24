@@ -52,7 +52,6 @@ public class CultLeaderStaffItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
-        // Check for Shift + Right Click in the air
         if (player.isCrouching() && !level.isClientSide) {
             double radius = 32.0D;
             List<EndermanCultistEntity> followers = level.getEntitiesOfClass(EndermanCultistEntity.class,
@@ -62,14 +61,12 @@ public class CultLeaderStaffItem extends Item {
             if (!followers.isEmpty()) {
                 for (EndermanCultistEntity follower : followers) {
                     follower.setLeadingPlayer(null);
-                    // Optional: Play a "dismissed" particle at each cultist
                     ((ServerLevel)level).sendParticles(ParticleTypes.SMOKE,
                             follower.getX(), follower.getY() + 1, follower.getZ(),
                             10, 0.2, 0.2, 0.2, 0.02);
                 }
 
                 player.displayClientMessage(Component.translatable("message.thevoidcult.followers_dismissed"), true);
-                player.getCooldowns().addCooldown(this, 20); // 1 second cooldown to prevent spam
 
                 level.playSound(null, player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.5f, 0.5f);
 
