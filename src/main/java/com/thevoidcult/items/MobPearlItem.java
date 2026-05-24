@@ -98,7 +98,7 @@ public class MobPearlItem extends Item {
             @Override
             protected ItemStack execute(BlockSource source, ItemStack stack) {
                 Level level = source.level();
-                // Get data from the component
+
                 EntityType<?> type = stack.get(RegisterContent.STORED_ENTITY.get());
 
                 if (type != null && !level.isClientSide()) {

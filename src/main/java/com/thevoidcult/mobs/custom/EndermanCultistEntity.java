@@ -152,7 +152,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
 
     private int remainingPersistentAngerTime = 0;
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);;
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private UUID persistentAngerTarget;
 
     @Nullable
@@ -574,7 +574,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         for (int i = 0; i < 16; ++i) {
             double d0 = entity.getX() + (this.random.nextDouble() - 0.5D) * 8.0D;
             double d1 = entity.getY() + (double)(this.random.nextInt(8) - 4);
-            double d2 = entity.getZ() + (double)(this.random.nextFloat() - 0.5D) * 8.0D;
+            double d2 = entity.getZ() + (this.random.nextFloat() - 0.5D) * 8.0D;
 
             if (this.randomTeleport(d0, d1, d2, true)) {
                 this.teleportCooldown = 60;
