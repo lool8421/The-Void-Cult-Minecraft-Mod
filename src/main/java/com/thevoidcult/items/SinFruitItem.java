@@ -19,18 +19,18 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
-
-
-import java.util.Map;
 
 
 public class SinFruitItem extends Item {
@@ -42,13 +42,6 @@ public class SinFruitItem extends Item {
         this.fruitType = fruitType;
     }
 
-    private final Map<SinsList, String> cultistMessages = Map.of(
-            SinsList.GREED, "greed",
-            SinsList.GLUTTONY, "gluttony",
-            SinsList.ENVY, "envy",
-            SinsList.PRIDE, "pride",
-            SinsList.WRATH, "wrath"
-    );
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
@@ -57,7 +50,7 @@ public class SinFruitItem extends Item {
         if (target instanceof EnderMan enderman && enderman.getPersistentAngerTarget() == null) {
             if (target.isAlive()) {
                 if (!player.level().isClientSide) {
-                    ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+
                     if(EnderCultistHelmetItem.isEndermanFriendly(player)) {
 
                         EndermanCultistEntity endermanCultist = enderman.convertTo(RegisterContent.ENDERMAN_CULTIST.get(), true);
@@ -108,10 +101,22 @@ public class SinFruitItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
-        HitResult hitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-        if (hitresult instanceof EntityHitResult entityHit && (entityHit.getEntity() instanceof EnderMan || entityHit.getEntity() instanceof EndermanCultistEntity)) {
-            player.stopUsingItem();
-            return InteractionResultHolder.pass(itemstack);
+        Vec3 eyePosition = player.getEyePosition(1.0F);
+        Vec3 lookVector = player.getViewVector(1.0F);
+        double reach = 5.0D;
+
+        Vec3 reachVector = eyePosition.add(lookVector.x * reach, lookVector.y * reach, lookVector.z * reach);
+
+        AABB searchBox = player.getBoundingBox().expandTowards(lookVector.scale(reach)).inflate(1.0D);
+
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(
+                player, eyePosition, reachVector, searchBox,
+                entity -> entity instanceof EnderMan || entity instanceof EndermanCultistEntity,
+                reach * reach
+        );
+
+        if (entityHit != null) {
+            return InteractionResultHolder.fail(itemstack);
         }
 
         return super.use(level, player, hand);
@@ -144,7 +149,13 @@ public class SinFruitItem extends Item {
                 case ENVY -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.LUCK, 20*60, 2));
                     entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 20*60, 2));
-
+                }
+                case SLOTH -> {
+                    entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20*30, 1));
+                    entity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 20*30, 1));
+                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*30, 3));
+                    entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*30, 3));
+                    entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20*30, 1));
                 }
             }
             //teleport

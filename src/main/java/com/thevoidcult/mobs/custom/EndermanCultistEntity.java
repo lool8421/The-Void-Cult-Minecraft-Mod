@@ -643,6 +643,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                     case GREED -> ParticleTypes.TOTEM_OF_UNDYING;
                     case ENVY -> ParticleTypes.WITCH;
                     case PRIDE -> ParticleTypes.HAPPY_VILLAGER;
+                    case SLOTH -> ParticleTypes.CAMPFIRE_COSY_SMOKE;
                     default -> ParticleTypes.PORTAL;
                 };
                 this.level().addParticle(sinParticle, this.getRandomX(0.5), this.getRandomY() - 0.25, this.getRandomZ(0.5), (this.random.nextDouble() - 0.5) * 0.5, -this.random.nextDouble(), (this.random.nextDouble() - 0.5) * 0.5);

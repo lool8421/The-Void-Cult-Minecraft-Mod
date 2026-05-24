@@ -63,6 +63,8 @@ public class RegisterContent {
             () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationModifier(1.5f).alwaysEdible().build()), SinsList.GLUTTONY));
     public static final DeferredItem<Item> ENVY_FRUIT = ITEMS.register("fruit_of_envy",
             () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.ENVY));
+    public static final DeferredItem<Item> SLOTH_FRUIT = ITEMS.register("fruit_of_sloth",
+            () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.SLOTH));
     public static final DeferredItem<Item> MOB_PEARL = ITEMS.register("mob_pearl",
             () -> new MobPearlItem(new Item.Properties()));
     public static final DeferredItem<Item> CHORUS_PICKAXE =
@@ -132,6 +134,7 @@ public class RegisterContent {
                         output.accept(PRIDE_FRUIT);
                         output.accept(GLUTTONY_FRUIT);
                         output.accept(ENVY_FRUIT);
+                        output.accept(SLOTH_FRUIT);
                         output.accept(CHORUS_PICKAXE);
                         output.accept(CULT_LEADER_STAFF);
                     })
