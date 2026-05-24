@@ -87,6 +87,7 @@ public class VoidAltarBlock extends BaseEntityBlock {
             if (level.getBlockEntity(pos) instanceof VoidAltarBlockEntity altar) {
 
                 if (heldItem.is(RegisterContent.CULT_LEADER_STAFF.get())) {
+                    altar.tryAssignNearbyFollowers(player);
                     return InteractionResult.SUCCESS;
                 }
 
