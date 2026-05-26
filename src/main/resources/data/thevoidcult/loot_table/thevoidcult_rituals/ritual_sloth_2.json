@@ -6,6 +6,31 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/stronghold_corridor",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/stronghold_crossing",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/abandoned_mineshaft",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/desert_pyramid",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/simple_dungeon",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:loot_table",
           "value": "minecraft:chests/shipwreck_supply",
           "weight": 25
         },
@@ -33,11 +58,6 @@
           "type": "minecraft:loot_table",
           "value": "minecraft:chests/underwater_ruin_small",
           "weight": 10
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "minecraft:chests/jungle_temple",
-          "weight": 15
         },
         {
           "type": "minecraft:loot_table",
@@ -92,11 +112,6 @@
         },
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/village/village_mason",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:loot_table",
           "value": "minecraft:chests/village/village_plains_house",
           "weight": 10
         },
@@ -113,11 +128,6 @@
         {
           "type": "minecraft:loot_table",
           "value": "minecraft:chests/village/village_snowy_house",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "minecraft:chests/village/villager_mason",
           "weight": 10
         },
         {
@@ -147,23 +157,34 @@
         },
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/trial_chambers/reward_common",
+          "value": "minecraft:chests/trial_chambers/reward",
           "weight": 50
         },
+
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/trial_chambers/reward_rare",
-          "weight": 30
+          "value": "minecraft:chests/trial_chambers/supply",
+          "weight": 25
         },
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/trial_chambers/reward_unique",
+          "value": "minecraft:chests/trial_chambers/entrance",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/corridor",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/intersection_barrel",
           "weight": 10
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:chest",
-          "weight": 500
+          "weight": 400
         }
       ]
     }

@@ -36,11 +36,6 @@
         },
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/village/village_mason",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:loot_table",
           "value": "minecraft:chests/village/village_plains_house",
           "weight": 10
         },
@@ -57,11 +52,6 @@
         {
           "type": "minecraft:loot_table",
           "value": "minecraft:chests/village/village_snowy_house",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "minecraft:chests/village/villager_mason",
           "weight": 10
         },
         {
@@ -87,6 +77,16 @@
         {
           "type": "minecraft:loot_table",
           "value": "minecraft:chests/village/villager_mason",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/entrance",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/corridor",
           "weight": 10
         },
         {

@@ -1,1 +1,158 @@
-{}
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 2,
+      "entries": [
+
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/stronghold_corridor",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/stronghold_crossing",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/abandoned_mineshaft",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/ancient_city",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/woodland_mansion",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/buried_treasure",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/shipwreck_treasure",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/stronghold_library",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/nether_bridge",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/stronghold_library",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/bastion_bridge",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/bastion_other",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/chests/bastion_hoglin_stable",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/desert_pyramid",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/simple_dungeon",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/ancient_city_ice_box",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/ruined_portal",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/underwater_ruin_big",
+          "weight": 10
+        },
+
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/igloo_chest",
+          "weight": 15
+        },
+
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/reward",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/reward",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/reward_ominous",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/corridor",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/intersection_barrel",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/trial_chambers/intersection",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/end_city_treasure",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:elytra",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/bastion_treasure",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chest",
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}
