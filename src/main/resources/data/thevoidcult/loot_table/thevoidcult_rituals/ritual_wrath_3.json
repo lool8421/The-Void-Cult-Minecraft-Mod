@@ -347,7 +347,7 @@
 
         {"type": "minecraft:item",
           "name": "thevoidcult:mob_pearl",
-          "weight": 500,
+          "weight": 10000,
           "functions": [{"function": "minecraft:set_count", "count": {
             "min": 1,
             "max": 1
@@ -413,12 +413,7 @@
             "max": 1
           }},{"function": "minecraft:set_components", "components": {
             "thevoidcult:stored_entity": "minecraft:guardian"
-          }}]},
-
-        {"type": "minecraft:item",
-          "name": "minecraft:air",
-          "weight": 10000
-        }
+          }}]}
 
       ]
     }
