@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class VoidAltarBlock extends BaseEntityBlock {
-    // 1. Define the Codec
+
     public static final MapCodec<VoidAltarBlock> CODEC = simpleCodec(VoidAltarBlock::new);
 
     private static final VoxelShape BASE_1 = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);

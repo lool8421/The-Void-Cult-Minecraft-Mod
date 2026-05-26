@@ -8,8 +8,9 @@ import com.thevoidcult.items.EnderCultistHelmetItem;
 import com.thevoidcult.items.SinsList;
 import com.thevoidcult.main.TheVoidCultConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -636,16 +638,18 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
             this.level().addParticle(ParticleTypes.PORTAL, this.getRandomX(0.5), this.getRandomY() - 0.25, this.getRandomZ(0.5), (this.random.nextDouble() - 0.5) * 2.0, -this.random.nextDouble(), (this.random.nextDouble() - 0.5) * 2.0);
 
-            if(this.tickCount%4 == 0){
-                SimpleParticleType sinParticle = switch (this.getSyncedType()) {
+            if (this.tickCount % 4 == 0) {
+                ParticleOptions sinParticle = switch (this.getSyncedType()) {
                     case WRATH -> ParticleTypes.LAVA;
                     case GLUTTONY -> ParticleTypes.FALLING_LAVA;
                     case GREED -> ParticleTypes.TOTEM_OF_UNDYING;
                     case ENVY -> ParticleTypes.WITCH;
                     case PRIDE -> ParticleTypes.HAPPY_VILLAGER;
-                    case SLOTH -> ParticleTypes.CAMPFIRE_COSY_SMOKE;
+                    case SLOTH -> new DustParticleOptions(new Vector3f(0.4F, 0.4F, 0.6F), 1.0F);
+
                     default -> ParticleTypes.PORTAL;
                 };
+
                 this.level().addParticle(sinParticle, this.getRandomX(0.5), this.getRandomY() - 0.25, this.getRandomZ(0.5), (this.random.nextDouble() - 0.5) * 0.5, -this.random.nextDouble(), (this.random.nextDouble() - 0.5) * 0.5);
             }
 
