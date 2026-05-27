@@ -19,7 +19,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -284,16 +283,6 @@ public class VoidAltarBlockEntity extends BlockEntity {
         this.setChanged();
     }
 
-    private void spawnAmbientParticles(Level level, BlockPos pos) {
-        RandomSource random = level.random;
-        for (int i = 0; i < this.AltarTier; i++) {
-            level.addParticle(ParticleTypes.WITCH,
-                    pos.getX() + 0.5 + (random.nextDouble() - 0.5),
-                    pos.getY() + 1.1,
-                    pos.getZ() + 0.5 + (random.nextDouble() - 0.5),
-                    0, 0.1, 0);
-        }
-    }
 
     private Block getNextRequiredBlock(int currentTier) {
         return switch (currentTier) {
