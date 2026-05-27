@@ -47,7 +47,6 @@ public class VoidAltarBlockEntity extends BlockEntity {
     public final Set<UUID> workerIds = new HashSet<>();
     private boolean isInterfered = false;
 
-
     public int getAltarTier() {
         return this.AltarTier;
     }
@@ -122,7 +121,6 @@ public class VoidAltarBlockEntity extends BlockEntity {
     private void updateCultistLimit(){
         int previousCap = this.CultistLimit;
 
-        this.AltarTier = this.getAltarTier();
         if(this.AltarTier == 0) {this.CultistLimit = 0; purgeCultists(); return;}
         countNearbyEndCrystals();
 
@@ -369,11 +367,11 @@ public class VoidAltarBlockEntity extends BlockEntity {
             }
             return false;
         }
+        if(this.AltarTier == 0) return false;
 
-        int tier = this.getAltarTier();
         String sinName = sinType.name().toLowerCase();
 
-        ResourceLocation tableLocation = ResourceLocation.fromNamespaceAndPath("thevoidcult", "thevoidcult_rituals/ritual_" + sinName + "_" + tier);
+        ResourceLocation tableLocation = ResourceLocation.fromNamespaceAndPath("thevoidcult", "thevoidcult_rituals/ritual_" + sinName + "_" + this.AltarTier);
 
         if(level instanceof ServerLevel serverLevel)
             serverLevel.sendParticles(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D, 10, 0.15D, 0.05D, 0.15D, 0.0D);
@@ -390,15 +388,15 @@ public class VoidAltarBlockEntity extends BlockEntity {
                 this.NearbyEndCrystals,
                 TheVoidCultConfig.ALTAR_MAX_CRYSTALS.get()));
 
-        MutableComponent tierComp = Component.translatable("message.thevoidcult.altar_tier", this.getAltarTier());
-        if (this.getAltarTier() == 0 && this.isInterfered) {
+        MutableComponent tierComp = Component.translatable("message.thevoidcult.altar_tier", this.AltarTier);
+        if (this.AltarTier == 0 && this.isInterfered) {
             tierComp.append(Component.translatable("message.thevoidcult.altar_interference").withStyle(ChatFormatting.RED));
         }
-        player.sendSystemMessage(tierComp.withStyle(this.getAltarTier() == 0 ? ChatFormatting.RED : ChatFormatting.GOLD));
+        player.sendSystemMessage(tierComp.withStyle(this.AltarTier == 0 ? ChatFormatting.RED : ChatFormatting.GOLD));
 
-        if (this.getAltarTier() < 5) {
-            Block nextBlock = getNextRequiredBlock(this.getAltarTier());
-            int side = (2 * this.getAltarTier()) + 3;
+        if (this.AltarTier < 5) {
+            Block nextBlock = getNextRequiredBlock(this.AltarTier);
+            int side = (2 * this.AltarTier) + 3;
             int requiredCount = side * side;
 
             player.sendSystemMessage(Component.translatable("message.thevoidcult.next_layer",

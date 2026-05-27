@@ -28,8 +28,7 @@ public class PortalMatterItem extends Item {
             BlockEntity blockEntity = level.getBlockEntity(targetPos);
 
             if (blockEntity instanceof VoidAltarBlockEntity altar) {
-                SinsList[] sins = SinsList.values();
-                SinsList randomSin = sins[level.random.nextInt(sins.length)];
+                SinsList randomSin = SinsList.WORKING_SINS.get(level.random.nextInt(SinsList.WORKING_SINS.size()));
 
                 if (altar.performWork(randomSin)) {
                     itemStack.shrink(1);

@@ -92,8 +92,7 @@ public class VoidAltarBlock extends BaseEntityBlock {
                 }
 
                 if (heldItem.is(RegisterContent.PORTAL_MATTER.get())) {
-                    SinsList[] sins = SinsList.values();
-                    SinsList randomSin = sins[level.random.nextInt(sins.length)];
+                    SinsList randomSin = SinsList.WORKING_SINS.get(level.random.nextInt(SinsList.WORKING_SINS.size()));
 
                     if (altar.performWork(randomSin)) {
                         if (!player.getAbilities().instabuild) {
