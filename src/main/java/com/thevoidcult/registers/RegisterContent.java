@@ -150,6 +150,7 @@ public class RegisterContent {
         BLOCK_ENTITIES.register(eventBus);
         CREATIVE_MODE_TAB.register(eventBus);
         ENTITY_TYPES.register(eventBus);
+        RegisterOptionalDataPacks.register(eventBus);
     }
 
 
