@@ -22,7 +22,7 @@ license="${mod_license}"
 
 modId="${mod_id}" #mandatory
 
-version="1.1.0" #mandatory
+version="1.1.1" #mandatory
 
 displayName="The Void Cult" #mandatory
 
