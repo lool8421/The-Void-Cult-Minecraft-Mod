@@ -20,7 +20,7 @@ public class RegisterOptionalDataPacks {
         if (event.getPackType() == PackType.SERVER_DATA) {
 
             PackSource optionalModSource = PackSource.create(
-                    (packName) -> Component.literal("Added by The Void Cult").withStyle(ChatFormatting.GRAY),
+                    (packName) -> Component.literal("End spawn - added by The Void Cult").withStyle(ChatFormatting.GRAY),
                     false
             );
 

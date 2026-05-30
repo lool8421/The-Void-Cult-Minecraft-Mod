@@ -175,7 +175,7 @@ public class SinFruitItem extends Item {
                     entity.stopRiding();
                 }
 
-                if (entity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
+                if (entity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
                     SoundEvent soundevent = entity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
 
                     level.playSound(null, x, y, z, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);

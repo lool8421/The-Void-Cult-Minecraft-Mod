@@ -1,5 +1,5 @@
 
-#stop if player had positive hp last tick
+#stop if player was alive last tick
 execute unless score @s TVC_last_health matches ..0 run return fail
 
 #stop immediately if the player has 0 or less health, wait until they're alive
