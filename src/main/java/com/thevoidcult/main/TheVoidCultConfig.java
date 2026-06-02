@@ -63,7 +63,7 @@ public class TheVoidCultConfig {
         PORTAL_MATTER_DROP_CHANCES = builder
                 .comment("The drop chances for the entities above (must match the order from portalMatterEntities)")
                 .define("portalMatterChances",
-                        List.of(0.75, 0.2, 0.5),
+                        List.of(0.5, 0.2, 0.5),
                         obj -> obj instanceof Double);
 
         builder.pop();

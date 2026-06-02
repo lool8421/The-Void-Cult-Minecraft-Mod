@@ -377,17 +377,17 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:cobbled_deepslate",
-          "weight": 5000
+          "weight": 3000
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:cobblestone",
-          "weight": 5000
+          "weight": 3000
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:netherrack",
-          "weight": 5000
+          "weight": 3000
         }
       ]
     }
