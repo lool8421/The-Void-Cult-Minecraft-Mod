@@ -1,9 +1,7 @@
 package com.thevoidcult.items;
 
-import com.thevoidcult.blockEntities.VoidAltarBlockEntity;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -29,12 +26,13 @@ public class CultLeaderStaffItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        if(!(target instanceof EndermanCultistEntity cultist)) return InteractionResult.FAIL;
+
         if(!EnderCultistHelmetItem.isEndermanFriendly(player)) {
             player.displayClientMessage(Component.translatable("message.thevoidcult.no_trust"), true);
             return InteractionResult.FAIL;
         }
-        if (target instanceof EndermanCultistEntity cultist && !player.level().isClientSide) {
-            // Tell the cultist to follow this player
+        if (!(player.level().isClientSide)) {
             cultist.setLeadingPlayer(player.getUUID());
             player.displayClientMessage(Component.translatable("message.thevoidcult.following_start"), true);
             return InteractionResult.SUCCESS;
