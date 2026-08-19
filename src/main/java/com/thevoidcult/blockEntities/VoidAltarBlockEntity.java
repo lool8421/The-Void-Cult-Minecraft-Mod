@@ -171,6 +171,23 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
     }
 
+    public void inviteNearbyCultists(){
+
+        if (this.hasSpace()) {
+            AABB searchBox = new AABB(this.getBlockPos()).inflate(8.0, 4.0, 8.0);
+            List<EndermanCultistEntity> nearbyCultists = level.getEntitiesOfClass(
+                    EndermanCultistEntity.class,
+                    searchBox,
+                    cultist -> cultist.isAlive() && !cultist.hasAssignedAltar()
+            );
+
+            for(EndermanCultistEntity cultist : nearbyCultists){
+                    inviteCultist(cultist);
+            }
+
+        }
+    }
+
     public void tryAssignNearbyFollowers(Player player) {
 
         List<EndermanCultistEntity> followers = this.level.getEntitiesOfClass(EndermanCultistEntity.class,
@@ -411,6 +428,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
             if (level.getGameTime() % 100 == 0) {
                 be.calculateAltarTier(level, pos);
                 be.updateCultistLimit();
+                be.inviteNearbyCultists();
                 if(level.getGameTime() % 600 == 0){
                     be.removeNonexistentCultists((ServerLevel)level);
                 }

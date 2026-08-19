@@ -133,7 +133,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     public void setRitualizing(boolean ritualizing) {
         this.entityData.set(IS_RITUALIZING, ritualizing);
     }
-
+    public boolean hasAssignedAltar() { if(this.assignedAltarPos == null) return false; return true; }
     public boolean isRitualizing() {
         return this.entityData.get(IS_RITUALIZING);
     }
@@ -267,7 +267,8 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         super.doPush(entity);
     }
 
-    private void validateOrFindAltar() {
+
+    private void validateAltar() {
         if (this.assignedAltarPos != null) {
             if (this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
                 if (!altar.isCultistAssigned(this.getUUID())) {
@@ -275,32 +276,6 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 }
             } else {
                 this.assignedAltarPos = null;
-            }
-        }
-
-        if (this.assignedAltarPos == null) {
-            BlockPos bestPos = null;
-            int highestTier = -1;
-
-            for (BlockPos p : BlockPos.betweenClosed(this.blockPosition().offset(-16, -8, -16), this.blockPosition().offset(16, 8, 16))) {
-                if (this.level().getBlockEntity(p) instanceof VoidAltarBlockEntity altar) {
-                    if (altar.hasSpace()) {
-                        int currentTier = altar.getAltarTier();
-                        if (currentTier > highestTier) {
-                            highestTier = currentTier;
-                            bestPos = p.immutable();
-                        }
-                    }
-                }
-            }
-
-            if (bestPos != null) {
-                if (this.level().getBlockEntity(bestPos) instanceof VoidAltarBlockEntity bestAltar) {
-                    if (bestAltar.inviteCultist(this)) {
-                        this.assignedAltarPos = bestPos;
-                        this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
-                    }
-                }
             }
         }
     }
@@ -473,7 +448,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             }
             else {
                 if (this.tickCount % 100 == 0) {
-                    validateOrFindAltar();
+                    validateAltar();
                 }
 
                 if (this.assignedAltarPos != null && this.workCooldown <= 0) {
