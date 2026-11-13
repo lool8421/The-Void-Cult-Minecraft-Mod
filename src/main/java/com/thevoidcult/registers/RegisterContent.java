@@ -1,5 +1,7 @@
 package com.thevoidcult.registers;
 
+import com.thevoidcult.blockEntities.EnderEffigyBlock;
+import com.thevoidcult.blockEntities.EnderEffigyBlockEntity;
 import com.thevoidcult.blockEntities.VoidAltarBlock;
 import com.thevoidcult.blockEntities.VoidAltarBlockEntity;
 import com.thevoidcult.items.*;
@@ -83,6 +85,10 @@ public class RegisterContent {
             .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 12).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> VOID_ALTAR_ITEM = ITEMS.registerSimpleBlockItem("void_altar", VOID_ALTAR);
 
+    public static final DeferredBlock<Block> ENDER_EFFIGY = BLOCKS.register("ender_effigy", () -> new EnderEffigyBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 12).sound(SoundType.STONE)));
+    public static final DeferredItem<BlockItem> ENDER_EFFIGY_ITEM = ITEMS.registerSimpleBlockItem("ender_effigy", ENDER_EFFIGY);
+
     public static final DeferredBlock<Block> WARPED_IRON_BLOCK = BLOCKS.register("warped_iron_block", () -> new Block(BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 12).sound(SoundType.NETHERITE_BLOCK)));
     public static final DeferredItem<BlockItem> WARPED_IRON_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("warped_iron_block", WARPED_IRON_BLOCK);
@@ -114,6 +120,9 @@ public class RegisterContent {
             BLOCK_ENTITIES.register("void_altar", () ->
                     BlockEntityType.Builder.of(VoidAltarBlockEntity::new, VOID_ALTAR.get()).build(null));
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EnderEffigyBlockEntity>> ENDER_EFFIGY_BE =
+            BLOCK_ENTITIES.register("ender_effigy", () ->
+                    BlockEntityType.Builder.of(EnderEffigyBlockEntity::new, ENDER_EFFIGY.get()).build(null));
     //creative mode
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,TheVoidCult.MOD_ID);
@@ -124,6 +133,7 @@ public class RegisterContent {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(PORTAL_MATTER);
                         output.accept(VOID_ALTAR_ITEM);
+                        output.accept(ENDER_EFFIGY_ITEM);
                         output.accept(WARPED_IRON_BLOCK_ITEM);
                         output.accept(WARPED_GOLD_BLOCK_ITEM);
                         output.accept(WARPED_DIAMOND_BLOCK_ITEM);
