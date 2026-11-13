@@ -1,5 +1,13 @@
 {
   "variants": {
-    "": { "model": "thevoidcult:block/ender_effigy" }
+    "active=false,facing=north": { "model": "thevoidcult:block/ender_effigy_idle" },
+    "active=false,facing=east":  { "model": "thevoidcult:block/ender_effigy_idle", "y": 90 },
+    "active=false,facing=south": { "model": "thevoidcult:block/ender_effigy_idle", "y": 180 },
+    "active=false,facing=west":  { "model": "thevoidcult:block/ender_effigy_idle", "y": 270 },
+
+    "active=true,facing=north":  { "model": "thevoidcult:block/ender_effigy_active" },
+    "active=true,facing=east":   { "model": "thevoidcult:block/ender_effigy_active", "y": 90 },
+    "active=true,facing=south":  { "model": "thevoidcult:block/ender_effigy_active", "y": 180 },
+    "active=true,facing=west":   { "model": "thevoidcult:block/ender_effigy_active", "y": 270 }
   }
 }

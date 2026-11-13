@@ -26,6 +26,8 @@ public class TheVoidCultConfig {
     public static final ModConfigSpec.ConfigValue<List<? extends String>> PORTAL_MATTER_ENTITIES;
     public static final ModConfigSpec.ConfigValue<List<? extends Double>> PORTAL_MATTER_DROP_CHANCES;
 
+    public static final ModConfigSpec.IntValue EFFIGY_WORK_COOLDOWN;
+    public static final ModConfigSpec.IntValue EFFIGY_SLOT_USAGE;
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
@@ -105,6 +107,19 @@ public class TheVoidCultConfig {
         ALTAR_ITEM_CAPACITY = builder
                 .comment("Determines how many items can a void altar near itself before it stops working. A necessary evil to prevent lag.")
                         .defineInRange("altarItemCapacity", 50, 1, 1000);
+
+        builder.pop();
+
+        builder.push("Ender effigy settings");
+
+        EFFIGY_WORK_COOLDOWN = builder
+                .comment("Work cooldown for effigies (in ticks)")
+                .defineInRange("effigyWorkCooldown", 300, 100, 11728000);
+
+        EFFIGY_SLOT_USAGE = builder
+                .comment("How many altar slots an effigy will use")
+                .defineInRange("altarItemCapacity", 2, 1, 8);
+
 
         builder.comment("To edit ritual loot tables, overwrite loot tables with a datapack at: data/thevoidcult/loot_tables/rituals/ritual_<type>_<tier>.json\n" +
                 "Example: ritual_wrath_1.json\n" +

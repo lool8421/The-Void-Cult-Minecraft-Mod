@@ -18,7 +18,9 @@
   "block.thevoidcult.warped_diamond_block": "Warped Diamond Block",
   "block.thevoidcult.warped_netherite_block": "Warped Netherite Block",
   "block.thevoidcult.void_altar": "Void Altar",
-
+  "block.thevoidcult.ender_effigy": "Ender Effigy",
+  "block.thevoidcult.ender_effigy.desc1": "Can be attuned with a corresponding sin fruit to perform rituals at a greater rate and efficiency than cultists.",
+  "block.thevoidcult.ender_effigy.desc2": "Auto-rotates to nearby altar, sneak to always face you when placing.",
 
   "entity.thevoidcult.enderman_cultist": "Enderman Cultist",
 
