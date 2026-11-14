@@ -44,7 +44,7 @@ Build a §5Void Altar§r with a proper beacon-like base with the blocks it asks 
 Recruit endermen with §eSin-Infused Fruit§r to get them to steal resources and even mobs from other dimensions, alternatively you can eat those yourself and experience some effects.
 Use §eCult Leader Staff§r to re-assign cultists up to your liking.
 \n
-There are 5 cultist types:\n
+There are 6 cultist types:\n
 - §cWrath§r - Fearless but also a little sadistic, will have fun kidnapping mobs and trapping them into pearls to release whenever you want.\n
 - §eGreed§r - Craving for treasures, loves their shine, will bring you all of the precious materials that can be mined underground.\n
 - §6Gluttony§r - Always hungry for food but also for knowledge, will provide endless supplies of food but also aid you in enchanting.\n
@@ -52,6 +52,8 @@ There are 5 cultist types:\n
 - §aEnvy§r - Jealous that the end dimension is so barren, will gladly steal building blocks from other dimensions to have a better looking base.\n
 - §9Sloth§r - Lazy enough to steal only already prepared loot, may bring you structure loot, or may bring you empty chests and not even care.
 \n
+
+You can also later on craft §eEnder Effigies §fthat will do work of cultists, but faster, easier and better when attuned correctly with a fruit.
 
 You can customize the balance of the mod by either changing config, or creating a datapack that will overwrite the default loot tables and recipes.
 No promises that it will be balanced out of the box for whatever you're making.

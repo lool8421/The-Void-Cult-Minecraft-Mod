@@ -118,7 +118,7 @@ public class TheVoidCultConfig {
 
         EFFIGY_SLOT_USAGE = builder
                 .comment("How many altar slots an effigy will use")
-                .defineInRange("altarItemCapacity", 2, 1, 8);
+                .defineInRange("effigySlotUsage", 2, 1, 8);
 
 
         builder.comment("To edit ritual loot tables, overwrite loot tables with a datapack at: data/thevoidcult/loot_tables/rituals/ritual_<type>_<tier>.json\n" +
