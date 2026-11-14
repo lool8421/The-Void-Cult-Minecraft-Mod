@@ -44,6 +44,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     private int CultistLimit = 0;
     private int NearbyEndCrystals = 0;
     public final Set<UUID> workerIds = new HashSet<>();
+    public final Set<BlockPos> effigyPos = new HashSet<>();
     private boolean isInterfered = false;
 
     public int getAltarTier() {
@@ -80,7 +81,23 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     public boolean hasSpace() {
-        return this.workerIds.size() < this.CultistLimit;
+        return this.getOccupiedSpace() < this.CultistLimit;
+    }
+
+    public boolean hasSpaceForEffigy() {
+        return this.getOccupiedSpace() + TheVoidCultConfig.EFFIGY_SLOT_USAGE.get() <= this.CultistLimit;
+    }
+
+    private void unlinkAllEffigies() {
+        if (this.level != null) {
+            for (BlockPos pos : this.effigyPos) {
+                if (this.level.isLoaded(pos)
+                        && this.level.getBlockEntity(pos) instanceof EnderEffigyBlockEntity effigy) {
+                    effigy.setLinkedAltar(null);
+                }
+            }
+        }
+        this.effigyPos.clear();
     }
 
     private void isAnotherAltarNearby(Level level, BlockPos pos){
@@ -120,7 +137,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     private void updateCultistLimit(){
         int previousCap = this.CultistLimit;
 
-        if(this.AltarTier == 0) {this.CultistLimit = 0; purgeCultists(); return;}
+        if(this.AltarTier == 0) {this.CultistLimit = 0; purgeExcessWorkers(); return;}
         countNearbyEndCrystals();
 
         this.CultistLimit = TheVoidCultConfig.ALTAR_BASE_CAP.get();
@@ -128,7 +145,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
         this.CultistLimit += TheVoidCultConfig.ALTAR_CAP_PER_CRYSTAL.get() * this.NearbyEndCrystals;
         this.CultistLimit = Math.clamp(this.CultistLimit, 0, TheVoidCultConfig.ALTAR_OVERALL_CAP.get());
 
-        if(this.CultistLimit < previousCap) purgeCultists();
+        if(this.CultistLimit < previousCap) purgeExcessWorkers();
     }
 
     public int getCultistLimit(){
@@ -136,19 +153,40 @@ public class VoidAltarBlockEntity extends BlockEntity {
         return this.CultistLimit;
     }
 
-    private void purgeCultists(){
-        if (this.workerIds.isEmpty()) return;
+    private void purgeExcessWorkers() {
+        if (this.workerIds.isEmpty() && this.effigyPos.isEmpty()) {
+            return;
+        }
 
-        if (this.AltarTier == 0) {
+        if (this.AltarTier <= 0) {
             this.workerIds.clear();
+            this.unlinkAllEffigies();
+            this.setChanged();
+            return;
         }
-        else {
-            while (this.workerIds.size() > this.CultistLimit) {
-                UUID toRemove = this.workerIds.iterator().next();
-                this.workerIds.remove(toRemove);
+
+        boolean changed = false;
+
+        while (this.getOccupiedSpace() > this.CultistLimit && !this.workerIds.isEmpty()) {
+            UUID toRemove = this.workerIds.iterator().next();
+            this.workerIds.remove(toRemove);
+            changed = true;
+        }
+
+        while (this.getOccupiedSpace() > this.CultistLimit && !this.effigyPos.isEmpty()) {
+            BlockPos pos = this.effigyPos.iterator().next();
+            this.effigyPos.remove(pos);
+
+            if (this.level != null && this.level.isLoaded(pos)
+                    && this.level.getBlockEntity(pos) instanceof EnderEffigyBlockEntity effigy) {
+                effigy.setLinkedAltar(null);
             }
+            changed = true;
         }
-        this.setChanged();
+
+        if (changed) {
+            this.setChanged();
+        }
     }
 
     public void removeCultist(UUID uuid) {
@@ -171,6 +209,67 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
     }
 
+    private void inviteEffigy(EnderEffigyBlockEntity effigy) {
+        BlockPos pos = effigy.getBlockPos().immutable();
+        if (this.effigyPos.add(pos)) {
+            effigy.setLinkedAltar(this.worldPosition);
+            setChanged();
+        }
+    }
+
+    public void inviteNearbyEffigies() {
+        if (this.level == null || !this.hasSpaceForEffigy()) {
+            return;
+        }
+
+        BlockPos minPos = this.worldPosition.offset(-2, -1, -2);
+        BlockPos maxPos = this.worldPosition.offset(2, 1, 2);
+
+        for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
+            if (!this.hasSpaceForEffigy()) {
+                break;
+            }
+
+            if (this.level.getBlockEntity(pos) instanceof EnderEffigyBlockEntity effigy
+                    && effigy.getLinkedAltar() == null) {
+                inviteEffigy(effigy);
+            }
+        }
+    }
+
+    public boolean amILinked(EnderEffigyBlockEntity effigy) {
+        return effigy != null && this.effigyPos.contains(effigy.getBlockPos());
+    }
+
+    public void removeEffigy(BlockPos pos) {
+        if (this.effigyPos.remove(pos)) {
+            setChanged();
+        }
+    }
+
+    public void removeNonexistentEffigies(ServerLevel level) {
+        List<BlockPos> toRemove = new ArrayList<>();
+
+        for (BlockPos pos : this.effigyPos) {
+            // Check isLoaded first so unloaded chunks don't falsely unlink valid effigies
+            if (!level.isLoaded(pos)) {
+                continue;
+            }
+
+            if (!(level.getBlockEntity(pos) instanceof EnderEffigyBlockEntity effigy)
+                    || !this.worldPosition.equals(effigy.getLinkedAltar())) {
+                toRemove.add(pos);
+            }
+        }
+
+        if (!toRemove.isEmpty()) {
+            for (BlockPos pos : toRemove) {
+                this.effigyPos.remove(pos);
+            }
+            setChanged();
+        }
+    }
+
     public void inviteNearbyCultists(){
 
         if (this.hasSpace()) {
@@ -182,17 +281,22 @@ public class VoidAltarBlockEntity extends BlockEntity {
             );
 
             for(EndermanCultistEntity cultist : nearbyCultists){
-                    inviteCultist(cultist);
+                    if(!inviteCultist(cultist)) break;
             }
 
         }
     }
 
     public void tryAssignNearbyFollowers(Player player) {
+        if (this.level == null) {
+            return;
+        }
 
-        List<EndermanCultistEntity> followers = this.level.getEntitiesOfClass(EndermanCultistEntity.class,
+        List<EndermanCultistEntity> followers = this.level.getEntitiesOfClass(
+                EndermanCultistEntity.class,
                 player.getBoundingBox().inflate(16.0D),
-                c -> player.getUUID().equals(c.getLeadingPlayerUUID()));
+                c -> player.getUUID().equals(c.getLeadingPlayerUUID())
+        );
 
         if (followers.isEmpty()) {
             player.displayClientMessage(Component.translatable("message.thevoidcult.assigned_no_followers"), true);
@@ -200,6 +304,8 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
 
         int assignedCount = 0;
+        boolean hitCapacity = false;
+
         for (EndermanCultistEntity candidate : followers) {
             if (this.inviteCultist(candidate)) {
                 candidate.setWorkCooldown(TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get());
@@ -207,14 +313,24 @@ public class VoidAltarBlockEntity extends BlockEntity {
                 candidate.setAssignedAltarPos(this.worldPosition); // Set home base
                 assignedCount++;
             } else {
-                player.displayClientMessage(Component.translatable("message.thevoidcult.assigned_max_altar"), true);
+                hitCapacity = true;
                 break;
             }
         }
 
-        if (assignedCount > 0) {
+        if (assignedCount > 0 && hitCapacity) {
             player.displayClientMessage(
                     Component.translatable("message.thevoidcult.assigned_count", assignedCount),
+                    true
+            );
+        } else if (assignedCount > 0) {
+            player.displayClientMessage(
+                    Component.translatable("message.thevoidcult.assigned_count", assignedCount),
+                    true
+            );
+        } else if (hitCapacity) {
+            player.displayClientMessage(
+                    Component.translatable("message.thevoidcult.assigned_max_altar"),
                     true
             );
         }
@@ -229,11 +345,9 @@ public class VoidAltarBlockEntity extends BlockEntity {
         if (this.AltarTier <= 0) {
             return false;
         }
-        if (this.workerIds.size() < this.CultistLimit) {
+        if (this.hasSpace()) {
             this.workerIds.add(cultistUUID);
-
             this.setChanged();
-
             return true;
         }
         return false;
@@ -252,8 +366,8 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
     }
 
-    public int getActiveWorkerCount() {
-        return this.workerIds.size();
+    public int getOccupiedSpace() {
+        return this.workerIds.size() + this.effigyPos.size()*TheVoidCultConfig.EFFIGY_SLOT_USAGE.get();
     }
 
     @Override
@@ -266,7 +380,14 @@ public class VoidAltarBlockEntity extends BlockEntity {
         for (UUID id : workerIds) {
             list.add(NbtUtils.createUUID(id));
         }
-        tag.put("Workers", list); // Saving with key "Workers"
+        tag.put("Workers", list);
+
+        long[] packedPositions = this.effigyPos.stream()
+                .mapToLong(BlockPos::asLong)
+                .toArray();
+        tag.putLongArray("EffigyPositions", packedPositions);
+
+
     }
 
     @Override
@@ -283,6 +404,13 @@ public class VoidAltarBlockEntity extends BlockEntity {
             for (int i = 0; i < list.size(); i++) {
                 UUID loadedId = NbtUtils.loadUUID(list.get(i));
                     this.workerIds.add(loadedId);
+            }
+        }
+
+        this.effigyPos.clear();
+        if (tag.contains("EffigyPositions")) {
+            for (long packed : tag.getLongArray("EffigyPositions")) {
+                this.effigyPos.add(BlockPos.of(packed));
             }
         }
     }
@@ -412,8 +540,11 @@ public class VoidAltarBlockEntity extends BlockEntity {
         }
 
         player.sendSystemMessage(Component.translatable("message.thevoidcult.assigned_cultists",
-                this.getActiveWorkerCount(),
-                this.getCultistLimit()));
+                this.getOccupiedSpace(),
+                this.getCultistLimit(),
+                this.workerIds.size(),
+                this.effigyPos.size()));
+
         player.displayClientMessage(Component.translatable("message.thevoidcult.altar_status_footer")
                 .withStyle(ChatFormatting.DARK_PURPLE), false);
     }
@@ -428,9 +559,11 @@ public class VoidAltarBlockEntity extends BlockEntity {
             if (level.getGameTime() % 100 == 0) {
                 be.calculateAltarTier(level, pos);
                 be.updateCultistLimit();
+                be.inviteNearbyEffigies();
                 be.inviteNearbyCultists();
-                if(level.getGameTime() % 600 == 0){
+                if(level.getGameTime() % 300 == 0){
                     be.removeNonexistentCultists((ServerLevel)level);
+                    be.removeNonexistentEffigies((ServerLevel)level);
                 }
             }
         }

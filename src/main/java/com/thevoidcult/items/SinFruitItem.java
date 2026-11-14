@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
@@ -100,7 +101,7 @@ public class SinFruitItem extends Item {
 
         Vec3 eyePosition = player.getEyePosition(1.0F);
         Vec3 lookVector = player.getViewVector(1.0F);
-        double reach = 5.0D;
+        double reach = player.entityInteractionRange();
 
         Vec3 reachVector = eyePosition.add(lookVector.x * reach, lookVector.y * reach, lookVector.z * reach);
 

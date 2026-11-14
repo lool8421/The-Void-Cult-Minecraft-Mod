@@ -1,5 +1,6 @@
 {
   "item.thevoidcult.portal_matter": "Portal Matter",
+  "item.thevoidcult.volatile_portal_matter": "Volatile Portal Matter",
   "item.thevoidcult.ender_cultist_helmet": "Ender Cultist Helmet",
   "item.thevoidcult.ender_cultist_helmet.desc": "Makes you more trustworthy to endermen.",
   "item.thevoidcult.fruit_of_wrath": "Fruit of Wrath",
@@ -34,7 +35,7 @@
   "message.thevoidcult.altar_tier": "Altar Tier: %s/5",
   "message.thevoidcult.altar_interference": " (WARNING: Another altar detected nearby!)",
   "message.thevoidcult.next_layer": "Next Layer: %s x %s",
-  "message.thevoidcult.assigned_cultists": "Assigned Cultists: %s/%s",
+  "message.thevoidcult.assigned_cultists": "Space used: %s/%s (%s cultists, %s effigies)",
   "message.thevoidcult.altar_status_footer": "--------------------",
 
   "message.thevoidcult.assigned_count": "Assigned %1$s followers to the altar.",
@@ -43,5 +44,15 @@
   "message.thevoidcult.followers_dismissed": "Followers dismissed.",
   "message.thevoidcult.following_start": "A cultist is now following you.",
   "message.thevoidcult.no_trust": "Cultists don't trust you.",
-  "message.thevoidcult.follower_stop": "Cultists lost interests in following you."
+  "message.thevoidcult.follower_stop": "Cultists lost interests in following you.",
+  "message.thevoidcult.ender_effigy.status": "Effigy Attunement: %s",
+  "message.thevoidcult.ender_effigy.cleared": "Effigy attunement cleared.",
+
+  "sin.thevoidcult.none": "None",
+  "sin.thevoidcult.wrath": "Wrath",
+  "sin.thevoidcult.gluttony": "Gluttony",
+  "sin.thevoidcult.greed": "Greed",
+  "sin.thevoidcult.sloth": "Sloth",
+  "sin.thevoidcult.envy": "Envy",
+  "sin.thevoidcult.pride": "Pride"
 }

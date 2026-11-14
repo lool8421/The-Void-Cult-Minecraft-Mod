@@ -55,6 +55,8 @@ public class RegisterContent {
 
     public static final DeferredItem<Item> PORTAL_MATTER = ITEMS.register("portal_matter",
             () -> new PortalMatterItem(new Item.Properties()));
+    public static final DeferredItem<Item> VOLATILE_PORTAL_MATTER = ITEMS.register("volatile_portal_matter",
+            () -> new PortalMatterItem(new Item.Properties()));
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
             () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.WRATH));
     public static final DeferredItem<Item> GREED_FRUIT = ITEMS.register("fruit_of_greed",
@@ -132,6 +134,7 @@ public class RegisterContent {
                     .title(Component.translatable("creativetab.thevoidcult.thevoidcult_items"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(PORTAL_MATTER);
+                        output.accept(VOLATILE_PORTAL_MATTER);
                         output.accept(VOID_ALTAR_ITEM);
                         output.accept(ENDER_EFFIGY_ITEM);
                         output.accept(WARPED_IRON_BLOCK_ITEM);

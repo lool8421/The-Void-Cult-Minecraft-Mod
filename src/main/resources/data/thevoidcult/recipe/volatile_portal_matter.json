@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "thevoidcult:portal_matter"
+    }
+  },
+  "result": {
+    "id": "thevoidcult:volatile_portal_matter",
+    "count": 1
+  }
+}

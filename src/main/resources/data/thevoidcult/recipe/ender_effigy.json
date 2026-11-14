@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "DDD"
+  ],
+  "key": {
+    "B": {
+      "item": "thevoidcult:volatile_portal_matter"
+    },
+    "C": {
+      "item": "minecraft:totem_of_undying"
+    },
+    "A": {
+      "item": "minecraft:ender_eye"
+    },
+    "D": {
+      "item": "minecraft:crying_obsidian"
+    }
+  },
+  "result": {
+    "id": "thevoidcult:ender_effigy",
+    "count": 1
+  }
+}

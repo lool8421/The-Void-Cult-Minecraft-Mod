@@ -8,7 +8,12 @@ import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -23,10 +28,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -105,7 +113,6 @@ public class EnderEffigyBlock extends BaseEntityBlock {
         int dx = closestAltar.getX() - pos.getX();
         int dz = closestAltar.getZ() - pos.getZ();
 
-        // Pick whichever horizontal axis has the larger delta
         if (Math.abs(dx) > Math.abs(dz)) {
             return dx > 0 ? Direction.EAST : Direction.WEST;
         } else if (dz != 0) {
@@ -146,4 +153,77 @@ public class EnderEffigyBlock extends BaseEntityBlock {
                 .withStyle(ChatFormatting.DARK_GRAY));
     }
 
+    @Nullable
+    private static SinsList getSinFromItem(ItemStack stack) {
+        if (stack.is(RegisterContent.WRATH_FRUIT.get())) return SinsList.WRATH;
+        if (stack.is(RegisterContent.GLUTTONY_FRUIT.get())) return SinsList.GLUTTONY;
+        if (stack.is(RegisterContent.GREED_FRUIT.get())) return SinsList.GREED;
+        if (stack.is(RegisterContent.SLOTH_FRUIT.get())) return SinsList.SLOTH;
+        if (stack.is(RegisterContent.ENVY_FRUIT.get())) return SinsList.ENVY;
+        if (stack.is(RegisterContent.PRIDE_FRUIT.get())) return SinsList.PRIDE;
+        return null;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!(level.getBlockEntity(pos) instanceof EnderEffigyBlockEntity effigy)) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        SinsList fruitSin = getSinFromItem(stack);
+
+        if (fruitSin != null) {
+            if (effigy.getSinType() == fruitSin) {
+                return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            }
+
+            if (!level.isClientSide()) {
+                effigy.setSinType(fruitSin);
+
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
+                }
+
+                level.playSound(null, pos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 0.8f, 1.2f);
+            }
+
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        }
+
+        if (stack.isEmpty()) {
+            if (!level.isClientSide()) {
+                SinsList currentSin = effigy.getSinType();
+
+                Component sinName = Component.translatable("sin.thevoidcult." + currentSin.name().toLowerCase());
+                player.displayClientMessage(
+                        Component.translatable("message.thevoidcult.ender_effigy.status", sinName).withStyle(ChatFormatting.LIGHT_PURPLE),
+                        true
+                );
+            }
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        }
+
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            if (!level.isClientSide() && level.getBlockEntity(pos) instanceof EnderEffigyBlockEntity effigy) {
+                BlockPos altarPos = effigy.getLinkedAltar();
+                if (altarPos != null && level.isLoaded(altarPos)
+                        && level.getBlockEntity(altarPos) instanceof VoidAltarBlockEntity altar) {
+                    altar.removeEffigy(pos);
+                }
+            }
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, RegisterContent.ENDER_EFFIGY_BE.get(), EnderEffigyBlockEntity::tick);
+    }
 }
+

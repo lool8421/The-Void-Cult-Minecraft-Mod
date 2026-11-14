@@ -33,10 +33,11 @@ public class EnderEffigyBlockEntity extends BlockEntity {
 
     public void setSinType(SinsList newType) {
         this.sinType = newType;
-        setChanged();
+        this.workCooldown = TheVoidCultConfig.EFFIGY_WORK_COOLDOWN.get();
         if (this.level != null && !this.level.isClientSide()) {
             this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
         }
+        this.syncToClient();
     }
 
     public BlockPos getLinkedAltar() {
@@ -45,7 +46,6 @@ public class EnderEffigyBlockEntity extends BlockEntity {
 
     public void setLinkedAltar(@Nullable BlockPos altarPos) {
         this.linkedAltar = altarPos;
-        setChanged();
 
         if (this.level != null && !this.level.isClientSide()) {
             boolean shouldBeActive = (altarPos != null);
@@ -54,6 +54,8 @@ public class EnderEffigyBlockEntity extends BlockEntity {
                 this.level.setBlock(this.worldPosition, state.setValue(EnderEffigyBlock.ACTIVE, shouldBeActive), Block.UPDATE_ALL);
             }
         }
+
+        this.syncToClient();
     }
 
     public EnderEffigyBlockEntity(BlockPos pos, BlockState state) {
@@ -88,9 +90,19 @@ public class EnderEffigyBlockEntity extends BlockEntity {
         }
     }
 
+    private void syncToClient() {
+        this.setChanged();
+        if (this.level != null && !this.level.isClientSide()) {
+            BlockState state = this.getBlockState();
+            this.level.sendBlockUpdated(this.worldPosition, state, state, Block.UPDATE_ALL);
+        }
+    }
+
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveWithoutMetadata(registries);
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag, registries);
+        return tag;
     }
 
     @Nullable
@@ -102,40 +114,55 @@ public class EnderEffigyBlockEntity extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, EnderEffigyBlockEntity effigy) {
         if (!level.isClientSide()) {
             boolean isAttuned = effigy.sinType != SinsList.NONE;
-            if (state.hasProperty(EnderEffigyBlock.ACTIVE) && state.getValue(EnderEffigyBlock.ACTIVE) != isAttuned) {
-                state = state.setValue(EnderEffigyBlock.ACTIVE, isAttuned);
+            boolean isActive = effigy.linkedAltar != null;
+            if (state.hasProperty(EnderEffigyBlock.ACTIVE) && state.getValue(EnderEffigyBlock.ACTIVE) != isActive) {
+                state = state.setValue(EnderEffigyBlock.ACTIVE, isActive);
                 level.setBlock(pos, state, Block.UPDATE_ALL);
             }
-        }
 
-        if (level.isClientSide()) {
-            if (state.getValue(EnderEffigyBlock.ACTIVE) && effigy.sinType != SinsList.NONE && level.random.nextFloat() < 0.25f) {
-                Vector3f color = effigy.sinType.getParticleColor();
-                double x = pos.getX() + 0.5 + (level.random.nextDouble() - 0.5) * 0.6;
-                double y = pos.getY() + 0.6 + level.random.nextDouble() * 0.5;
-                double z = pos.getZ() + 0.5 + (level.random.nextDouble() - 0.5) * 0.6;
+            if (!isActive) {
+                return;
+            }
 
-                level.addParticle(new DustParticleOptions(color, 1.0f), x, y, z, 0.0, 0.02, 0.0);
+            if (effigy.linkedAltar == null) {
+                return;
+            }
+
+            if (level.getGameTime() % 20 == 0) {
+                if (level.getBlockEntity(effigy.linkedAltar) instanceof VoidAltarBlockEntity altar) {
+                    if (!altar.amILinked(effigy)) {
+                        effigy.setLinkedAltar(null);
+                        return;
+                    }
+                } else if (level.isLoaded(effigy.linkedAltar)) {
+                    effigy.setLinkedAltar(null);
+                    return;
+                }
+            }
+
+            if (effigy.workCooldown > 0) {
+                effigy.workCooldown--;
+                return;
+            }
+
+            if (level.getBlockEntity(effigy.linkedAltar) instanceof VoidAltarBlockEntity altar && altar.amILinked(effigy)) {
+                altar.performWork(effigy.sinType);
+                effigy.workCooldown = TheVoidCultConfig.EFFIGY_WORK_COOLDOWN.get();
+            } else if (level.isLoaded(effigy.linkedAltar)) {
+                effigy.setLinkedAltar(null);
             }
             return;
         }
 
-        if (effigy.linkedAltar == null) {
-            return;
-        }
+        if (state.getValue(EnderEffigyBlock.ACTIVE) && effigy.sinType != SinsList.NONE && level.random.nextFloat() < 0.25f) {
+            Vector3f color = effigy.sinType.getParticleColor();
+            double x = pos.getX() + 0.5 + (level.random.nextDouble() - 0.5) * 0.6;
+            double y = pos.getY() + 0.6 + level.random.nextDouble() * 0.5;
+            double z = pos.getZ() + 0.5 + (level.random.nextDouble() - 0.5) * 0.6;
 
-        if (effigy.workCooldown > 0) {
-            effigy.workCooldown--;
-            return;
-        }
-
-        if (level.getBlockEntity(effigy.linkedAltar) instanceof VoidAltarBlockEntity altar) {
-            effigy.workCooldown = TheVoidCultConfig.EFFIGY_WORK_COOLDOWN.get();
-            effigy.setChanged();
-        } else {
-            effigy.linkedAltar = null;
-            effigy.setChanged();
+            level.addParticle(new DustParticleOptions(color, 1.0f), x, y, z, 0.0, 0.02, 0.0);
         }
     }
+
 
 }
