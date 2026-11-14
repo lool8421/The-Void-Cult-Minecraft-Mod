@@ -27,7 +27,9 @@ public class dragonsurvivalCompat {
     private static class Internal {
         private static boolean check(Player player) {
             return by.dragonsurvivalteam.dragonsurvival.util.DragonUtils.getType(player)
-                    .is(ResourceLocation.fromNamespaceAndPath("dragonsurvival", "dseda_ender_dragon"));
+                    .is(ResourceLocation.fromNamespaceAndPath("dragonsurvival", "dseda_ender_dragon")) ||
+                    by.dragonsurvivalteam.dragonsurvival.util.DragonUtils.getType(player)
+                    .is(ResourceLocation.fromNamespaceAndPath("dragonsurvival", "dseda_ender_dragonborn"));
         }
     }
 }

@@ -76,6 +76,9 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         };
     }
 
+    public BlockPos getAssignedAltarPos(){
+        return this.assignedAltarPos;
+    }
     public void setLeadingPlayer(@Nullable UUID uuid) {
         this.leadingPlayerUUID = uuid;
 

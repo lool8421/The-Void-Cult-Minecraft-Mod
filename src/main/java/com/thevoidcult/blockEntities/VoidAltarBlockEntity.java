@@ -309,8 +309,8 @@ public class VoidAltarBlockEntity extends BlockEntity {
         for (EndermanCultistEntity candidate : followers) {
             if (this.inviteCultist(candidate)) {
                 candidate.setWorkCooldown(TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get());
-                candidate.setLeadingPlayer(null); // Stop following
-                candidate.setAssignedAltarPos(this.worldPosition); // Set home base
+                candidate.setLeadingPlayer(null);
+                candidate.setAssignedAltarPos(this.worldPosition);
                 assignedCount++;
             } else {
                 hitCapacity = true;
@@ -318,12 +318,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
             }
         }
 
-        if (assignedCount > 0 && hitCapacity) {
-            player.displayClientMessage(
-                    Component.translatable("message.thevoidcult.assigned_count", assignedCount),
-                    true
-            );
-        } else if (assignedCount > 0) {
+        if (assignedCount > 0) {
             player.displayClientMessage(
                     Component.translatable("message.thevoidcult.assigned_count", assignedCount),
                     true
@@ -345,8 +340,15 @@ public class VoidAltarBlockEntity extends BlockEntity {
         if (this.AltarTier <= 0) {
             return false;
         }
+
+        if (cultist.hasAssignedAltar() && !this.worldPosition.equals(cultist.getAssignedAltarPos())) {
+            return false;
+        }
+
         if (this.hasSpace()) {
             this.workerIds.add(cultistUUID);
+            cultist.setAssignedAltarPos(this.worldPosition);
+            cultist.setLeadingPlayer(null);
             this.setChanged();
             return true;
         }

@@ -123,7 +123,7 @@ public class TheVoidCultConfig {
 
         builder.comment("To edit ritual loot tables, overwrite loot tables with a datapack at: data/thevoidcult/loot_tables/rituals/ritual_<type>_<tier>.json\n" +
                 "Example: ritual_wrath_1.json\n" +
-                "Possible types: wrath, greed, gluttony, envy, pride\n" +
+                "Possible types: wrath, greed, gluttony, envy, pride, sloth\n" +
                 "Tiers: 1 ~ 5").define("PointlessFieldSoNeoforgeLetsMeCreateTheMessageAboveBecauseItNeedsAnInputFieldToBeAbleToHaveComments", true);
 
         builder.pop();
