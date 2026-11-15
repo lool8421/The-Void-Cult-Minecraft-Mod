@@ -277,7 +277,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
             List<EndermanCultistEntity> nearbyCultists = level.getEntitiesOfClass(
                     EndermanCultistEntity.class,
                     searchBox,
-                    cultist -> cultist.isAlive() && !cultist.hasAssignedAltar()
+                    cultist -> cultist.isAlive() && !cultist.hasAssignedAltar() && cultist.getLeadingPlayerUUID() == null
             );
 
             for(EndermanCultistEntity cultist : nearbyCultists){

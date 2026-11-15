@@ -89,7 +89,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                 }
                 this.assignedAltarPos = null;
             }
-            this.ritualTime = 0; // Stop any active ritual immediately
+            this.stopRitualManually();
             this.getNavigation().stop(); // Stop walking toward the altar
         }
     }
@@ -344,8 +344,10 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
     private void stopRitualManually() {
         this.assignedAltarPos = null;
         this.ritualTime = 0;
-        this.setRitualizing(false);
-        this.level().broadcastEntityEvent(this, (byte) 62);
+        if (this.isRitualizing()) {
+            this.setRitualizing(false);
+            this.level().broadcastEntityEvent(this, (byte) 62);
+        }
         this.getNavigation().stop();
     }
 
@@ -375,6 +377,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
             }
         }
     }
+
 
     private void FollowLeader(){
         Player leader = this.level().getPlayerByUUID(this.leadingPlayerUUID);
