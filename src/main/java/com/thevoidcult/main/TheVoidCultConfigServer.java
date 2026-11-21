@@ -5,7 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
 
-public class TheVoidCultConfig {
+public class TheVoidCultConfigServer {
     public static final ModConfigSpec SPEC;
 
     public static final ModConfigSpec.DoubleValue ENDERMAN_TP_DROP_CHANCE;

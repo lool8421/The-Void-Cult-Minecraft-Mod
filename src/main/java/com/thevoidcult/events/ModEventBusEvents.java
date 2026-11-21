@@ -1,7 +1,7 @@
 package com.thevoidcult.events;
 
 import com.thevoidcult.main.TheVoidCult;
-import com.thevoidcult.main.TheVoidCultConfig;
+import com.thevoidcult.main.TheVoidCultConfigServer;
 import com.thevoidcult.mobs.client.EndermanCultistModel;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
@@ -84,7 +84,7 @@ public class ModEventBusEvents {
         Entity entity = event.getEntity();
         if (entity instanceof EnderMan || entity instanceof EndermanCultistEntity || entity instanceof Shulker) {
             Level level = event.getEntity().level();
-            if (level.random.nextFloat() < TheVoidCultConfig.ENDERMAN_TP_DROP_CHANCE.get()) {
+            if (level.random.nextFloat() < TheVoidCultConfigServer.ENDERMAN_TP_DROP_CHANCE.get()) {
                 spawnPortalMatter(level, new Vec3(event.getTargetX(), event.getTargetY(), event.getTargetZ()));
             }
         }
@@ -94,7 +94,7 @@ public class ModEventBusEvents {
     public static void onChorusEat(EntityTeleportEvent.ChorusFruit event) {
         Level level = event.getEntity().level();
 
-        if (level.random.nextFloat() < TheVoidCultConfig.CHORUS_DROP_CHANCE.get()) {
+        if (level.random.nextFloat() < TheVoidCultConfigServer.CHORUS_DROP_CHANCE.get()) {
             spawnPortalMatter(level, new Vec3(event.getTargetX(), event.getTargetY(), event.getTargetZ()));
         }
     }
@@ -103,7 +103,7 @@ public class ModEventBusEvents {
     public static void onPearlUse(EntityTeleportEvent.EnderPearl event) {
         Level level = event.getEntity().level();
 
-        if (level.random.nextFloat() < TheVoidCultConfig.PEARL_USE_DROP_CHANCE.get()) {
+        if (level.random.nextFloat() < TheVoidCultConfigServer.PEARL_USE_DROP_CHANCE.get()) {
             spawnPortalMatter(level, new Vec3(event.getTargetX(), event.getTargetY(), event.getTargetZ()));
         }
     }
@@ -144,8 +144,8 @@ public class ModEventBusEvents {
 
         String killedEntityId = BuiltInRegistries.ENTITY_TYPE.getKey(event.getEntity().getType()).toString();
 
-        List<? extends String> entities = TheVoidCultConfig.PORTAL_MATTER_ENTITIES.get();
-        List<? extends Double> chances = TheVoidCultConfig.PORTAL_MATTER_DROP_CHANCES.get();
+        List<? extends String> entities = TheVoidCultConfigServer.PORTAL_MATTER_ENTITIES.get();
+        List<? extends Double> chances = TheVoidCultConfigServer.PORTAL_MATTER_DROP_CHANCES.get();
 
         int index = entities.indexOf(killedEntityId);
 

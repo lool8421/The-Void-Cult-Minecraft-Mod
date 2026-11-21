@@ -34,7 +34,8 @@ public class TheVoidCult {
 
         NeoForge.EVENT_BUS.register(this);
         RegisterContent.register(modEventBus);
-        modContainer.registerConfig(ModConfig.Type.SERVER, TheVoidCultConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, TheVoidCultConfigServer.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, TheVoidCultConfigCommon.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

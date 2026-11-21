@@ -1,7 +1,7 @@
 package com.thevoidcult.blockEntities;
 
 import com.thevoidcult.items.SinsList;
-import com.thevoidcult.main.TheVoidCultConfig;
+import com.thevoidcult.main.TheVoidCultConfigServer;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,14 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
-import java.util.Properties;
 
 public class EnderEffigyBlockEntity extends BlockEntity {
 
     private SinsList sinType = SinsList.NONE;
     @Nullable
     private BlockPos linkedAltar = null;
-    private int workCooldown = TheVoidCultConfig.EFFIGY_WORK_COOLDOWN.get();
+    private int workCooldown = TheVoidCultConfigServer.EFFIGY_WORK_COOLDOWN.get();
 
     public SinsList getSinType(){
         return this.sinType;
@@ -33,7 +32,7 @@ public class EnderEffigyBlockEntity extends BlockEntity {
 
     public void setSinType(SinsList newType) {
         this.sinType = newType;
-        this.workCooldown = TheVoidCultConfig.EFFIGY_WORK_COOLDOWN.get();
+        this.workCooldown = TheVoidCultConfigServer.EFFIGY_WORK_COOLDOWN.get();
         if (this.level != null && !this.level.isClientSide()) {
             this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
         }
@@ -147,7 +146,7 @@ public class EnderEffigyBlockEntity extends BlockEntity {
 
             if (level.getBlockEntity(effigy.linkedAltar) instanceof VoidAltarBlockEntity altar && altar.amILinked(effigy)) {
                 altar.performWork(effigy.sinType);
-                effigy.workCooldown = TheVoidCultConfig.EFFIGY_WORK_COOLDOWN.get();
+                effigy.workCooldown = TheVoidCultConfigServer.EFFIGY_WORK_COOLDOWN.get();
             } else if (level.isLoaded(effigy.linkedAltar)) {
                 effigy.setLinkedAltar(null);
             }

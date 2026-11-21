@@ -6,7 +6,7 @@ package com.thevoidcult.mobs.custom;
 import com.thevoidcult.blockEntities.VoidAltarBlockEntity;
 import com.thevoidcult.items.EnderCultistHelmetItem;
 import com.thevoidcult.items.SinsList;
-import com.thevoidcult.main.TheVoidCultConfig;
+import com.thevoidcult.main.TheVoidCultConfigServer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
@@ -58,7 +58,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         super(entityType, level);
         this.setPersistenceRequired();
         this.sinType = SinsList.NONE;
-        this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
+        this.workCooldown = TheVoidCultConfigServer.CULTIST_WORK_COOLDOWN.get();
         this.hasImpulse = true;
         this.ritualTime = 0;
 
@@ -294,7 +294,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         if (distSqr > 16.0D) {
             this.getNavigation().moveTo(altarCenter.x, altarCenter.y, altarCenter.z, 1.0D);
         } else {
-            this.ritualTime = TheVoidCultConfig.CULTIST_WORK_DURATION.get();
+            this.ritualTime = TheVoidCultConfigServer.CULTIST_WORK_DURATION.get();
             this.getNavigation().stop();
         }
     }
@@ -309,7 +309,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
 
         if (this.blockPosition().closerThan(this.assignedAltarPos, 4.0D)) {
 
-            if (this.ritualTime == TheVoidCultConfig.CULTIST_WORK_DURATION.get()) {
+            if (this.ritualTime == TheVoidCultConfigServer.CULTIST_WORK_DURATION.get()) {
                 this.getLookControl().setLookAt(assignedAltarPos.getX(), assignedAltarPos.getY()+3, assignedAltarPos.getZ()+3);
                 this.setRitualizing(true);
                 this.level().broadcastEntityEvent(this, (byte) 60);
@@ -373,7 +373,7 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
         if (this.ritualTime == 0) {
             if (this.assignedAltarPos != null && this.level().getBlockEntity(this.assignedAltarPos) instanceof VoidAltarBlockEntity altar) {
                 altar.performWork(this.sinType);
-                this.workCooldown = TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get();
+                this.workCooldown = TheVoidCultConfigServer.CULTIST_WORK_COOLDOWN.get();
             }
         }
     }

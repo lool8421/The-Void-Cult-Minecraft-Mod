@@ -6,7 +6,7 @@ package com.thevoidcult.mobs.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.thevoidcult.main.TheVoidCult;
-import com.thevoidcult.main.TheVoidCultConfig;
+import com.thevoidcult.main.TheVoidCultConfigServer;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -66,7 +66,7 @@ public class EndermanCultistModel<T extends EndermanCultistEntity> extends Hiera
 
         this.animateWalk(EndermanCultistAnimations.anim_walk, limbSwing, limbSwingAmount, 2f, 2.5f);
         this.animate(entity.idleAnimationState, EndermanCultistAnimations.anim_idle, ageInTicks, 1.0f);
-        this.animate(entity.ritualAnimationState, EndermanCultistAnimations.anim_ritual, ageInTicks, (float)100/TheVoidCultConfig.CULTIST_WORK_DURATION.get());
+        this.animate(entity.ritualAnimationState, EndermanCultistAnimations.anim_ritual, ageInTicks, (float)100/ TheVoidCultConfigServer.CULTIST_WORK_DURATION.get());
         this.animate(entity.attackAnimationState, EndermanCultistAnimations.anim_attack, ageInTicks, 1.0f);
 
 

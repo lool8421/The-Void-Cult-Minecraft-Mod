@@ -1,0 +1,1 @@
+scoreboard players set mode TVC_var 0

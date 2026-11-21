@@ -1,0 +1,1 @@
+say debug: setting up central island

@@ -1,7 +1,7 @@
 package com.thevoidcult.blockEntities;
 
 import com.thevoidcult.items.SinsList;
-import com.thevoidcult.main.TheVoidCultConfig;
+import com.thevoidcult.main.TheVoidCultConfigServer;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
 import net.minecraft.ChatFormatting;
@@ -85,7 +85,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     public boolean hasSpaceForEffigy() {
-        return this.getOccupiedSpace() + TheVoidCultConfig.EFFIGY_SLOT_USAGE.get() <= this.CultistLimit;
+        return this.getOccupiedSpace() + TheVoidCultConfigServer.EFFIGY_SLOT_USAGE.get() <= this.CultistLimit;
     }
 
     private void unlinkAllEffigies() {
@@ -128,10 +128,10 @@ public class VoidAltarBlockEntity extends BlockEntity {
     private void countNearbyEndCrystals() {
         if (this.level == null) return;
 
-        int radius = TheVoidCultConfig.ALTAR_CRYSTAL_RANGE.get();
+        int radius = TheVoidCultConfigServer.ALTAR_CRYSTAL_RANGE.get();
         AABB scanArea = new AABB(this.worldPosition).inflate(radius);
         List<EndCrystal> crystals = this.level.getEntitiesOfClass(EndCrystal.class, scanArea);
-        this.NearbyEndCrystals = Math.min(crystals.size(), TheVoidCultConfig.ALTAR_MAX_CRYSTALS.get());
+        this.NearbyEndCrystals = Math.min(crystals.size(), TheVoidCultConfigServer.ALTAR_MAX_CRYSTALS.get());
     }
 
     private void updateCultistLimit(){
@@ -140,10 +140,10 @@ public class VoidAltarBlockEntity extends BlockEntity {
         if(this.AltarTier == 0) {this.CultistLimit = 0; purgeExcessWorkers(); return;}
         countNearbyEndCrystals();
 
-        this.CultistLimit = TheVoidCultConfig.ALTAR_BASE_CAP.get();
-        this.CultistLimit += TheVoidCultConfig.ALTAR_CAP_PER_TIER.get() * this.AltarTier;
-        this.CultistLimit += TheVoidCultConfig.ALTAR_CAP_PER_CRYSTAL.get() * this.NearbyEndCrystals;
-        this.CultistLimit = Math.clamp(this.CultistLimit, 0, TheVoidCultConfig.ALTAR_OVERALL_CAP.get());
+        this.CultistLimit = TheVoidCultConfigServer.ALTAR_BASE_CAP.get();
+        this.CultistLimit += TheVoidCultConfigServer.ALTAR_CAP_PER_TIER.get() * this.AltarTier;
+        this.CultistLimit += TheVoidCultConfigServer.ALTAR_CAP_PER_CRYSTAL.get() * this.NearbyEndCrystals;
+        this.CultistLimit = Math.clamp(this.CultistLimit, 0, TheVoidCultConfigServer.ALTAR_OVERALL_CAP.get());
 
         if(this.CultistLimit < previousCap) purgeExcessWorkers();
     }
@@ -308,7 +308,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
         for (EndermanCultistEntity candidate : followers) {
             if (this.inviteCultist(candidate)) {
-                candidate.setWorkCooldown(TheVoidCultConfig.CULTIST_WORK_COOLDOWN.get());
+                candidate.setWorkCooldown(TheVoidCultConfigServer.CULTIST_WORK_COOLDOWN.get());
                 candidate.setLeadingPlayer(null);
                 candidate.setAssignedAltarPos(this.worldPosition);
                 assignedCount++;
@@ -369,7 +369,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
     }
 
     public int getOccupiedSpace() {
-        return this.workerIds.size() + this.effigyPos.size()*TheVoidCultConfig.EFFIGY_SLOT_USAGE.get();
+        return this.workerIds.size() + this.effigyPos.size()* TheVoidCultConfigServer.EFFIGY_SLOT_USAGE.get();
     }
 
     @Override
@@ -448,7 +448,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
     private void spawnPortalMatterBonus() {
 
-        double portalMatterChance = TheVoidCultConfig.ALTAR_MATTER_DROP_CHANCE.get() + (TheVoidCultConfig.ALTAR_MATTER_DROP_CHANCE_PER_TIER.get() * this.AltarTier);
+        double portalMatterChance = TheVoidCultConfigServer.ALTAR_MATTER_DROP_CHANCE.get() + (TheVoidCultConfigServer.ALTAR_MATTER_DROP_CHANCE_PER_TIER.get() * this.AltarTier);
 
         if (level.getRandom().nextDouble() < portalMatterChance) {
             double spawnX = this.getBlockPos().getX() + 0.5;
@@ -495,7 +495,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
         BlockPos pos = this.getBlockPos();
         AABB scanZone = new AABB(pos).inflate(1.0D, 5.0D, 1.0D);
         int nearbyItems = level.getEntitiesOfClass(ItemEntity.class, scanZone).size();
-        if (nearbyItems >= TheVoidCultConfig.ALTAR_ITEM_CAPACITY.get()) {
+        if (nearbyItems >= TheVoidCultConfigServer.ALTAR_ITEM_CAPACITY.get()) {
 
             if (level instanceof ServerLevel serverLevel) {
                 DustParticleOptions redDust = new DustParticleOptions(new org.joml.Vector3f(1.0F, 0.0F, 0.0F), 1.5F);
@@ -522,7 +522,7 @@ public class VoidAltarBlockEntity extends BlockEntity {
 
         player.sendSystemMessage(Component.translatable("message.thevoidcult.nearby_crystals",
                 this.NearbyEndCrystals,
-                TheVoidCultConfig.ALTAR_MAX_CRYSTALS.get()));
+                TheVoidCultConfigServer.ALTAR_MAX_CRYSTALS.get()));
 
         MutableComponent tierComp = Component.translatable("message.thevoidcult.altar_tier", this.AltarTier);
         if (this.AltarTier == 0 && this.isInterfered) {
