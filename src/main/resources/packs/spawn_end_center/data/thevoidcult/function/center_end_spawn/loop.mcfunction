@@ -6,11 +6,7 @@ execute as @a[tag=!TVC_newplayer] run function thevoidcult:center_end_spawn/new-
 
 execute as @a run scoreboard players operation @s TVC_last_health = @s TVC_health
 
-#wait until can actually place the island and haven't placed one yet
-execute unless score alreadyPlacedIsland1 TVC_var matches 1 \
-if score tryPlaceIsland TVC_var matches 1 \
-in minecraft:the_end \
-if entity @e[type=ender_dragon] \
-run function thevoidcult:center_end_spawn/build_island
+#presence of the ender dragon boss is a signal by the game that the end island is loaded.
+execute unless score setUpEnd TVC_var matches 1.. in minecraft:the_end positioned 0 128 0 if entity @e[type=ender_dragon,distance=..128] run function thevoidcult:center_end_spawn/build-island
 
 schedule function thevoidcult:center_end_spawn/loop 1t

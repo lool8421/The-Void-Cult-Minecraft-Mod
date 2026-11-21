@@ -7,4 +7,4 @@ scoreboard objectives add TVC_var dummy
 scoreboard players set mode TVC_var 2
 function thevoidcult:outer_end_spawn/loop
 
-schedule function thevoidcult:outer_end_spawn/clearmode 1t
+schedule function thevoidcult:outer_end_spawn/clearmode 2t

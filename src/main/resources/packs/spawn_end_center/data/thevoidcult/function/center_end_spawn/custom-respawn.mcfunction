@@ -12,7 +12,7 @@ scoreboard players set @s TVC_deaths 0
 execute if data entity @s SpawnDimension run return fail
 
 #teleport player to the end dimension
-execute in minecraft:the_end run tp @s 1608 200 8
+execute in minecraft:the_end run tp @s 0 200 16
 effect give @s slow_falling 20 1 true
 
 #announce that the island can be created by a different function

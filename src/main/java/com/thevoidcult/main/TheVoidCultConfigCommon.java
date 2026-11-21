@@ -14,7 +14,12 @@ public class TheVoidCultConfigCommon {
 
 
         DEFAULT_SPAWN = builder
-                .comment("Specifies custom world spawn datapack to be loaded. \n0 = default \n1 = central island \n2 = outer islands \n3 = void ring (void).")
+                .comment("Specifies custom end world spawn datapack to be loaded automatically upon world creation. \n" +
+                        "0 = unchanged world spawn " +
+                        "\n1 = central island (this mode removes the initial ender dragon, escape portal and gateway)" +
+                        "\n2 = outer islands" +
+                        "\n3 = end void ring (end skyblock experience)")
+
                 .defineInRange("DefaultDatapack", 0, 0, 3);
 
         builder.pop();
