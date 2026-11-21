@@ -624,8 +624,8 @@ public class EndermanCultistEntity extends PathfinderMob implements NeutralMob {
                     case WRATH -> ParticleTypes.LAVA;
                     case GLUTTONY -> ParticleTypes.FALLING_LAVA;
                     case GREED -> ParticleTypes.TOTEM_OF_UNDYING;
-                    case ENVY -> ParticleTypes.WITCH;
-                    case PRIDE -> ParticleTypes.HAPPY_VILLAGER;
+                    case ENVY -> ParticleTypes.HAPPY_VILLAGER;
+                    case PRIDE -> ParticleTypes.WITCH;
                     case SLOTH -> new DustParticleOptions(new Vector3f(0.4F, 0.4F, 0.6F), 1.0F);
 
                     default -> ParticleTypes.PORTAL;
