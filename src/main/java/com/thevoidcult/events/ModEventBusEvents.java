@@ -18,10 +18,12 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -29,8 +31,12 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 
 @EventBusSubscriber(modid = TheVoidCult.MOD_ID)
@@ -59,7 +65,7 @@ public class ModEventBusEvents {
     }
 
 
-    private static void spawnPortalMatter(Level level, Vec3 pos) {
+    public static void spawnPortalMatter(Level level, Vec3 pos) {
         if (level instanceof ServerLevel serverLevel) {
 
             ItemStack stack = new ItemStack(RegisterContent.PORTAL_MATTER.get());
@@ -90,12 +96,27 @@ public class ModEventBusEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onChorusEat(EntityTeleportEvent.ChorusFruit event) {
-        Level level = event.getEntity().level();
+    private static final Set<UUID> PENDING_CHORUS_TELEPORTS = new HashSet<>();
 
-        if (level.random.nextFloat() < TheVoidCultConfigServer.CHORUS_DROP_CHANCE.get()) {
-            spawnPortalMatter(level, new Vec3(event.getTargetX(), event.getTargetY(), event.getTargetZ()));
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onChorusAttempt(EntityTeleportEvent.ChorusFruit event) {
+        if (event.isCanceled()) return;
+        Entity entity = event.getEntity();
+        if (entity.level().isClientSide) return;
+
+        PENDING_CHORUS_TELEPORTS.add(entity.getUUID());
+    }
+
+    @SubscribeEvent
+    public static void onChorusFinish(LivingEntityUseItemEvent.Finish event) {
+        if (!event.getItem().is(Items.CHORUS_FRUIT)) return;
+        LivingEntity entity = event.getEntity();
+        if (entity.level().isClientSide) return;
+
+        if (PENDING_CHORUS_TELEPORTS.remove(entity.getUUID())) {
+            if (entity.level().random.nextFloat() < TheVoidCultConfigServer.CHORUS_DROP_CHANCE.get()) {
+                spawnPortalMatter(entity.level(), entity.position());
+            }
         }
     }
 

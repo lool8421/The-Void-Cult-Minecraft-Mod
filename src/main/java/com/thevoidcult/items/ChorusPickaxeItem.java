@@ -1,5 +1,6 @@
 package com.thevoidcult.items;
 
+import com.thevoidcult.utils.commonMethods;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -47,7 +48,7 @@ public class ChorusPickaxeItem extends PickaxeItem {
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
         if (!level.isClientSide && entity instanceof Player player) {
             if (level.random.nextFloat() < 0.5f) {
-                teleportRandomly(level, player);
+                commonMethods.randomTeleport(level, player, true);
             }
         }
         return super.mineBlock(stack, level, state, pos, entity);

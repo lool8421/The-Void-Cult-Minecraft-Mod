@@ -4,6 +4,8 @@ import com.thevoidcult.blockEntities.EnderEffigyBlock;
 import com.thevoidcult.blockEntities.EnderEffigyBlockEntity;
 import com.thevoidcult.blockEntities.VoidAltarBlock;
 import com.thevoidcult.blockEntities.VoidAltarBlockEntity;
+import com.thevoidcult.blocks.VolatilePortalMatterBlock;
+import com.thevoidcult.blocks.VolatilePortalMatterBlock;
 import com.thevoidcult.items.*;
 import com.thevoidcult.main.TheVoidCult;
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
@@ -57,6 +59,7 @@ public class RegisterContent {
             () -> new PortalMatterItem(new Item.Properties()));
     public static final DeferredItem<Item> VOLATILE_PORTAL_MATTER = ITEMS.register("volatile_portal_matter",
             () -> new PortalMatterItem(new Item.Properties()));
+
     public static final DeferredItem<Item> WRATH_FRUIT = ITEMS.register("fruit_of_wrath",
             () -> new SinFruitItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).alwaysEdible().build()), SinsList.WRATH));
     public static final DeferredItem<Item> GREED_FRUIT = ITEMS.register("fruit_of_greed",
@@ -90,6 +93,10 @@ public class RegisterContent {
     public static final DeferredBlock<Block> ENDER_EFFIGY = BLOCKS.register("ender_effigy", () -> new EnderEffigyBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).lightLevel(state -> 12).sound(SoundType.STONE)));
     public static final DeferredItem<BlockItem> ENDER_EFFIGY_ITEM = ITEMS.registerSimpleBlockItem("ender_effigy", ENDER_EFFIGY);
+
+    public static final DeferredBlock<Block> VOLATILE_PORTAL_MATTER_BLOCK = BLOCKS.register("volatile_portal_matter_block", () -> new VolatilePortalMatterBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PURPLE).strength(0.75F, 50.0F).lightLevel(state -> 15)));
+    public static final DeferredItem<BlockItem> VOLATILE_PORTAL_MATTER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("volatile_portal_matter_block", VOLATILE_PORTAL_MATTER_BLOCK);
 
     public static final DeferredBlock<Block> WARPED_IRON_BLOCK = BLOCKS.register("warped_iron_block", () -> new Block(BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(5.0F, 50.0F).lightLevel(state -> 12).sound(SoundType.NETHERITE_BLOCK)));
@@ -135,6 +142,7 @@ public class RegisterContent {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(PORTAL_MATTER);
                         output.accept(VOLATILE_PORTAL_MATTER);
+                        output.accept(VOLATILE_PORTAL_MATTER_BLOCK_ITEM);
                         output.accept(VOID_ALTAR_ITEM);
                         output.accept(ENDER_EFFIGY_ITEM);
                         output.accept(WARPED_IRON_BLOCK_ITEM);

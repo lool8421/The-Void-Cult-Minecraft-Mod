@@ -2,6 +2,7 @@ package com.thevoidcult.items;
 
 import com.thevoidcult.mobs.custom.EndermanCultistEntity;
 import com.thevoidcult.registers.RegisterContent;
+import com.thevoidcult.utils.commonMethods;
 import net.minecraft.network.chat.Component;
 
 import net.minecraft.server.level.ServerLevel;
@@ -29,6 +30,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+
+import static com.thevoidcult.utils.commonMethods.randomTeleport;
 
 
 public class SinFruitItem extends Item {
@@ -120,11 +123,14 @@ public class SinFruitItem extends Item {
         return super.use(level, player, hand);
     }
 
+
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
-        if(entity instanceof Player player)
+        if(entity instanceof Player player) {
             player.getCooldowns().addCooldown(this, 20);
+            commonMethods.randomTeleport(level, player, true);
+        }
 
         if (!level.isClientSide) {
             switch (this.fruitType) {
@@ -156,35 +162,8 @@ public class SinFruitItem extends Item {
                     entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20*30, 1));
                 }
             }
-            //teleport
-            double x = entity.getX();
-            double y = entity.getY();
-            double z = entity.getZ();
 
-            for (int i = 0; i < 16; ++i) {
-                double targetX = x + (entity.getRandom().nextDouble() - 0.5D) * 16.0D;
-                double targetY = Mth.clamp(y + (double) (entity.getRandom().nextInt(16) - 8), level.getMinBuildHeight(), (level.getMinBuildHeight() + ((ServerLevel) level).getLogicalHeight() - 1));
-                double targetZ = z + (entity.getRandom().nextDouble() - 0.5D) * 16.0D;
 
-                EntityTeleportEvent.ChorusFruit event = new EntityTeleportEvent.ChorusFruit(entity, targetX, targetY, targetZ);
-
-                if (NeoForge.EVENT_BUS.post(event).isCanceled()) {
-                    continue;
-                }
-
-                if (entity.isPassenger()) {
-                    entity.stopRiding();
-                }
-
-                if (entity.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), false)) {
-                    SoundEvent soundevent = entity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-
-                    level.playSound(null, x, y, z, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
-                    entity.playSound(soundevent, 1.0F, 1.0F);
-
-                    break;
-                }
-            }
 
 
         }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thevoidcult:volatile_portal_matter_block"
+    }
+  ],
+  "result": {
+    "id": "thevoidcult:volatile_portal_matter",
+    "count": 9
+  }
+}

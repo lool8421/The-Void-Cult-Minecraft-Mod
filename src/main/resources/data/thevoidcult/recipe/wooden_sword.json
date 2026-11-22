@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "Y"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:chorus_flower"
+    },
+    "Y": {
+      "item": "minecraft:stick"
+    }
+
+  },
+  "result": {
+    "id": "minecraft:wooden_sword",
+    "count": 1
+  }
+}
